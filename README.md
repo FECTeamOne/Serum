@@ -2,8 +2,6 @@
 
 Atelier is an ecommerce product detail page built for a fictional clothing company as an exercise in front-end development. It contains three modules: an overview, a ratings and reviews section, and a related items and comparison section.
 
----
-
 ## Table of contents
 
 1. [Components](#components)
@@ -13,8 +11,6 @@ Atelier is an ecommerce product detail page built for a fictional clothing compa
 
 2. [Setup](#setup)
 3. [Technologies Used](#technologies-used)
-
----
 
 ## Components
 
@@ -33,19 +29,13 @@ The overview module is the top-most module on the product detail page. Its funct
 
 This component guides the customer through selecting a specific style and size to add to their cart.
 
----
-
 ### Ratings & Reviews
 
 #### Contributor: Zachary Kessler
 
----
-
 ### Related Items & Comparison
 
 #### Contributor: Hang Yin
-
----
 
 ## Setup
 
