@@ -1,7 +1,7 @@
 {
-  "name": "my-webpack-project",
+  "name": "atelier",
   "version": "1.0.0",
-  "description": "My webpack project",
+  "description": "Atelier website setup",
   "main": "index.js",
   "license": "MIT",
   "devDependencies": {
