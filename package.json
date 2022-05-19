@@ -1,7 +1,7 @@
 {
-  "name": "atelier",
+  "name": "serum",
   "version": "1.0.0",
-  "description": "Atelier website setup",
+  "description": "A modern and fashion-forward retail portal.",
   "main": "index.js",
   "license": "MIT",
   "devDependencies": {
