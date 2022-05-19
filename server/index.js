@@ -34,6 +34,19 @@ app.post('/*', (req, res) => {
     .catch((err) => res.status(404).send(err));
 });
 
+app.put('/*', (req, res) => {
+  const reqdata = req.body;
+  const { url } = req;
+  axios({
+    method: 'put',
+    url: `https://app-hrsei-api.herokuapp.com/api/fec2/hr-rfp${url}`,
+    data: reqdata,
+    headers: { Authorization: process.env.API_TOKEN },
+  })
+    .then(() => res.status(201).send())
+    .catch((err) => res.status(404).send(err));
+});
+
 app.listen(port, () => {
   // eslint-disable-next-line no-console
   console.log(`listening on port ${port}`);
