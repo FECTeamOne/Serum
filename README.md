@@ -22,6 +22,8 @@ Atelier is an ecommerce product detail page built for a fictional clothing compa
 
 ##### Contributor: Shannon Largman
 
+[![Github](https://img.shields.io/badge/GitHub-FCFCFC?style=flat&logo=github&logoColor=black)](https://github.com/slargman)
+
 The overview module is the top-most module on the product detail page. Its functionality can be divided into four pieces:
 
 1. Image gallery
