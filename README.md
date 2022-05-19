@@ -4,7 +4,7 @@ Atelier is an ecommerce product detail page built for a fictional clothing compa
 
 ---
 
-### Table of contents
+## Table of contents
 
 1. [Components](#components)
     - [Overview](#overview)
@@ -16,13 +16,13 @@ Atelier is an ecommerce product detail page built for a fictional clothing compa
 
 ---
 
-### Components
+## Components
 
 ---
 
-#### Overview
+### Overview
 
-##### Contributor: Shannon Largman
+#### Contributor: Shannon Largman
 
 [![Github](https://img.shields.io/badge/GitHub-FCFCFC?style=flat&logo=github&logoColor=black)](https://github.com/slargman)
 
@@ -37,20 +37,20 @@ This component guides the customer through selecting a specific style and size t
 
 ---
 
-#### Ratings & Reviews
+### Ratings & Reviews
 
-##### Contributor: Zachary Kessler
-
----
-
-#### Related Items & Comparison
-
-##### Contributor: Hang Yin
+#### Contributor: Zachary Kessler
 
 ---
 
-### Setup
+### Related Items & Comparison
+
+#### Contributor: Hang Yin
 
 ---
 
-### Technologies Used
+## Setup
+
+---
+
+## Technologies Used
