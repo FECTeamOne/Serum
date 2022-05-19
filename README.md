@@ -18,8 +18,6 @@ Atelier is an ecommerce product detail page built for a fictional clothing compa
 
 ## Components
 
----
-
 ### Overview
 
 #### Contributor: Shannon Largman
@@ -50,7 +48,5 @@ This component guides the customer through selecting a specific style and size t
 ---
 
 ## Setup
-
----
 
 ## Technologies Used
