@@ -26,15 +26,18 @@
     "webpack-dev-server": "^4.9.0"
   },
   "scripts": {
+    "server": "nodemon server server/index.js",
     "build": "webpack --mode=production --node-env=production",
-    "build:dev": "webpack --mode=development",
+    "build:dev": "webpack --mode=development -w",
     "build:prod": "webpack --mode=production --node-env=production",
     "watch": "webpack --watch",
     "serve": "webpack serve"
   },
   "dependencies": {
     "axios": "^0.27.2",
+    "dotenv": "^16.0.1",
     "express": "^4.18.1",
+    "morgan": "^1.10.0",
     "path": "^0.12.7",
     "react": "^18.1.0",
     "react-dom": "^18.1.0"
