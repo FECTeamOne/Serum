@@ -4,8 +4,20 @@ const axios = require('axios');
 const morgan = require('morgan');
 const path = require('path');
 
+const webpack = require('webpack');
+const webpackDevMiddleware = require('webpack-dev-middleware');
+const webpackConfig = require(path.join(__dirname, '../webpack.config.js'));
+const compiler = webpack(webpackConfig);
+
 const app = express();
 const port = process.env.PORT;
+
+app.use(
+  webpackDevMiddleware(compiler, {
+    publicPath: webpackConfig.output.publicPath,
+  })
+);
+app.use(require("webpack-hot-middleware")(compiler));
 
 app.use(express.json());
 app.use(morgan('dev'));

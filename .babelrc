@@ -1,5 +1,8 @@
 {
-  "plugins": ["@babel/syntax-dynamic-import"],
+  "plugins": [
+    "@babel/syntax-dynamic-import",
+    "react-refresh/babel"
+  ],
   "presets": [
     [
       "@babel/preset-env",
