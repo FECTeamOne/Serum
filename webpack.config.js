@@ -46,6 +46,14 @@ const config = {
       // Learn more about loaders from https://webpack.js.org/loaders/
     ],
   },
+  resolve: {
+    alias: {
+      App: path.resolve(__dirname, 'client/src/components/App/'),
+      Overview: path.resolve(__dirname, 'client/src/components/Overview/'),
+      RelatedItems: path.resolve(__dirname, 'client/src/components/RelatedItems/'),
+      Reviews: path.resolve(__dirname, 'client/src/components/Reviews/'),
+    }
+  }
 };
 
 module.exports = () => {
