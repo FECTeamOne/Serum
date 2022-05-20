@@ -37,7 +37,8 @@
     "build:prod": "webpack --mode=production --node-env=production",
     "watch": "webpack --watch",
     "serve": "webpack serve",
-    "test": "jest"
+    "test": "jest",
+    "test:ci": "jest --maxWorkers=2"
   },
   "dependencies": {
     "axios": "^0.27.2",
