@@ -1,6 +1,8 @@
-# Atelier
+# Serum
 
-Atelier is an ecommerce product detail page built for a fictional clothing company as an exercise in front-end development. It contains three modules: an overview, a ratings and reviews section, and a related items and comparison section.
+![build](https://github.com/FECTeamOne/Serum/actions/workflows/tests.yml/badge.svg)
+
+Serum is an ecommerce product detail page built for a fictional clothing company as an exercise in front-end development. It contains three modules: an overview, a ratings and reviews section, and a related items and comparison section.
 
 ## Table of contents
 
