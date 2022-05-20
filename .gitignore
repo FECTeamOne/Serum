@@ -1,10 +1,6 @@
 .env
 coverage
 node_modules
-<<<<<<< HEAD
-package-lock.json
-.env
-=======
 *.log
 *.map
 
@@ -12,6 +8,7 @@ package-lock.json
 ###################
 *bundle.js
 client/dist/main.js
+client/dist/main.js*
 
 # OS generated files #
 ######################
@@ -22,4 +19,3 @@ client/dist/main.js
 .Trashes
 ehthumbs.db
 Thumbs.db
->>>>>>> 7e639ae (Update .gitignore)
