@@ -1,6 +1,7 @@
 {
   "plugins": [
     "@babel/syntax-dynamic-import",
+    "babel-plugin-styled-components",
     "react-refresh/babel"
   ],
   "presets": [
