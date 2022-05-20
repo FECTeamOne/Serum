@@ -7,12 +7,20 @@ import Fit from 'Reviews/components/Fit.jsx'
 const Container = styled.div`
   text-align: center;
 `;
+const Left = styled.div`
+  width: calc(40% - (.5em + 6px));
+  float: left;
+  min-height: 400px;
+  margin-top: 1em;
+`;
 
 function Reviews() {
   return (
     <Container>
-      <Ratings />
-      <Fit />
+      <Left>
+        <Ratings />
+        <Fit />
+      </Left>
       <ReviewList />
     </Container>
   );
