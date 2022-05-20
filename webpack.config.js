@@ -30,11 +30,9 @@ const config = {
       {
         test: /\.(js|jsx)$/,
         exclude: /nodeModules/,
-        use: {
-          loader: 'babel-loader',
-        },
+        loader: 'babel-loader',
         options: {
-          plugins: isProduction ? [] : ['react-refresh/babel'],
+          plugins: ['react-refresh/babel'],
         }
       },
       {
