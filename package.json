@@ -38,7 +38,7 @@
     "build": "webpack --mode=production --node-env=production",
     "build:dev": "webpack --mode=development --watch",
     "start": "node server/index.js",
-    "start:dev": "nodemon server/index.js",
+    "start:dev": "NODE_ENV=development nodemon server/index.js",
     "test": "jest",
     "test:ci": "jest --maxWorkers=2"
   },

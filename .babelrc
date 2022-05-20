@@ -1,8 +1,7 @@
 {
   "plugins": [
     "@babel/syntax-dynamic-import",
-    "babel-plugin-styled-components",
-    "react-refresh/babel"
+    "babel-plugin-styled-components"
   ],
   "presets": [
     [
@@ -17,5 +16,12 @@
         "runtime": "automatic"
       }
     ]
-  ]
+  ],
+  "env": {
+    "development": {
+      "plugins": [
+        "react-refresh/babel"
+      ]
+    }
+  }
 }
