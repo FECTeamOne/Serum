@@ -5,11 +5,13 @@
   "main": "index.js",
   "license": "MIT",
   "devDependencies": {
-    "@babel/core": "^7.17.12",
+    "@babel/core": "^7.18.0",
     "@babel/plugin-syntax-dynamic-import": "^7.8.3",
-    "@babel/preset-env": "^7.17.12",
+    "@babel/preset-env": "^7.18.0",
     "@babel/preset-react": "^7.17.12",
+    "@testing-library/react": "^13.2.0",
     "@webpack-cli/generators": "^2.4.2",
+    "babel-jest": "^28.1.0",
     "babel-loader": "^8.2.5",
     "css-loader": "^6.7.1",
     "eslint": "^8.15.0",
@@ -19,7 +21,9 @@
     "eslint-plugin-react": "^7.30.0",
     "eslint-plugin-react-hooks": "^4.5.0",
     "html-webpack-plugin": "^5.5.0",
+    "jest": "^28.1.0",
     "prettier": "^2.6.2",
+    "react-test-renderer": "^18.1.0",
     "style-loader": "^3.3.1",
     "webpack": "^5.72.1",
     "webpack-cli": "^4.9.2",
@@ -31,7 +35,8 @@
     "build:dev": "webpack --mode=development -w",
     "build:prod": "webpack --mode=production --node-env=production",
     "watch": "webpack --watch",
-    "serve": "webpack serve"
+    "serve": "webpack serve",
+    "test": "jest"
   },
   "dependencies": {
     "axios": "^0.27.2",
