@@ -34,7 +34,7 @@ const config = {
           loader: 'babel-loader',
         },
         options: {
-          plugins: ['react-refresh/babel'],
+          plugins: isProduction ? [] : ['react-refresh/babel'],
         }
       },
       {
