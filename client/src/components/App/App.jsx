@@ -1,6 +1,6 @@
 import React from 'react';
 import styled, { css } from 'styled-components';
-import Reviews from 'Reviews/Reviews.jsx'
+import Reviews from 'Reviews/Reviews.jsx';
 
 // a very basic example of how to use the styles
 // It uses `` as a function call then you put in any css
