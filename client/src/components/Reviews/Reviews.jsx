@@ -8,6 +8,7 @@ const Container = styled.div`
   text-align: center;
 `;
 const Left = styled.div`
+  border: 2px solid black;
   width: calc(40% - (.5em + 6px));
   float: left;
   min-height: 400px;
