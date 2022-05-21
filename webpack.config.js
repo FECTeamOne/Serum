@@ -1,52 +1,47 @@
-// Generated using webpack-cli https://github.com/webpack/webpack-cli
-
 const path = require('path');
+const webpack = require('webpack');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const ReactRefreshWebpackPlugin = require('@pmmmwh/react-refresh-webpack-plugin');
 
+const isDevelopment = process.env.NODE_ENV !== 'production';
 
-const isProduction = process.env.NODE_ENV === 'production';
-
-const stylesHandler = 'style-loader';
-
-const config = {
-  entry: './client/src/index.jsx',
+module.exports = {
+  entry: [
+    './client/src/index.jsx',
+    'webpack-hot-middleware/client'
+  ],
+  mode: isDevelopment ? 'development' : 'production',
   output: {
     path: path.resolve(__dirname, 'client/dist'),
+    publicPath: '/',
   },
   devServer: {
-    open: true,
     host: 'localhost',
   },
   plugins: [
-    new ReactRefreshWebpackPlugin(),
-
-
-  //   // Add your plugins here
-  //   // Learn more about plugins from https://webpack.js.org/configuration/plugins/
-  ],
+    isDevelopment && new ReactRefreshWebpackPlugin(),
+    isDevelopment && new webpack.HotModuleReplacementPlugin(),
+    // Use NoErrorsPlugin for webpack 1.x
+    isDevelopment && new webpack.NoEmitOnErrorsPlugin()
+  ].filter(Boolean),
   module: {
     rules: [
       {
         test: /\.(js|jsx)$/,
-        exclude: /nodeModules/,
+        exclude: /node_modules/,
         loader: 'babel-loader',
         options: {
-          plugins: isProduction ? [] : ['react-refresh/babel'],
+          plugins: [isDevelopment && 'react-refresh/babel'].filter(Boolean),
         }
       },
       {
         test: /\.css$/i,
-        use: [stylesHandler, 'css-loader'],
+        use: ['style-loader', 'css-loader'],
       },
       {
         test: /\.(eot|svg|ttf|woff|woff2|png|jpg|gif)$/i,
         type: 'asset',
       },
-
-
-      // Add your rules for custom modules here
-      // Learn more about loaders from https://webpack.js.org/loaders/
     ],
   },
   resolve: {
@@ -57,13 +52,4 @@ const config = {
       Reviews: path.resolve(__dirname, 'client/src/components/Reviews/'),
     }
   }
-};
-
-module.exports = () => {
-  if (isProduction) {
-    config.mode = 'production';
-  } else {
-    config.mode = 'development';
-  }
-  return config;
 };
