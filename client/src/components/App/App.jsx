@@ -1,5 +1,6 @@
 import React from 'react';
 import styled, { css } from 'styled-components';
+import Overview from 'Overview/Overview.jsx';
 
 // a very basic example of how to use the styles
 // It uses `` as a function call then you put in any css
@@ -29,6 +30,7 @@ function App() {
       Hello
       <Button as="a" href="#">test</Button>
       <Button test>test</Button>
+      <Overview />
     </Container>
   );
 }
