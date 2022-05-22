@@ -1,5 +1,6 @@
 import React from 'react';
 import styled, { css } from 'styled-components';
+import Reviews from 'Reviews/Reviews.jsx';
 import Overview from 'Overview/Overview.jsx';
 
 // a very basic example of how to use the styles
@@ -31,6 +32,7 @@ function App() {
       <Button as="a" href="#">test</Button>
       <Button test>test</Button>
       <Overview />
+      <Reviews />
     </Container>
   );
 }
