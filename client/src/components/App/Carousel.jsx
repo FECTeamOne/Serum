@@ -2,8 +2,6 @@ import React, { useState } from "react";
 import PropTypes from "prop-types";
 
 function Carousel({ items, size }) {
-  const range = (start, end) =>
-    Array.from(Array(Math.max(0, start - end)), (_, i) => start + i);
   const [start, setStart] = useState(0);
 
   const decrement = (event) => {
