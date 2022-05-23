@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 
 function Select({
@@ -7,11 +7,9 @@ function Select({
   defaultSelection,
   disabled,
   onChange,
-  selectRef,
 }) {
   return (
     <select
-      ref={selectRef}
       value={value}
       onChange={onChange}
     >
@@ -41,10 +39,10 @@ function AddToCart({ skus }) {
   // TODO: should quantities be state? it's computed from selectedSize and i only added it to state so updates to it would trigger a rerender and update the <Select /> for quantity
   const [quantities, setQuantities] = useState([1]);
   const [selectedQuantity, setSelectedQuantity] = useState();
+  const [promptForQuantity, setPromptForQuantity] = useState(false);
 
   const availableSkus = Object.values(skus).filter(sku => sku.quantity > 0);
   const isInStock = availableSkus.length > 0;
-  const selectQuantityRef = useRef();
   let sizes = [];
 
   if (isInStock) {
@@ -76,13 +74,19 @@ function AddToCart({ skus }) {
 
   const handleQuantityChange = (event) => {
     setSelectedQuantity(event.target.value);
+    setPromptForQuantity(false);
   };
 
-  const handleClick = () => {
-    const sku = Object.keys(skus).find(sku => skus[sku].size === selectedSize);
-    const purchase = {
-      sku,
-      quantity: selectedQuantity,
+  const handleAddToCartClick = () => {
+    if (!selectedQuantity) {
+      setPromptForQuantity(true)
+    } else if (selectedSize) {
+      //TODO: actually add the purchase to cart
+      const sku = Object.keys(skus).find(sku => skus[sku].size === selectedSize);
+      const purchase = {
+        sku,
+        quantity: selectedQuantity,
+      };
     }
   };
 
@@ -95,7 +99,6 @@ function AddToCart({ skus }) {
         disabled={!isInStock}
       />
       <Select
-        selectRef={selectQuantityRef}
         value={selectedQuantity}
         options={quantities}
         onChange={handleQuantityChange}
@@ -103,7 +106,7 @@ function AddToCart({ skus }) {
       />
       <button
         type="button"
-        onClick={handleClick}
+        onClick={handleAddToCartClick}
         hidden={!isInStock}
       >
         Add to Cart
