@@ -1,7 +1,13 @@
 import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 
-function Select({ value, options = [], default, disabled = false, onChange }) {
+function Select({
+  value,
+  options,
+  defaultSelection,
+  disabled,
+  onChange,
+}) {
   return (
     <select
       value={value}
@@ -15,11 +21,17 @@ function Select({ value, options = [], default, disabled = false, onChange }) {
 }
 
 Select.propTypes = {
-  value: PropTypes.string.isRequired,
+  value: PropTypes.any,
   options: PropTypes.array,
-  default: PropTypes.string,
+  defaultSelection: PropTypes.string,
   disabled: PropTypes.bool,
   onChange: PropTypes.func,
+};
+
+Select.defaultProps = {
+  options: [],
+  disabled: false,
+  onChange: () => {},
 };
 
 function AddToCart({ skus }) {
@@ -38,12 +50,13 @@ function AddToCart({ skus }) {
      sizes = ['OUT OF STOCK'];
   }
 
+  // TODO: should this effect have no subscriptions?
   useEffect(() => {
     if (isInStock) {
       // TODO: change to 'Select Size'
       setSelectedSize(Object.values(availableSkus)[0].size);
     }
-  }, [availableSkus]);
+  }, [skus]);
 
   useEffect(() => {
     if (selectedSize) {
