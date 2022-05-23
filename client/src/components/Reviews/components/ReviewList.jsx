@@ -12,19 +12,41 @@ const List = styled.div`
   margin-top: 1em;
 `;
 
-const Buttons = styled.button`
+const AddReviewButton = styled.button`
+  background: none!important;
+  border: none;
+  padding: 0!important;
   position: absolute;
-  right:  20%;
+  right:  40%;
   bottom:  2%;
+  cursor: pointer;
+`;
+const MoreReviewsButton = styled.button`
+  background: none!important;
+  border: none;
+  padding: 0!important;
+  position: absolute;
+  right:  60%;
+  bottom:  2%;
+  cursor: pointer;
 `;
 
 function ReviewList() {
+  function HandleAddReview(e) {
+    e.preventDefault();
+    // TODO this will pull up the review modal window to allow for the user to add a review
+  }
+  function HandleMoreReviews(e) {
+    e.preventDefault();
+    // TODO make a request to the api to get more/will change which reviews are being displayed
+  }
   return (
     <List>
       <div>there are some reviews that are not sorted</div>
       <Review />
       <Review />
-      <Buttons>Test</Buttons>
+      <AddReviewButton onClick={HandleAddReview}> Add review</AddReviewButton>
+      <MoreReviewsButton onClick={HandleMoreReviews}>More reviews</MoreReviewsButton>
     </List>
   );
 }
