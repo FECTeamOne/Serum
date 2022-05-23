@@ -6,15 +6,42 @@ const StyledReview = styled.div`
   border: 2px solid black;
   margin: 10px;
 `;
+const Stars = styled.p`
+  padding-top: 10px;
+  float: left;
+  padding-left: 10px;
+`;
+const User = styled.p`
+  padding-top: 10px;
+  float: right;
+  padding-right: 10px;
+`;
+const Title = styled.h2`
+  padding-top: 10px;
+  font-size: 150%;
+`;
 
-function Review() {
+function Review({ review }) {
+  function ReviewClick(e, type) {
+    e.preventDefault();
+    // send request to review.review_id, type (helpful or report)
+  }
   return (
     <StyledReview>
-      <h2>Review title</h2>
-      {/* <br /> */}
-      <p>Review body text, this will have to be a min of 50 char and a max of 1000 char</p>
-      <button type="button"> Helpful? |</button>
-      <button type="button">Report</button>
+      <Stars>{review.rating}</Stars>
+      {/* need to add fn to display stars */}
+      <User>
+        {review.reviewer_name}
+        ,
+        {review.date}
+        {/* need to parse data */}
+      </User>
+      <br />
+      <Title>{review.summary}</Title>
+      <br />
+      <p>{review.body}</p>
+      <button type="button" onClick={(e) => ReviewClick(e, 'helpful')}> Helpful? # |</button>
+      <button type="button" onClick={(e) => ReviewClick(e, 'report')}>| Report</button>
     </StyledReview>
   );
 }

@@ -1,6 +1,11 @@
 import React from 'react';
 import Review from 'Reviews/components/Review.jsx';
 import styled from 'styled-components';
+import { reviews } from '../../../testData.js'
+
+console.log(reviews.results);
+// /Users/zacaharykessler/hackreactor/fec/Atelier/client/src/components/Reviews/components/ReviewList.jsx
+// /Users/zacaharykessler/hackreactor/fec/Atelier/client/src/testData.js
 
 const List = styled.div`
   position: relative;
@@ -22,8 +27,7 @@ function ReviewList() {
   return (
     <List>
       <div>there are some reviews that are not sorted</div>
-      <Review />
-      <Review />
+      {reviews.results.map((review) => <Review review={review} key={review.review_id} />)}
       <Buttons>Test</Buttons>
     </List>
   );
