@@ -8,7 +8,15 @@ const StyledReview = styled.div`
 `;
 
 function Review() {
-  return <StyledReview>review</StyledReview>;
+  return (
+    <StyledReview>
+      <h2>Review title</h2>
+      {/* <br /> */}
+      <p>Review body text, this will have to be a min of 50 char and a max of 1000 char</p>
+      <button type="button"> Helpful? |</button>
+      <button type="button">Report</button>
+    </StyledReview>
+  );
 }
 
 export default Review;
