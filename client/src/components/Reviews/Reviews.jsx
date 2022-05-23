@@ -1,35 +1,30 @@
-import React, { useState } from 'react';
-// import PropTypes from 'prop-types';
+import React from 'react';
+import styled from 'styled-components';
+import ReviewList from 'Reviews/components/ReviewList.jsx';
+import Ratings from 'Reviews/components/Ratings.jsx';
+import Fit from 'Reviews/components/Fit.jsx';
 
-function Carousel({items, size}) {
-  const [start, setStart] = useState(0);
+const Container = styled.div`
+  text-align: center;
+`;
+const Left = styled.div`
+  border: 2px solid black;
+  width: calc(40% - (.5em + 6px));
+  float: left;
+  min-height: 400px;
+  margin-top: 1em;
+`;
 
-  const decrement = (event) => {
-    event.preventDefault();
-    setStart((oldStart) => Math.max(0, oldStart - size));
-  };
-
-  const increment = (event) => {
-    event.preventDefault();
-    setStart((oldStart) => Math.min(items.length - size + 1, oldStart + size));
-  };
-
+function Reviews() {
   return (
-    <div>
-      <button type="button" onClick={decrement}>
-        &lt;
-      </button>
-      {items.slice(start, start + size)}
-      <button type="button" onClick={increment}>
-        &gt;
-      </button>
-    </div>
+    <Container>
+      <Left>
+        <Ratings />
+        <Fit />
+      </Left>
+      <ReviewList />
+    </Container>
   );
 }
 
-// Carousel.propTypes = {
-//   items: PropTypes.arrayOf(PropTypes.element).isRequired,
-//   size: PropTypes.number.isRequired,
-// };
-
-export default Carousel;
+export default Reviews;
