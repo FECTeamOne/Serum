@@ -22,8 +22,9 @@ function ProductInformation({ product, styles, selectedStyleId, handleStyleSelec
       {selectedStyle.sale_price !== 0 ? selectedStyle.sale_price : null}
       <StyleSelector
         styles={styles}
-        selectedStyleId={selectedStyleId}/>
+        selectedStyleId={selectedStyleId}
         handleStyleSelect={handleStyleSelect}
+      />
       <AddToCart />
     </div>
   );
