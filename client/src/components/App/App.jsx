@@ -26,7 +26,7 @@ const Container = styled.div`
 function App() {
   return (
     <Container>
-      Hello
+      Hello Hello Hello Hello Hello Hello
       <Button as="a" href="#">test</Button>
       <Button test>test</Button>
     </Container>
