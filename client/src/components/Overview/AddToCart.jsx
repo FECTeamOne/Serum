@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 
-function Select({ value, options = [], onChange }) {
+function Select({ value, options = [], default, disabled = false, onChange }) {
   return (
     <select
       value={value}
@@ -14,17 +14,36 @@ function Select({ value, options = [], onChange }) {
   );
 }
 
+Select.propTypes = {
+  value: PropTypes.string.isRequired,
+  options: PropTypes.array,
+  default: PropTypes.string,
+  disabled: PropTypes.bool,
+  onChange: PropTypes.func,
+};
+
 function AddToCart({ skus }) {
   const [selectedSize, setSelectedSize] = useState();
-  // should quantities be state? it's computed from selectedSize and i only added it to state so updates to it would trigger a rerender and update the <Select /> for quantity
+  // TODO: should quantities be state? it's computed from selectedSize and i only added it to state so updates to it would trigger a rerender and update the <Select /> for quantity
   const [quantities, setQuantities] = useState([1]);
   const [selectedQuantity, setSelectedQuantity] = useState();
 
-  const sizes = Object.values(skus).map(sku => sku.size);
+  const availableSkus = Object.values(skus).filter(sku => sku.quantity > 0);
+  const isInStock = availableSkus.length > 0;
+  let sizes = [];
+
+  if (isInStock) {
+     sizes = availableSkus.map(sku => sku.size);
+  } else {
+     sizes = ['OUT OF STOCK'];
+  }
 
   useEffect(() => {
-    setSelectedSize(Object.values(skus)[0].size);
-  }, [skus]);
+    if (isInStock) {
+      // TODO: change to 'Select Size'
+      setSelectedSize(Object.values(availableSkus)[0].size);
+    }
+  }, [availableSkus]);
 
   useEffect(() => {
     if (selectedSize) {
@@ -48,11 +67,13 @@ function AddToCart({ skus }) {
         value={selectedSize}
         options={sizes}
         onChange={handleSizeChange}
+        disabled={!isInStock}
       />
       <Select
         value={selectedQuantity}
         options={quantities}
         onChange={handleQuantityChange}
+        disabled={!(isInStock && sizes.includes(selectedSize))}
       />
     </form>
   );
