@@ -43,7 +43,7 @@ function ReviewList() {
   }
   return (
     <List>
-      <div>there are some reviews that are not sorted</div>
+      <div>{`there are ${reviews.results.length} reviews that are not sorted`}</div>
       {reviews.results.map((review) => <Review review={review} key={review.review_id} />)}
       <AddReviewButton onClick={HandleAddReview}> Add review</AddReviewButton>
       <MoreReviewsButton onClick={HandleMoreReviews}>More reviews</MoreReviewsButton>
