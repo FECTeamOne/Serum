@@ -3,15 +3,11 @@ import PropTypes from 'prop-types';
 import StyleSelector from 'Overview/StyleSelector.jsx';
 import AddToCart from 'Overview/AddToCart.jsx';
 
-<<<<<<< HEAD
 /**
  * Shows general product information
  */
 function ProductInformation({ product, styles, selectedStyleId, handleStyleSelect }) {
   // TODO: how to avoid optional chaining?
-=======
-function ProductInformation({ product, styles, selectedStyleId }) {
->>>>>>> 0aa29b1 (Add product details to ProductInformation)
   const selectedStyle = styles?.find(style => style.style_id === selectedStyleId);
 
   return (
@@ -26,23 +22,14 @@ function ProductInformation({ product, styles, selectedStyleId }) {
       Style &gt; {selectedStyle?.name}
       <br />
       {/*TODO: add strikethrough for sale*/}
-<<<<<<< HEAD
-      {selectedStyle?.original_price}
-      {selectedStyle?.sale_price !== 0 ? selectedStyle?.sale_price : null}
       {/*TODO: show Product Overview*/}
       {/*TODO: add Share buttons*/}
+      {selectedStyle?.sale_price !== 0 ? selectedStyle?.sale_price : null}
       <StyleSelector
         styles={styles}
         selectedStyleId={selectedStyleId}
         handleStyleSelect={handleStyleSelect}
       />
-=======
-      {selectedStyle.original_price}
-      {selectedStyle.sale_price !== 0 ? selectedStyle.sale_price : null}
-      <StyleSelector
-        styles={styles}
-        selectedStyleId={selectedStyleId}/>
->>>>>>> 0aa29b1 (Add product details to ProductInformation)
       <AddToCart />
     </div>
   );
