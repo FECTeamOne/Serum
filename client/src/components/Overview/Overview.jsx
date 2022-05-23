@@ -8,7 +8,7 @@ import testData from '../../testData.js';
 function Overview({ productId }) {
   const [product, setProduct] = useState({});
   const [styles, setStyles] = useState([]);
-  const [selectedStyle, setSelectedStyle] = useState();
+  const [selectedStyleId, setSelectedStyleId] = useState();
 
   useEffect(() => {
     // TODO: account for unmounting
@@ -25,7 +25,7 @@ function Overview({ productId }) {
 
         setProduct(productResponse.data);
         setStyles(sortedStyles);
-        setSelectedStyle(sortedStyles.find(style => style['default?']).style_id);
+        setSelectedStyleId(sortedStyles.find(style => style['default?']).style_id);
       } catch (error) {
         // TODO: handle error
       }
@@ -35,23 +35,22 @@ function Overview({ productId }) {
   }, []);
 
   const handleStyleSelect = (styleId) => {
-    setSelectedStyle(styleId);
+    setSelectedStyleId(styleId);
   };
 
   return (
     <div>
       <ImageGallery
-        // selectedStyle={selectedStyle}
-        selectedStyle={1}
+        selectedStyleId={selectedStyleId}
       />
       <ProductInformation
         // product={product}
         // styles={styles}
-        // selectedStyleId={selectedStyleId}
+        selectedStyleId={selectedStyleId}
+        handleStyleSelect={handleStyleSelect}
+
         product={testData.product}
         styles={testData.styles.results}
-        selectedStyleId={1}
-        handleStyleSelect={handleStyleSelect}
       />
     </div>
   );

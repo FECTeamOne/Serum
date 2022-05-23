@@ -18,8 +18,8 @@ function ProductInformation({ product, styles, selectedStyleId, handleStyleSelec
       Style &gt; {selectedStyle?.name}
       <br />
       {/*TODO: add strikethrough for sale*/}
-      {selectedStyle.original_price}
-      {selectedStyle.sale_price !== 0 ? selectedStyle.sale_price : null}
+      {selectedStyle?.original_price}
+      {selectedStyle?.sale_price !== 0 ? selectedStyle?.sale_price : null}
       <StyleSelector
         styles={styles}
         selectedStyleId={selectedStyleId}

@@ -64,11 +64,11 @@ module.exports.styles = {
       'default?': true,
       photos: [
         {
-          thumbnail_url: 'urlplaceholder/style_1_photo_number_thumbnail.jpg',
+          thumbnail_url: imageURL,
           url: imageURL,
         },
         {
-          thumbnail_url: 'urlplaceholder/style_1_photo_number_thumbnail.jpg',
+          thumbnail_url: imageURL,
           url: imageURL,
         },
         // ...
@@ -97,7 +97,7 @@ module.exports.styles = {
       'default?': false,
       photos: [
         {
-          thumbnail_url: 'urlplaceholder/style_2_photo_number_thumbnail.jpg',
+          thumbnail_url: imageURL,
           url: imageURL,
         },
         // ...
