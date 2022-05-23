@@ -7,7 +7,7 @@ import testData from '../../testData.js';
 
 function Overview({ productId }) {
   const [product, setProduct] = useState({});
-  const [styles, setStyles] = useState({});
+  const [styles, setStyles] = useState([]);
   const [selectedStyle, setSelectedStyle] = useState();
 
   useEffect(async () => {
@@ -18,8 +18,13 @@ function Overview({ productId }) {
         axios.get(`/products/${productId}/styles`),
       ]);
 
+      const sortedStyles = stylesResponse.data.results.sort((style1, style2) => (
+        style1.styled_id - style2.styled_id
+      ));
+
       setProduct(productResponse.data);
-      setStyles(stylesResponse.data);
+      setStyles(sortedStyles);
+      setSelectedStyle(sortedStyles.find(style => style['default?']).style_id);
     } catch (error) {
       // TODO: handle error
     }
@@ -38,8 +43,10 @@ function Overview({ productId }) {
       <ProductInformation
         // product={product}
         // styles={styles}
+        // selectedStyleId={selectedStyleId}
         product={testData.product}
-        styles={testData.styles}
+        styles={testData.styles.results}
+        selectedStyleId={1}
         handleStyleSelect={handleStyleSelect}
       />
     </div>

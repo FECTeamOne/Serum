@@ -1,14 +1,36 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import StyleSelector from 'Overview/StyleSelector.jsx';
 import AddToCart from 'Overview/AddToCart.jsx';
 
-function ProductInformation() {
+function ProductInformation({ product, styles, selectedStyleId }) {
+  const selectedStyle = styles?.find(style => style.style_id === selectedStyleId);
+
   return (
     <div>
-      <StyleSelector />
+      {/*TODO: add rating stars*/}
+      *****
+      <br />
+      {product.category}
+      <br />
+      {product.name}
+      <br />
+      Style &gt; {selectedStyle?.name}
+      <br />
+      {/*TODO: add strikethrough for sale*/}
+      {selectedStyle.original_price}
+      {selectedStyle.sale_price !== 0 ? selectedStyle.sale_price : null}
+      <StyleSelector
+        styles={styles}
+        selectedStyleId={selectedStyleId}/>
       <AddToCart />
     </div>
   );
 }
+
+ProductInformation.propTypes = {
+  product: PropTypes.object,
+  styles: PropTypes.array,
+};
 
 export default ProductInformation;

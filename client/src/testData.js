@@ -1,3 +1,5 @@
+const imageURL = 'https://images.unsplash.com/photo-1554412933-514a83d2f3c8?crop=entropy&cs=tinysrgb&fm=jpg&ixlib=rb-1.2.1&q=80&raw_url=true&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=972';
+
 // GET /products
 module.exports.products = [
   {
@@ -51,7 +53,7 @@ module.exports.product = {
 };
 
 // GET /products/:product_id/styles
-module.exports.productStyles = {
+module.exports.styles = {
   product_id: '1',
   results: [
     {
@@ -63,11 +65,11 @@ module.exports.productStyles = {
       photos: [
         {
           thumbnail_url: 'urlplaceholder/style_1_photo_number_thumbnail.jpg',
-          url: 'urlplaceholder/style_1_photo_number.jpg',
+          url: imageURL,
         },
         {
           thumbnail_url: 'urlplaceholder/style_1_photo_number_thumbnail.jpg',
-          url: 'urlplaceholder/style_1_photo_number.jpg',
+          url: imageURL,
         },
         // ...
       ],
@@ -96,7 +98,7 @@ module.exports.productStyles = {
       photos: [
         {
           thumbnail_url: 'urlplaceholder/style_2_photo_number_thumbnail.jpg',
-          url: 'urlplaceholder/style_2_photo_number.jpg',
+          url: imageURL,
         },
         // ...
       ],
