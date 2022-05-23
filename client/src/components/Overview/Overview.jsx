@@ -10,24 +10,28 @@ function Overview({ productId }) {
   const [styles, setStyles] = useState([]);
   const [selectedStyle, setSelectedStyle] = useState();
 
-  useEffect(async () => {
+  useEffect(() => {
     // TODO: account for unmounting
-    try {
-      const [productResponse, stylesResponse] = await Promise.all([
-        axios.get(`/products/${productId}`),
-        axios.get(`/products/${productId}/styles`),
-      ]);
+    async function fetchData() {
+      try {
+        const [productResponse, stylesResponse] = await Promise.all([
+          axios.get(`/products/${productId}`),
+          axios.get(`/products/${productId}/styles`),
+        ]);
 
-      const sortedStyles = stylesResponse.data.results.sort((style1, style2) => (
-        style1.styled_id - style2.styled_id
-      ));
+        const sortedStyles = stylesResponse.data.results.sort((style1, style2) => (
+          style1.styled_id - style2.styled_id
+        ));
 
-      setProduct(productResponse.data);
-      setStyles(sortedStyles);
-      setSelectedStyle(sortedStyles.find(style => style['default?']).style_id);
-    } catch (error) {
-      // TODO: handle error
+        setProduct(productResponse.data);
+        setStyles(sortedStyles);
+        setSelectedStyle(sortedStyles.find(style => style['default?']).style_id);
+      } catch (error) {
+        // TODO: handle error
+      }
     }
+
+    fetchData();
   }, []);
 
   const handleStyleSelect = (styleId) => {

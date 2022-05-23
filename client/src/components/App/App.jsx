@@ -10,7 +10,7 @@ const Container = styled.div`
 function App() {
   return (
     <Container>
-      <Overview />
+      <Overview productId={11}/>
       <Reviews />
     </Container>
   );
