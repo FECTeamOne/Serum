@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import PropTypes from 'prop-types';
 
 function Select({
@@ -7,9 +7,11 @@ function Select({
   defaultSelection,
   disabled,
   onChange,
+  selectRef,
 }) {
   return (
     <select
+      ref={selectRef}
       value={value}
       onChange={onChange}
     >
@@ -42,6 +44,7 @@ function AddToCart({ skus }) {
 
   const availableSkus = Object.values(skus).filter(sku => sku.quantity > 0);
   const isInStock = availableSkus.length > 0;
+  const selectQuantityRef = useRef();
   let sizes = [];
 
   if (isInStock) {
@@ -66,12 +69,21 @@ function AddToCart({ skus }) {
     }
   }, [selectedSize]);
 
+
   const handleSizeChange = (event) => {
     setSelectedSize(event.target.value);
   };
 
   const handleQuantityChange = (event) => {
     setSelectedQuantity(event.target.value);
+  };
+
+  const handleClick = () => {
+    const sku = Object.keys(skus).find(sku => skus[sku].size === selectedSize);
+    const purchase = {
+      sku,
+      quantity: selectedQuantity,
+    }
   };
 
   return (
@@ -83,11 +95,19 @@ function AddToCart({ skus }) {
         disabled={!isInStock}
       />
       <Select
+        selectRef={selectQuantityRef}
         value={selectedQuantity}
         options={quantities}
         onChange={handleQuantityChange}
         disabled={!(isInStock && sizes.includes(selectedSize))}
       />
+      <button
+        type="button"
+        onClick={handleClick}
+        hidden={!isInStock}
+      >
+        Add to Cart
+      </button>
     </form>
   );
 }
