@@ -8,7 +8,8 @@ import testData from '../../testData.js';
 function Overview({ productId }) {
   const [product, setProduct] = useState({});
   const [styles, setStyles] = useState([]);
-  const [selectedStyleId, setSelectedStyleId] = useState();
+  //const [selectedStyleId, setSelectedStyleId] = useState();
+  const [selectedStyleId, setSelectedStyleId] = useState(1);
 
   useEffect(() => {
     // TODO: account for unmounting
@@ -31,7 +32,7 @@ function Overview({ productId }) {
       }
     }
 
-    fetchData();
+    //fetchData();
   }, []);
 
   const handleStyleSelect = (styleId) => {

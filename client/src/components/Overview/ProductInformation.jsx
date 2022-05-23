@@ -25,7 +25,9 @@ function ProductInformation({ product, styles, selectedStyleId, handleStyleSelec
         selectedStyleId={selectedStyleId}
         handleStyleSelect={handleStyleSelect}
       />
-      <AddToCart />
+      <AddToCart
+        skus={selectedStyle.skus}
+      />
     </div>
   );
 }
