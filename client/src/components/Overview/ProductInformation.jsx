@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import StyleSelector from 'Overview/StyleSelector.jsx';
 import AddToCart from 'Overview/AddToCart.jsx';
 
-function ProductInformation({ product, styles, selectedStyleId }) {
+function ProductInformation({ product, styles, selectedStyleId, handleStyleSelect }) {
   const selectedStyle = styles?.find(style => style.style_id === selectedStyleId);
 
   return (
@@ -23,14 +23,15 @@ function ProductInformation({ product, styles, selectedStyleId }) {
       <StyleSelector
         styles={styles}
         selectedStyleId={selectedStyleId}/>
+        handleStyleSelect={handleStyleSelect}
       <AddToCart />
     </div>
   );
 }
 
 ProductInformation.propTypes = {
-  product: PropTypes.object,
-  styles: PropTypes.array,
+  product: PropTypes.object.isRequired,
+  styles: PropTypes.array.isRequired,
 };
 
 export default ProductInformation;
