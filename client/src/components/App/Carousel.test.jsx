@@ -1,23 +1,39 @@
 import React from 'react';
-import { render, screen } from '@testing-library/react';
+import '@testing-library/jest-dom/extend-expect';
+import { fireEvent, render, screen } from '@testing-library/react';
 // import userEvent from '@testing-library/user-event';
 import Carousel from 'App/Carousel.jsx';
 
 describe('Carousel', () => {
 
-  const numbers = Array(10).fill().map((_, i) => i);
+  const range = (start, end) => (
+    Array(end - start + 1).fill().map((_, i) => i + start)
+  );
+
+  const numbers = range(0, 9);
   const size = 4;
 
   const getScreenItems = () => {
-      const screenItems = [];
-      numbers.forEach(i => {
-        const screenItem = screen.queryByText(new RegExp(`^${i}$`));
-        if (screenItem) {
-          screenItems.push(screenItem);
-        }
-      });
-      return screenItems;
-    };
+    const screenItems = [];
+    numbers.forEach(i => {
+      const screenItem = screen.queryByText(new RegExp(`^${i}$`));
+      if (screenItem) {
+        screenItems.push(screenItem);
+      }
+    });
+    return screenItems;
+  };
+
+  const checkScreenItems = (bounds) => {
+    numbers.forEach(i => {
+      const screenItem = screen.queryByText(new RegExp(`^${i}$`));
+      if (bounds.includes(i)) {
+        expect(screenItem).toBeVisible();
+      } else {
+        expect(screenItem).toBeNull();
+      }
+    });
+  };
 
   beforeEach(() => {
     const items = numbers.map(i => (
@@ -35,5 +51,13 @@ describe('Carousel', () => {
   });
 
   it('should scroll on button presses', () => {
+    const backButton = screen.getByText('<');
+    const forwardButton = screen.getByText('>');
+
+    fireEvent.click(forwardButton);
+    checkScreenItems(range(size, 2 * size - 1));
+
+    fireEvent.click(backButton);
+    checkScreenItems(range(0, size - 1));
   });
 });
