@@ -8,7 +8,7 @@ import AddToCart from 'Overview/AddToCart.jsx';
  */
 function ProductInformation({ product, styles, selectedStyleId, handleStyleSelect }) {
   // TODO: how to avoid optional chaining?
-  const selectedStyle = styles?.find(style => style.style_id === selectedStyleId);
+  const selectedStyle = styles?.find((style) => style.style_id === selectedStyleId);
 
   return (
     <div>

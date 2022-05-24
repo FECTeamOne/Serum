@@ -25,7 +25,7 @@ function Overview({ productId }) {
 
         setProduct(productResponse.data);
         setStyles(sortedStyles);
-        setSelectedStyleId(sortedStyles.find(style => style['default?']).style_id);
+        setSelectedStyleId(sortedStyles.find((style) => style['default?']).style_id);
       } catch (error) {
         // TODO: handle error
       }
@@ -48,7 +48,6 @@ function Overview({ productId }) {
         // styles={styles}
         selectedStyleId={selectedStyleId}
         handleStyleSelect={handleStyleSelect}
-
         // TODO: delete once fetching is working
         product={testData.product}
         styles={testData.styles.results}
