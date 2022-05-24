@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import axios from 'axios';
 import ImageGallery from 'Overview/ImageGallery.jsx';
 import ProductInformation from 'Overview/ProductInformation.jsx';
-import testData from '../../testData.js';
+import testData from 'tests/testData.js';
 
 function Overview({ productId }) {
   const [product, setProduct] = useState({});
@@ -49,6 +49,7 @@ function Overview({ productId }) {
         selectedStyleId={selectedStyleId}
         handleStyleSelect={handleStyleSelect}
 
+        // TODO: delete once fetching is working
         product={testData.product}
         styles={testData.styles.results}
       />
