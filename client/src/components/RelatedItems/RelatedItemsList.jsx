@@ -1,38 +1,21 @@
-import React, { useState } from 'react';
+import React from 'react';
 // import styled from 'styled-components';
-import RelatedItemsEntry from './RelatedItemsEntry';
-import { products, productRelated } from '../../testData';
+import RelatedItemsEntry from 'RelatedItems/RelatedItemsEntry.jsx';
+import Carousel from 'App/Carousel.jsx'
+import { products } from 'tests/testData.js';
 
-function RelatedItemsList() {
-  const [start, setStart] = useState(0);
-  const size = 4;
-  const relatedProducts = products.filter((product) => productRelated.indexOf(product.id) > 0);
-
-  const decrement = (event) => {
-    event.preventDefault();
-    setStart((oldStart) => Math.max(0, oldStart - size));
-  };
-
-  const increment = (event) => {
-    event.preventDefault();
-    setStart((oldStart) => Math.min(relatedProducts.length - size + 1, oldStart + size));
-  };
-
-  const relatedItems = relatedProducts.slice(start, start + size);
+function RelatedItemsList({currentItemId}) {
+  // get related items from the API; [array of item id]
+  const relatedItems = [products, products, products].flat();
+  // get related items detail from the API; [{item 1}, {item 2}..]
+  // render the related items using carousel
+  const relatedItemsEntry = relatedItems.map((item) => (
+    <RelatedItemsEntry key={item.id} item={item} />
+  ));
 
   return (
     <div>
-      <button type="button" onClick={decrement}>
-        &lt;
-      </button>
-      <div>
-        {relatedItems.map((product) => (
-          <RelatedItemsEntry key={product.id} product={product} />
-        ))}
-      </div>
-      <button type="button" onClick={increment}>
-        &gt;
-      </button>
+      <Carousel items={relatedItemsEntry} size={4} />
     </div>
   );
 }
