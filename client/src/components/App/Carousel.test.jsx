@@ -1,6 +1,4 @@
-import React from 'react';
-import '@testing-library/jest-dom/extend-expect';
-import { fireEvent, render, screen } from '@testing-library/react';
+import { screen } from '@testing-library/react';
 import Carousel from 'App/Carousel.jsx';
 
 describe('Carousel', () => {
@@ -49,14 +47,15 @@ describe('Carousel', () => {
     expect(screenItems.length).toEqual(size);
   });
 
-  it('should scroll on button presses', () => {
+  it('should scroll on button presses', async () => {
+    const user = userEvent.setup();
     const backButton = screen.getByText('<');
     const forwardButton = screen.getByText('>');
 
-    fireEvent.click(forwardButton);
+    await user.click(forwardButton);
     checkScreenItems(range(size, 2 * size - 1));
 
-    fireEvent.click(backButton);
+    await user.click(backButton);
     checkScreenItems(range(0, size - 1));
   });
 });
