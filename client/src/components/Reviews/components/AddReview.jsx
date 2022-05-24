@@ -11,9 +11,7 @@ const Modal = styled.div`
   min-height: 400px;
   margin-top: 1em;
 `;
-// ? below is test data, this will get passed in as props
-const chars = ['Size', 'Comfort', 'Quality', 'Length', 'Fit'];
-// ?
+
 const data = {
   Size: ['A size too small', '1/2 a size too small', 'Perfect', '1/2 a size too big', 'A size too big'],
   Width: ['Too narrow', 'Slightly narrow', 'Perfect', 'Slightly wide', 'Too wide'],
@@ -23,7 +21,7 @@ const data = {
   Fit: ['Runs tight', 'Runs slightly tight', 'Perfect', 'Runs slightly long', 'Runs long'],
 };
 
-function AddReview({ handleAddReview }) {
+function AddReview({ handleAddReview, chars }) {
   const [recommended, setRecommended] = useState(null);
   const [reviewText, setReviewText] = useState({
     summary: '',
@@ -97,7 +95,7 @@ function AddReview({ handleAddReview }) {
                 temp.summary = e.target.value;
                 setReviewText(temp);
               }}
-            placeholder="Example: Best purchase ever!" />
+              placeholder="Example: Best purchase ever!" />
           </div>
           <div>
             Review

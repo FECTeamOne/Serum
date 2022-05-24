@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import Review from 'Reviews/components/Review.jsx';
 import AddReview from 'Reviews/components/AddReview.jsx';
 import styled from 'styled-components';
-import { reviews } from 'tests/testData.js'
+import { reviews, reviewsMetadata } from 'tests/testData.js'
 import axios from 'axios';
 
 const List = styled.div`
@@ -56,8 +56,9 @@ function ReviewList() {
     // TODO make a request to the api to get more/will change which reviews are being displayed
   }
   if (toggleModal) {
+    const chars = Object.keys(reviewsMetadata.characteristics);
     return (
-      <AddReview handleAddReview={handleAddReview}/>
+      <AddReview handleAddReview={handleAddReview} chars={chars} />
     );
   }
   return (
