@@ -46,9 +46,7 @@ function Review({ review }) {
       <Stars>{review.rating}</Stars>
       {/* need to add fn to display stars */}
       <User>
-        {`${rec} `}
-        {review.reviewer_name}
-        {`, ${date} ago`}
+        {`${rec} ${review.reviewer_name}, ${date} ago`}
       </User>
       <br />
       <Title>{review.summary}</Title>
