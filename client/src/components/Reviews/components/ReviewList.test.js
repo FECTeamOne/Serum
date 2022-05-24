@@ -1,8 +1,8 @@
-import { render, fireEvent, waitFor, screen } from '@testing-library/react';
+import { screen } from '@testing-library/react';
 import ReviewList from 'Reviews/components/ReviewList.jsx';
 
-describe('test', () => {
-  test('Ratings & Reviews', async () => {
+describe('ReviewList', () => {
+  test('The more reviews button should exist', async () => {
     const user = userEvent.setup();
     render(<ReviewList />);
 
@@ -10,7 +10,7 @@ describe('test', () => {
 
     expect(screen.getByText('More reviews')).not.toBeDisabled();
   });
-  test('Ratings & Reviews helpful', async () => {
+  test('The helpful button should exist', async () => {
     const user = userEvent.setup();
     render(<ReviewList />);
 

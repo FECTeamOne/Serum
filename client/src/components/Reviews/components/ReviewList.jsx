@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import Review from 'Reviews/components/Review.jsx';
 import styled from 'styled-components';
-import { reviews } from '../../../tests/testData.js'
+import { reviews } from 'tests/testData.js'
 import axios from 'axios';
 
 const List = styled.div`

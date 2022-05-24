@@ -30,17 +30,17 @@ const Buttons = styled.button`
 function Review({ review }) {
   let date;
   let rec = '';
-  function HandleReviewClick(e, type) {
+  function handleReviewClick(e, type) {
     e.preventDefault();
     // send request to review.review_id, type (helpful or report)
   }
-  function ParseData() {
+  function parseData() {
     date = formatDistanceToNow(parseISO(review.date));
     if (review.recommend) {
       rec = '✅';
     }
   }
-  ParseData();
+  parseData();
   return (
     <StyledReview>
       <Stars>{review.rating}</Stars>
@@ -52,10 +52,10 @@ function Review({ review }) {
       <Title>{review.summary}</Title>
       <br />
       <p>{review.body}</p>
-      <Buttons onClick={(e) => HandleReviewClick(e, 'helpful')}>
+      <Buttons onClick={(e) => handleReviewClick(e, 'helpful')}>
         {`Helpful? ${review.helpfulness}`}
       </Buttons>
-      <Buttons type="button" onClick={(e) => HandleReviewClick(e, 'report')}>| Report</Buttons>
+      <Buttons type="button" onClick={(e) => handleReviewClick(e, 'report')}>| Report</Buttons>
     </StyledReview>
   );
 }
