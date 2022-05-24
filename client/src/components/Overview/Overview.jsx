@@ -1,6 +1,6 @@
 import React from 'react';
 import ImageGallery from 'Overview/ImageGallery.jsx';
-import ProductInformation from 'Overview/ProductInformation.jsx'
+import ProductInformation from 'Overview/ProductInformation.jsx';
 
 function Overview() {
   return (
