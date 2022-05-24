@@ -2,7 +2,7 @@ import React from 'react';
 import styled, { css } from 'styled-components';
 import Reviews from 'Reviews/Reviews.jsx';
 import Overview from 'Overview/Overview.jsx';
-import RelatedItems from '../RelatedItems/RelatedItems.jsx'
+import RelatedItemsList from '../RelatedItems/RelatedItemsList.jsx'
 
 // a very basic example of how to use the styles
 // It uses `` as a function call then you put in any css
@@ -34,7 +34,7 @@ function App() {
       <Button test>test</Button>
       <Overview />
       <Reviews />
-      <RelatedItems />
+      <RelatedItemsList />
     </Container>
   );
 }
