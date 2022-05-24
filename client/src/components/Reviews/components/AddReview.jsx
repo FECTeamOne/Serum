@@ -25,22 +25,14 @@ const data = {
 
 function AddReview({ handleAddReview }) {
   const [recommended, setRecommended] = useState(null);
-  // TODO change this state to be better
-  const [currentSize, setCurrentSize] = useState(null);
-  const [currentWidth, setCurrentWidth] = useState(null);
-  const [currentComfort, setCurrentComfort] = useState(null);
-  const [currentQuality, setCurrentQuality] = useState(null);
-  const [currentLength, setCurrentLength] = useState(null);
-  const [currentFit, setCurrentFit] = useState(null);
-  const states = {
-    Size: [currentSize, setCurrentSize],
-    Width: [currentWidth, setCurrentWidth],
-    Comfort: [currentComfort, setCurrentComfort],
-    Quality: [currentQuality, setCurrentQuality],
-    Length: [currentLength, setCurrentLength],
-    Fit: [currentFit, setCurrentFit],
-  };
-  // TODO
+  const [characteristics, useCharacteristics] = useState({
+    Size: null,
+    Width: null,
+    Comfort: null,
+    Quality: null,
+    Length: null,
+    Fit: null,
+  });
   return (
     <Modal>
       <button onClick={handleAddReview}>X</button>
@@ -61,7 +53,7 @@ function AddReview({ handleAddReview }) {
             {ele}
             <div>
               <div>
-              {states[ele][0] ? data[ele][states[ele][0] - 1] : "None selected" }
+                {characteristics[ele] ? data[ele][characteristics[ele] - 1] : "None selected" }
               </div>
               {[...Array(5)].map((e, j) => {
                 const val = j + 1;
@@ -70,8 +62,12 @@ function AddReview({ handleAddReview }) {
                     <input
                       type="radio"
                       value={val}
-                      checked={val === states[ele][0]}
-                      onChange={() => states[ele][1](val)}
+                      checked={val === characteristics[ele]}
+                      onChange={() => {
+                        const newstate = { ...characteristics };
+                        newstate[ele] = val;
+                        useCharacteristics(newstate);
+                      }}
                     />
                     {j + 1}
                   </label>
