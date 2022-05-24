@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import Review from 'Reviews/components/Review.jsx';
 import styled from 'styled-components';
+import { reviews } from 'tests/testData.js'
 import axios from 'axios';
 
 const List = styled.div`
@@ -54,15 +55,14 @@ function ReviewList() {
   return (
     <List>
       <form>
-        Sort by
+        {`there are ${reviews.results.length} reviews that are sorted by`}
         <StyledSelect value={currentSort} onChange={handleSort}>
           <option value="relevant">Relevant</option>
           <option value="newest">Newest</option>
           <option value="helpful">Helpful</option>
         </StyledSelect>
       </form>
-      <Review />
-      <Review />
+      {reviews.results.map((review) => <Review review={review} key={review.review_id} />)}
       <AddReviewButton onClick={handleAddReview}> Add review</AddReviewButton>
       <MoreReviewsButton onClick={handleMoreReviews}>More reviews</MoreReviewsButton>
     </List>
