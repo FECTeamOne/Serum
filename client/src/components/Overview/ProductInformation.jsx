@@ -36,15 +36,10 @@ function ProductInformation({ product, styles, selectedStyleId, handleStyleSelec
 }
 
 ProductInformation.propTypes = {
-<<<<<<< HEAD
   product: PropTypes.object.isRequired,
   styles: PropTypes.array.isRequired,
   selectedStyleId: PropTypes.number.isRequired,
   handleStyleSelect: PropTypes.func.isRequired,
-=======
-  product: PropTypes.object,
-  styles: PropTypes.array,
->>>>>>> 0aa29b1 (Add product details to ProductInformation)
 };
 
 export default ProductInformation;
