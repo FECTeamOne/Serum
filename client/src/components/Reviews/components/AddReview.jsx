@@ -25,7 +25,13 @@ const data = {
 
 function AddReview({ handleAddReview }) {
   const [recommended, setRecommended] = useState(null);
-  const [characteristics, useCharacteristics] = useState({
+  const [reviewText, setReviewText] = useState({
+    summary: '',
+    body: '',
+    nickname: '',
+    email: '',
+  });
+  const [characteristics, setCharacteristics] = useState({
     Size: null,
     Width: null,
     Comfort: null,
@@ -33,6 +39,9 @@ function AddReview({ handleAddReview }) {
     Length: null,
     Fit: null,
   });
+  function handelReviewSubmit(e) {
+    e.preventDefault();
+  }
   return (
     <Modal>
       <button onClick={handleAddReview}>X</button>
@@ -47,7 +56,7 @@ function AddReview({ handleAddReview }) {
           no
         </label>
       </div>
-      <div>
+      <div className="Characteristics">
         {chars.map((ele) => (
           <>
             {ele}
@@ -66,7 +75,7 @@ function AddReview({ handleAddReview }) {
                       onChange={() => {
                         const newstate = { ...characteristics };
                         newstate[ele] = val;
-                        useCharacteristics(newstate);
+                        setCharacteristics(newstate);
                       }}
                     />
                     {j + 1}
@@ -76,6 +85,63 @@ function AddReview({ handleAddReview }) {
             </div>
           </>
         ))}
+      </div>
+      <div>
+        <form onSubmit={handelReviewSubmit}>
+          <div>
+            Summary
+            <input
+              type="textarea"
+              onChange={(e) => {
+                const temp = { ...reviewText };
+                temp.summary = e.target.value;
+                setReviewText(temp);
+              }}
+            placeholder="Example: Best purchase ever!" />
+          </div>
+          <div>
+            Review
+            <input
+              type="textarea"
+              placeholder="Why did you like the product or not?"
+              onChange={(e) => {
+                const temp = { ...reviewText };
+                temp.body = e.target.value;
+                setReviewText(temp);
+              }}
+            />
+          </div>
+          {reviewText.body.length <= 50 ? `Minimum required characters left ${50 - reviewText.body.length}` : 'Minimum reached'}
+          <div>
+            <input type="file" /> {/* need to add in stateful for this */}
+          </div>
+          <div>
+            nickname
+            <input
+              type="textarea"
+              placeholder="Example: jackson11!"
+              onChange={(e) => {
+                const temp = { ...reviewText };
+                temp.nickname = e.target.value;
+                setReviewText(temp);
+              }}
+            />
+          </div>
+          For privacy reasons, do not use your full name or email address
+          <div>
+            Email
+            <input
+              type="textarea"
+              placeholder="Example: jackson11@email.com"
+              onChange={(e) => {
+                const temp = { ...reviewText };
+                temp.email = e.target.value;
+                setReviewText(temp);
+              }}
+            />
+          </div>
+          <input type="submit" />
+        </form>
       </div>
     </Modal>
   );
