@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
+import { FaRegStar, FaStar } from 'react-icons/fa';
 
 // TODO Change this to be the modal styles to make it a popup window
 const Modal = styled.div`
@@ -11,6 +12,15 @@ const Modal = styled.div`
   min-height: 400px;
   margin-top: 1em;
 `;
+const HiddenRadioButton = styled.input.attrs({
+  type: 'radio',
+})`
+  height: 25px;
+  width: 25px;
+  cursor: pointer;
+  position: absolute;
+  opacity: 0;
+`;
 
 const data = {
   Size: ['A size too small', '1/2 a size too small', 'Perfect', '1/2 a size too big', 'A size too big'],
@@ -20,9 +30,11 @@ const data = {
   Length: ['Runs Short', 'Runs slightly short', 'Perfect', 'Runs slightly long', 'Runs long'],
   Fit: ['Runs tight', 'Runs slightly tight', 'Perfect', 'Runs slightly long', 'Runs long'],
 };
+const starsMeaning = ['Poor', 'Fair', 'Average', 'Good', 'Great'];
 
 function AddReview({ handleAddReview, chars }) {
   const [recommended, setRecommended] = useState(null);
+  const [rating, setRating] = useState(null);
   const [reviewText, setReviewText] = useState({
     summary: '',
     body: '',
@@ -43,6 +55,23 @@ function AddReview({ handleAddReview, chars }) {
   return (
     <Modal>
       <button onClick={handleAddReview}>X</button>
+      <div>
+        {[...Array(5)].map((star, i) => {
+          const ratingVal = i + 1;
+          return (
+            <label>
+              <HiddenRadioButton
+                type="radio"
+                name="rating"
+                value={ratingVal}
+                onClick={() => setRating(ratingVal)}
+              />
+              {ratingVal <= rating ? <FaStar size={30} /> : <FaRegStar size={30} />}
+            </label>
+          );
+        })}
+        {starsMeaning[rating - 1]}
+      </div>
       <div>
         do you recommend this product?
         <label htmlFor="1">
