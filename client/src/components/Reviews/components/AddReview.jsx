@@ -36,7 +36,7 @@ function AddReview({ handleAddReview }) {
             <div>
               {[...Array(5)].map((e, j) => (
                 <label>
-                  <input type="radio" />
+                  <input type="radio" name={ele} value={j + 1} />
                   {j + 1}
                 </label>
               ))}
