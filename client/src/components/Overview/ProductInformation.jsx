@@ -6,9 +6,16 @@ import AddToCart from 'Overview/AddToCart.jsx';
 /**
  * Shows general product information
  */
-function ProductInformation({ product, styles, selectedStyleId, handleStyleSelect }) {
+function ProductInformation({
+  product,
+  styles,
+  selectedStyleId,
+  handleStyleSelect,
+}) {
   // TODO: how to avoid optional chaining?
-  const selectedStyle = styles?.find(style => style.style_id === selectedStyleId);
+  const selectedStyle = styles?.find(
+    (style) => style.style_id === selectedStyleId
+  );
 
   return (
     <div>
@@ -24,6 +31,7 @@ function ProductInformation({ product, styles, selectedStyleId, handleStyleSelec
       {/*TODO: add strikethrough for sale*/}
       {/*TODO: show Product Overview*/}
       {/*TODO: add Share buttons*/}
+      {selectedStyle?.original_price}
       {selectedStyle?.sale_price !== 0 ? selectedStyle?.sale_price : null}
       <StyleSelector
         styles={styles}
