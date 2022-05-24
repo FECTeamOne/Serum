@@ -43,18 +43,18 @@ function ReviewList() {
   useEffect(() => {
     // TODO axios.get() with currentSort param
   }, [currentSort]);
-  function handleSort(e) {
+  const handleSort = (e) => {
     setCurrentSort(e.target.value);
-  }
-  function handleAddReview(e) {
+  };
+  const handleAddReview = (e) => {
     e.preventDefault();
     setToggleModal(!toggleModal);
     // TODO this will pull up the review modal window to allow for the user to add a review
-  }
-  function handleMoreReviews(e) {
+  };
+  const handleMoreReviews = (e) => {
     e.preventDefault();
     // TODO make a request to the api to get more/will change which reviews are being displayed
-  }
+  };
   if (toggleModal) {
     const chars = Object.keys(reviewsMetadata.characteristics);
     return (
