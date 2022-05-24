@@ -1,6 +1,7 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
 import { FaRegStar, FaStar } from 'react-icons/fa';
+import axios from 'axios';
 
 // TODO Change this to be the modal styles to make it a popup window
 const Modal = styled.div`
@@ -35,6 +36,7 @@ const starsMeaning = ['Poor', 'Fair', 'Average', 'Good', 'Great'];
 function AddReview({ handleAddReview, chars }) {
   const [recommended, setRecommended] = useState(null);
   const [rating, setRating] = useState(null);
+  const [img, setImg] = useState(null);
   const [reviewText, setReviewText] = useState({
     summary: '',
     body: '',
@@ -49,12 +51,23 @@ function AddReview({ handleAddReview, chars }) {
     Length: null,
     Fit: null,
   });
+  useEffect(() => {
+    if (img) {
+      console.log(img);
+      axios({ method: 'post', url: `` })
+        .then((imgdata) => console.log(imgdata))
+        .catch((err) => console.log(err));
+    }
+  }, [img]);
   function handelReviewSubmit(e) {
     e.preventDefault();
   }
+  const handleFile = (e) => {
+    setImg(e.target.files[0]);
+  };
   return (
     <Modal>
-      <button onClick={handleAddReview}>X</button>
+      <button type="button" onClick={handleAddReview}>X</button>
       <div>
         {[...Array(5)].map((star, i) => {
           const ratingVal = i + 1;
@@ -89,7 +102,7 @@ function AddReview({ handleAddReview, chars }) {
             {ele}
             <div>
               <div>
-                {characteristics[ele] ? data[ele][characteristics[ele] - 1] : "None selected" }
+                {characteristics[ele] ? data[ele][characteristics[ele] - 1] : 'None selected' }
               </div>
               {[...Array(5)].map((e, j) => {
                 const val = j + 1;
@@ -140,7 +153,8 @@ function AddReview({ handleAddReview, chars }) {
           </div>
           {reviewText.body.length <= 50 ? `Minimum required characters left ${50 - reviewText.body.length}` : 'Minimum reached'}
           <div>
-            <input type="file" /> {/* need to add in stateful for this */}
+            <input type="file" onChange={handleFile} />
+            {/* need to add in stateful for this */}
           </div>
           <div>
             nickname
