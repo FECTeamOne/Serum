@@ -12,21 +12,35 @@ const Modal = styled.div`
   margin-top: 1em;
 `;
 // ? below is test data, this will get passed in as props
-const chars = ['Size', 'Comfort'];
+const chars = ['Size', 'Comfort', 'Quality', 'Length', 'Fit'];
 // ?
 const data = {
   Size: ['A size too small', '1/2 a size too small', 'Perfect', '1/2 a size too big', 'A size too big'],
+  Width: ['Too narrow', 'Slightly narrow', 'Perfect', 'Slightly wide', 'Too wide'],
   Comfort: ['Uncomfortable', 'Slightly uncomfortable', 'Ok', 'Comfortable', 'Perfect'],
+  Quality: ['Poor', 'Bewlow average', 'What I expected', 'Pretty great', 'Perfect'],
+  Length: ['Runs Short', 'Runs slightly short', 'Perfect', 'Runs slightly long', 'Runs long'],
+  Fit: ['Runs tight', 'Runs slightly tight', 'Perfect', 'Runs slightly long', 'Runs long'],
 };
 
 function AddReview({ handleAddReview }) {
-  const [recommended, setRecommended] = useState(false);
+  const [recommended, setRecommended] = useState(null);
+  // TODO change this state to be better
   const [currentSize, setCurrentSize] = useState(null);
+  const [currentWidth, setCurrentWidth] = useState(null);
   const [currentComfort, setCurrentComfort] = useState(null);
+  const [currentQuality, setCurrentQuality] = useState(null);
+  const [currentLength, setCurrentLength] = useState(null);
+  const [currentFit, setCurrentFit] = useState(null);
   const states = {
     Size: [currentSize, setCurrentSize],
+    Width: [currentWidth, setCurrentWidth],
     Comfort: [currentComfort, setCurrentComfort],
+    Quality: [currentQuality, setCurrentQuality],
+    Length: [currentLength, setCurrentLength],
+    Fit: [currentFit, setCurrentFit],
   };
+  // TODO
   return (
     <Modal>
       <button onClick={handleAddReview}>X</button>
