@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import Review from 'Reviews/components/Review.jsx';
+import AddReview from 'Reviews/components/AddReview.jsx';
 import styled from 'styled-components';
 import axios from 'axios';
 
@@ -37,6 +38,7 @@ const StyledSelect = styled.select`
 
 function ReviewList() {
   const [currentSort, setCurrentSort] = useState('relevant');
+  const [toggleModal, setToggleModal] = useState(false);
   useEffect(() => {
     // TODO axios.get() with currentSort param
   }, [currentSort]);
@@ -45,11 +47,17 @@ function ReviewList() {
   }
   function handleAddReview(e) {
     e.preventDefault();
+    setToggleModal(!toggleModal);
     // TODO this will pull up the review modal window to allow for the user to add a review
   }
   function handleMoreReviews(e) {
     e.preventDefault();
     // TODO make a request to the api to get more/will change which reviews are being displayed
+  }
+  if (toggleModal) {
+    return (
+      <AddReview handleAddReview={handleAddReview}/>
+    );
   }
   return (
     <List>
