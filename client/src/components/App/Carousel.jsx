@@ -1,12 +1,11 @@
-import React, { useState } from "react";
-import PropTypes from "prop-types";
+import React, { useState } from 'react';
+import PropTypes from 'prop-types';
 
 /**
- * Display a set of item with buttons to scroll through them
+ * Displays a set of items with buttons to scroll through them
  * @param {Array}  items The items to be displayed
  * @param {Number} size  How many items to display at once
  */
- 
 function Carousel({ items, size }) {
   const [start, setStart] = useState(0);
 
