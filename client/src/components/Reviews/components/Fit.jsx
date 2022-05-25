@@ -28,14 +28,14 @@ const Bar = styled.div`
 function Fit({ reviewsMetadata }) {
   return (
     <Container>
-      {Object.keys(reviewsMetadata.characteristics).map((ele) => {
-        let data = reviewsMetadata.characteristics[ele].value * 20;
+      {Object.keys(reviewsMetadata.characteristics).map((characteristic) => {
+        let data = reviewsMetadata.characteristics[characteristic].value * 20;
         if (data > 95) {
           data = 95;
         }
         return (
-          <Slider>
-            {ele}
+          <Slider key={reviewsMetadata.characteristics[characteristic].id}>
+            {characteristic}
             <Bar>
               <Pointer data={data}>
                 ^
