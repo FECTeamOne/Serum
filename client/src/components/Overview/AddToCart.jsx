@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 
 // TODO: make Select take all unspecified props from parent
 function Select({
+  label,
   value,
   options,
   defaultSelection,
@@ -10,7 +11,7 @@ function Select({
   onChange,
 }) {
   return (
-    <select value={value} onChange={onChange}>
+    <select aria-label={label} value={value} onChange={onChange}>
       {options.map((option) => (
         <option key={option} value={option}>{option}</option>
       ))}
@@ -19,8 +20,15 @@ function Select({
 }
 
 Select.propTypes = {
-  value: PropTypes.string.isRequired,
-  options: PropTypes.arrayOf(PropTypes.string),
+  label: PropTypes.string.isRequired,
+  value: PropTypes.oneOfType([
+    PropTypes.string,
+    PropTypes.number,
+  ]),
+  options: PropTypes.arrayOf(PropTypes.oneOfType([
+    PropTypes.string,
+    PropTypes.number,
+  ])),
   defaultSelection: PropTypes.string,
   disabled: PropTypes.bool,
   onChange: PropTypes.func.isRequired,
@@ -100,12 +108,14 @@ function AddToCart({ skus }) {
   return (
     <form>
       <Select
+        label="Select size"
         value={selectedSize}
         options={sizes}
         onChange={handleSizeChange}
         disabled={!isInStock}
       />
       <Select
+        label="Select quantity"
         value={selectedQuantity}
         options={quantities}
         onChange={handleQuantityChange}
