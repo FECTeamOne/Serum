@@ -10,14 +10,14 @@ function RelatedItemsList() {
   // get related items detail from the API; [{item 1}, {item 2}..]
   const relatedItems = [products, products, products].flat();
 
-  const relatedItemsEntry = relatedItems.map((item) => (
+  const relatedItemsEntries = relatedItems.map((item) => (
     <RelatedItemsEntry key={item.id} item={item} />
   ));
 
   return (
     <div>
       <div>RELATED PRODUCTS</div>
-      <Carousel items={relatedItemsEntry} size={4} />
+      <Carousel items={relatedItemsEntries} size={4} />
     </div>
   );
 }
