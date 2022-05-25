@@ -20,7 +20,6 @@ const AllRatings = styled.div`
 `;
 
 function Ratings({ reviewsMetadata }) {
-<<<<<<< HEAD
   let total = 0;
   let totalStars = 0;
   let highest = 0;
@@ -33,14 +32,11 @@ function Ratings({ reviewsMetadata }) {
       highest = num;
     }
   });
-=======
-  // TODO parse the data that we get passed in to render things
->>>>>>> main
   return (
     // TODO add in stars once that gets merged
     <Container>
       Product name here
-      <div>{avgStars}</div>
+      <Stars rating={avgStars} />
       {[...Array(5)].map((val, i) => {
         const currentStar = i + 1;
         let currentNumber = reviewsMetadata.ratings[currentStar];
