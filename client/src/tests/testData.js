@@ -79,7 +79,7 @@ module.exports.styles = {
           size: 'XS',
         },
         38: {
-          quantity: 16,
+          quantity: 0,
           size: 'S',
         },
         39: {
@@ -105,15 +105,15 @@ module.exports.styles = {
       skus: {
         37: {
           quantity: 8,
-          size: 'XS',
+          size: 'S',
         },
         38: {
           quantity: 16,
-          size: 'S',
+          size: 'L',
         },
         39: {
           quantity: 17,
-          size: 'M',
+          size: 'XL',
         },
         // ...
       },

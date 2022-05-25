@@ -7,7 +7,6 @@ import PropTypes from 'prop-types';
  */
 function Style({ style, handleStyleSelect, selected }) {
   // TODO: handle selected overlay
-  // TODO:
   return (
     <button
       type="button"
