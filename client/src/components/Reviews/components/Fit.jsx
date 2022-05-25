@@ -37,9 +37,9 @@ function Fit({ reviewsMetadata }) {
           <Slider>
             {ele}
             <Bar>
-            <Pointer data={data}>
-              ^
-            </Pointer>
+              <Pointer data={data}>
+                ^
+              </Pointer>
             </Bar>
           </Slider>
         );
