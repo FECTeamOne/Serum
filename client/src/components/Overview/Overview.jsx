@@ -47,7 +47,7 @@ function Overview({ productId }) {
   const handleStyleSelect = (styleId) => {
     setSelectedStyleId(styleId);
   };
-  
+
 
   return (
     <div>

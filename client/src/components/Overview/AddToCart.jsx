@@ -59,7 +59,6 @@ function AddToCart({ skus }) {
     sizes = ['OUT OF STOCK'];
   }
 
-  // TODO: should this effect have no subscriptions?
   useEffect(() => {
     if (isInStock) {
       // TODO: change to 'Select Size'
@@ -91,7 +90,7 @@ function AddToCart({ skus }) {
   const handleAddToCartClick = (event) => {
     event.preventDefault();
 
-    // TODO: account 
+    // TODO: account for default selection
     if (!selectedSize) {
       setPromptForSize(true);
     } else {
