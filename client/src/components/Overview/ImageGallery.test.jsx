@@ -20,4 +20,4 @@ describe('ImageGallery', () => {
     it.todo('should have a maximum set by the quantity of the style + size in stock, up to 15');
     it.todo('should show quantities ranging from 1 to the maximum');
   });
-}
+});
