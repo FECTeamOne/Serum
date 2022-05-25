@@ -6,10 +6,6 @@ import PropTypes from 'prop-types';
  * @param {Array}  items The items to be displayed
  * @param {Number} size  How many items to display at once
  */
-<<<<<<< HEAD
-
-=======
->>>>>>> main
 function Carousel({ items, size }) {
   const [start, setStart] = useState(0);
 

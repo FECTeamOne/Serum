@@ -15,7 +15,10 @@ function RelatedItemsList() {
   ));
 
   return (
-    <Carousel items={relatedItemsEntry} size={4} />
+    <div>
+      <div>RELATED PRODUCTS</div>
+      <Carousel items={relatedItemsEntry} size={4} />
+    </div>
   );
 }
 
