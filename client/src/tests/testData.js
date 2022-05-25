@@ -184,7 +184,7 @@ module.exports.reviewsMetadata = {
   characteristics: {
     Size: {
       id: 14,
-      value: '4.0000',
+      value: '1.5000',
     },
     Width: {
       id: 15,
