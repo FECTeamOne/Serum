@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import PropTypes from 'prop-types';
 import Carousel from 'App/Carousel.jsx';
 
 function ImageGallery({ photos }) {
@@ -7,7 +8,7 @@ function ImageGallery({ photos }) {
 
   const handleThumbnailClick = (index) => {
     setMainImageIndex(index);
-  }
+  };
 
   const images = photos.map((photo, i) => (
     <img
@@ -19,21 +20,31 @@ function ImageGallery({ photos }) {
   ));
 
   const thumbnails = photos.map((photo, i) => (
-    <img
-      key={i}
-      src={photo.url}
-      alt={`alt text`}
-      width="50"
-      onClick={(event) => {handleThumbnailClick(i)}}
-    />
+    <button
+      type="button"
+      onClick={() => { handleThumbnailClick(i); }}
+    >
+      <img
+        key={i}
+        src={photo.url}
+        alt={`alt text`}
+        width="50"
+      />
+    </button>
   ));
 
   return (
     <>
       <Carousel items={thumbnails} size={7} />
       <Carousel items={images} size={1} />
-    < />
+    </>
   );
 }
+
+ImageGallery.propTypes = {
+  photos: PropTypes.objectOf(
+    PropTypes.string,
+  ).isRequired,
+};
 
 export default ImageGallery;
