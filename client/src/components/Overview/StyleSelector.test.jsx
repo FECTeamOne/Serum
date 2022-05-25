@@ -27,7 +27,6 @@ describe('StyleSelector', () => {
   });
 
   it.todo('should show all styles for a product');
-  it.todo('should initially select the default style <- should go in Overview')
   it.todo('should not change style when the currently selected style thumbnail is clicked');
   it.todo('should indicate the selected style with an overlay');
 });
