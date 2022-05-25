@@ -40,7 +40,7 @@ function AddReview({ handleAddReview, chars }) {
   const [reviewText, setReviewText] = useState({
     summary: '',
     body: '',
-    nickname: '',
+    name: '',
     email: '',
   });
   const [characteristics, setCharacteristics] = useState({
@@ -51,16 +51,28 @@ function AddReview({ handleAddReview, chars }) {
     Length: null,
     Fit: null,
   });
-  useEffect(() => {
-    if (img) {
-      console.log(img);
-      axios({ method: 'post', url: `` })
-        .then((imgdata) => console.log(imgdata))
-        .catch((err) => console.log(err));
-    }
-  }, [img]);
+
   function handelReviewSubmit(e) {
+    // TODO add in checks for data
+    // TODO finish data submisson
     e.preventDefault();
+    const submitedData = {
+      ...reviewText,
+      product_id: 'NEED TO CHANGE', // TODO get product id
+      rating,
+      recommended,
+      characteristics: {
+        14: characteristics.Size,
+        15: characteristics.Width,
+        16: characteristics.Comfort,
+        17: characteristics.Quality,
+        18: characteristics.Length,
+        19: characteristics.Fit,
+      },
+    };
+    axios.post('/TEMP', submitedData)
+      .then(() => handleAddReview)
+      .catch((err) => console.log(err));
   }
   const handleFile = (e) => {
     setImg(e.target.files[0]);
@@ -157,13 +169,13 @@ function AddReview({ handleAddReview, chars }) {
             {/* need to add in stateful for this */}
           </div>
           <div>
-            nickname
+            name
             <input
               type="textarea"
               placeholder="Example: jackson11!"
               onChange={(e) => {
                 const temp = { ...reviewText };
-                temp.nickname = e.target.value;
+                temp.name = e.target.value;
                 setReviewText(temp);
               }}
             />
