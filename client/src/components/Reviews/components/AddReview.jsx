@@ -33,8 +33,8 @@ const data = {
 };
 const starsMeaning = ['Poor', 'Fair', 'Average', 'Good', 'Great'];
 
-function AddReview({ handleAddReview, chars }) {
-  const [recommended, setRecommended] = useState(null);
+function AddReview({ handleModalToggle, productCharacteristics }) {
+  const [isRecommended, setIsRecommended] = useState(null);
   const [rating, setRating] = useState(null);
   const [img, setImg] = useState(null);
   const [reviewText, setReviewText] = useState({
@@ -52,7 +52,7 @@ function AddReview({ handleAddReview, chars }) {
     Fit: null,
   });
 
-  function handelReviewSubmit(e) {
+  function handleReviewSubmit(e) {
     // TODO add in checks for data
     // TODO finish data submisson
     e.preventDefault();
@@ -60,7 +60,7 @@ function AddReview({ handleAddReview, chars }) {
       ...reviewText,
       product_id: 'NEED TO CHANGE', // TODO get product id
       rating,
-      recommended,
+      isRecommended,
       characteristics: {
         14: characteristics.Size,
         15: characteristics.Width,
@@ -71,7 +71,7 @@ function AddReview({ handleAddReview, chars }) {
       },
     };
     axios.post('/TEMP', submitedData)
-      .then(() => handleAddReview)
+      .then(() => handleModalToggle)
       .catch((err) => console.log(err));
   }
   const handleFile = (e) => {
@@ -79,7 +79,7 @@ function AddReview({ handleAddReview, chars }) {
   };
   return (
     <Modal>
-      <button type="button" onClick={handleAddReview}>X</button>
+      <button type="button" onClick={handleModalToggle}>X</button>
       <div>
         {[...Array(5)].map((star, i) => {
           const ratingVal = i + 1;
@@ -100,21 +100,21 @@ function AddReview({ handleAddReview, chars }) {
       <div>
         do you recommend this product?
         <label htmlFor="1">
-          <input id="1" type="radio" value="yes" checked={recommended} onChange={() => setRecommended(!recommended)} />
+          <input id="1" type="radio" value="yes" checked={isRecommended} onChange={() => setIsRecommended(!isRecommended)} />
           yes
         </label>
         <label htmlFor="2">
-          <input id="2" type="radio" value="no" checked={!recommended} onChange={() => setRecommended(!recommended)} />
+          <input id="2" type="radio" value="no" checked={!isRecommended} onChange={() => setIsRecommended(!isRecommended)} />
           no
         </label>
       </div>
       <div className="Characteristics">
-        {chars.map((ele) => (
+        {productCharacteristics.map((characteristic) => (
           <>
-            {ele}
+            {characteristic}
             <div>
               <div>
-                {characteristics[ele] ? data[ele][characteristics[ele] - 1] : 'None selected' }
+                {characteristics[characteristic] ? data[characteristic][characteristics[characteristic] - 1] : 'None selected' }
               </div>
               {[...Array(5)].map((e, j) => {
                 const val = j + 1;
@@ -123,10 +123,10 @@ function AddReview({ handleAddReview, chars }) {
                     <input
                       type="radio"
                       value={val}
-                      checked={val === characteristics[ele]}
+                      checked={val === characteristics[characteristic]}
                       onChange={() => {
                         const newstate = { ...characteristics };
-                        newstate[ele] = val;
+                        newstate[characteristic] = val;
                         setCharacteristics(newstate);
                       }}
                     />
@@ -139,7 +139,7 @@ function AddReview({ handleAddReview, chars }) {
         ))}
       </div>
       <div>
-        <form onSubmit={handelReviewSubmit}>
+        <form onSubmit={handleReviewSubmit}>
           <div>
             Summary
             <input
