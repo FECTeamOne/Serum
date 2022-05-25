@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 
+// TODO: make Select take all unspecified props from parent
 function Select({
   value,
   options,
@@ -38,7 +39,7 @@ function AddToCart({ skus }) {
   // the <Select /> for quantity selection
   const [quantities, setQuantities] = useState([1]);
   const [selectedQuantity, setSelectedQuantity] = useState();
-  const [promptForQuantity, setPromptForQuantity] = useState(false);
+  const [promptForSize, setPromptForSize] = useState(false);
 
   const availableSkus = Object.values(skus).filter((sku) => sku.quantity > 0);
   const isInStock = availableSkus.length > 0;
@@ -64,7 +65,7 @@ function AddToCart({ skus }) {
         .find((sku) => sku.size === selectedSize)
         .quantity;
 
-      // TODO: pull out range function and use it here
+      // TODO: pull out range function into lib and use it here
       setQuantities(Array(Math.min(maxQuantity, 15)).fill().map((_, i) => i + 1));
       setSelectedQuantity(1);
     }
@@ -76,15 +77,16 @@ function AddToCart({ skus }) {
 
   const handleQuantityChange = (event) => {
     setSelectedQuantity(event.target.value);
-    setPromptForQuantity(false);
+    setPromptForSize(false);
   };
 
   const handleAddToCartClick = (event) => {
     event.preventDefault();
 
-    if (!selectedQuantity) {
-      setPromptForQuantity(true);
-    } else if (selectedSize) {
+    // TODO: account 
+    if (!selectedSize) {
+      setPromptForSize(true);
+    } else {
       // TODO: actually add the purchase to cart
       const selectedSku = Object.keys(skus)
         .find((sku) => skus[sku].size === selectedSize);
@@ -107,7 +109,8 @@ function AddToCart({ skus }) {
         value={selectedQuantity}
         options={quantities}
         onChange={handleQuantityChange}
-        disabled={!(isInStock && sizes.includes(selectedSize))}
+        // TODO: might need to adjust this for !isInStock
+        disabled={!selectedSize}
       />
       <button
         type="submit"
