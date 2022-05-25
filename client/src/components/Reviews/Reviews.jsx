@@ -20,7 +20,7 @@ function Reviews() {
   return (
     <Container>
       <Left>
-        <Ratings />
+        <Ratings reviewsMetadata={reviewsMetadata} />
         <Fit reviewsMetadata={reviewsMetadata} />
       </Left>
       <ReviewList reviewsMetadata={reviewsMetadata} />
