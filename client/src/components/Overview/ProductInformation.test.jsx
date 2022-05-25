@@ -3,11 +3,11 @@ import ProductInformation from 'Overview/ProductInformation.jsx';
 
 describe('ProductInformation', () => {
   it('should show the price for the selected style', () => {
+    const styles = testData.styles.results;
+
     const { rerender } = render(<ProductInformation
       product={testData.product}
-      styles={testData.styles.results}
-      selectedStyleId={1}
-      handleStyleSelect={() => {}}
+      selectedStyle={styles.find((style) => style.style_id === 1)}
     />);
 
     let node = screen.getByText(/(?<=Style > )(.+?)$/);
@@ -15,9 +15,7 @@ describe('ProductInformation', () => {
 
     rerender(<ProductInformation
       product={testData.product}
-      styles={testData.styles.results}
-      selectedStyleId={2}
-      handleStyleSelect={() => {}}
+      selectedStyle={styles.find((style) => style.style_id === 2)}
     />);
 
     node = screen.getByText(/(?<=Style > )(.+?)$/);

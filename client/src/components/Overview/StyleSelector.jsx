@@ -1,8 +1,12 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
+/**
+ * Displays thumbnails of the product styles and
+ * allows style selection by clicking on a thumbnail
+ */
 function Style({ style, handleStyleSelect, selected }) {
-  // TODO: handle selected
+  // TODO: handle selected overlay
   return (
     <div onClick={() => handleStyleSelect(style.style_id)}>
       <img
@@ -16,8 +20,8 @@ function Style({ style, handleStyleSelect, selected }) {
 
 Style.propTypes = {
   style: PropTypes.object.isRequired,
-  selected: PropTypes.bool.isRequired,
   handleStyleSelect: PropTypes.func.isRequired,
+  selected: PropTypes.bool.isRequired,
 };
 
 function StyleSelector({ styles, selectedStyleId, handleStyleSelect }) {
