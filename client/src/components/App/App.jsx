@@ -11,12 +11,6 @@ const Container = styled.div`
 function App() {
   return (
     <Container>
-<<<<<<< HEAD
-      Hello Hello Hello Hello Hello Hello
-      <Button as="a" href="#">test</Button>
-      <Button test>test</Button>
-=======
->>>>>>> main
       <Overview />
       <Reviews />
       <RelatedItemsList />

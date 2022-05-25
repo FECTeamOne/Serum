@@ -4,19 +4,18 @@ import RelatedItemsEntry from 'RelatedItems/RelatedItemsEntry.jsx';
 import Carousel from 'App/Carousel.jsx'
 import { products } from 'tests/testData.js';
 
-function RelatedItemsList({currentItemId}) {
+// need to pass {currentItemId} into the props
+function RelatedItemsList() {
   // get related items from the API; [array of item id]
-  const relatedItems = [products, products, products].flat();
   // get related items detail from the API; [{item 1}, {item 2}..]
-  // render the related items using carousel
+  const relatedItems = [products, products, products].flat();
+
   const relatedItemsEntry = relatedItems.map((item) => (
     <RelatedItemsEntry key={item.id} item={item} />
   ));
 
   return (
-    <div>
-      <Carousel items={relatedItemsEntry} size={4} />
-    </div>
+    <Carousel items={relatedItemsEntry} size={4} />
   );
 }
 
