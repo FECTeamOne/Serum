@@ -3,6 +3,7 @@ import styled from 'styled-components';
 import ReviewList from 'Reviews/components/ReviewList.jsx';
 import Ratings from 'Reviews/components/Ratings.jsx';
 import Fit from 'Reviews/components/Fit.jsx';
+import { reviewsMetadata } from 'tests/testData.js'
 
 const Container = styled.div`
   text-align: center;
@@ -14,15 +15,15 @@ const Left = styled.div`
   min-height: 400px;
   margin-top: 1em;
 `;
-
+// TODO meta data req will happen here
 function Reviews() {
   return (
     <Container>
       <Left>
         <Ratings />
-        <Fit />
+        <Fit reviewsMetadata={reviewsMetadata} />
       </Left>
-      <ReviewList />
+      <ReviewList reviewsMetadata={reviewsMetadata} />
     </Container>
   );
 }
