@@ -51,7 +51,7 @@ function Overview({ productId }) {
 
   return (
     <div>
-      <ImageGallery selectedStyleId={selectedStyleId} />
+      <ImageGallery photos={selectedStyle.photos} />
       <ProductInformation
         product={product}
         selectedStyle={selectedStyle}
