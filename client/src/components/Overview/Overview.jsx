@@ -8,7 +8,7 @@ import testData from 'tests/testData.js';
 function Overview({ productId }) {
   const [product, setProduct] = useState({});
   const [styles, setStyles] = useState([]);
-  //const [selectedStyleId, setSelectedStyleId] = useState();
+  //TODO: remove initial state once data fetching is up
   const [selectedStyleId, setSelectedStyleId] = useState(1);
 
   useEffect(() => {
@@ -34,7 +34,7 @@ function Overview({ productId }) {
       }
     }
 
-    //fetchData();
+    // fetchData();
   }, []);
 
   const handleStyleSelect = (styleId) => {
