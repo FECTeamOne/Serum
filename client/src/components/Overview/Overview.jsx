@@ -3,6 +3,8 @@ import PropTypes from 'prop-types';
 import axios from 'axios';
 import ImageGallery from 'Overview/ImageGallery.jsx';
 import ProductInformation from 'Overview/ProductInformation.jsx';
+import StyleSelector from 'Overview/StyleSelector.jsx';
+import AddToCart from 'Overview/AddToCart.jsx';
 import testData from 'tests/testData.js';
 
 function Overview({ productId }) {
@@ -19,13 +21,15 @@ function Overview({ productId }) {
           axios.get(`/products/${productId}/styles`),
         ]);
 
-        const sortedStyles = stylesResponse.data.results.sort((style1, style2) => (
-          style1.styled_id - style2.styled_id
-        ));
+        const sortedStyles = stylesResponse.data.results.sort(
+          (style1, style2) => style1.styled_id - style2.styled_id
+        );
 
         setProduct(productResponse.data);
         setStyles(sortedStyles);
-        setSelectedStyleId(sortedStyles.find((style) => style['default?']).style_id);
+        setSelectedStyleId(
+          sortedStyles.find((style) => style['default?']).style_id
+        );
       } catch (error) {
         // TODO: handle error
       }
@@ -40,18 +44,19 @@ function Overview({ productId }) {
 
   return (
     <div>
-      <ImageGallery
-        selectedStyleId={selectedStyleId}
-      />
+      <ImageGallery selectedStyleId={selectedStyleId} />
       <ProductInformation
-        // product={product}
+        product={testData.product}
+        selectedStyle={styles.find((style) => style.style_id === selectedStyleId)}
+      />
+      <StyleSelector
         // styles={styles}
         selectedStyleId={selectedStyleId}
         handleStyleSelect={handleStyleSelect}
         // TODO: delete once fetching is working
-        product={testData.product}
         styles={testData.styles.results}
       />
+      <AddToCart />
     </div>
   );
 }
