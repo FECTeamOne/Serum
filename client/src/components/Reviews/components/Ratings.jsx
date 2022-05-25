@@ -34,12 +34,13 @@ function Ratings({ reviewsMetadata }) {
   return (
     // TODO add in stars once that gets merged
     <Container>
+      Product name here
       <div>{avgStars}</div>
       {[...Array(5)].map((val, i) => {
         const currentStar = i + 1;
-        const currentNumber = reviewsMetadata.ratings[currentStar];
+        let currentNumber = reviewsMetadata.ratings[currentStar];
         if (!currentNumber) {
-          return '';
+          currentNumber = 0;
         }
         return (
           <AllRatings>
