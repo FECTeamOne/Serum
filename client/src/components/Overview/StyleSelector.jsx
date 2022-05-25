@@ -7,14 +7,18 @@ import PropTypes from 'prop-types';
  */
 function Style({ style, handleStyleSelect, selected }) {
   // TODO: handle selected overlay
+  // TODO:
   return (
-    <div onClick={() => handleStyleSelect(style.style_id)}>
+    <button
+      type="button"
+      onClick={() => handleStyleSelect(style.style_id)}
+    >
       <img
         src={style.photos[0].thumbnail_url}
         alt={`${style.name} style thumbnail`}
         width="50"
       />
-    </div>
+    </button>
   );
 }
 
@@ -25,19 +29,18 @@ Style.propTypes = {
 };
 
 function StyleSelector({ styles, selectedStyleId, handleStyleSelect }) {
-  // TODO: use color-thief to extract average color of thumbnails server-side
-  const stylesArray = styles.map((style) => (
-    <Style
-      key={style.style_id}
-      style={style}
-      handleStyleSelect={handleStyleSelect}
-      selected={style.styled_id === selectedStyleId}
-    />
-  ));
-
+  // TODO: use color-thief to extract color of thumbnails server-side
+  // or parse style name
   return (
     <div>
-      { stylesArray }
+      {styles.map((style) => (
+        <Style
+          key={style.style_id}
+          style={style}
+          handleStyleSelect={handleStyleSelect}
+          selected={style.style_id === selectedStyleId}
+        />
+      ))}
     </div>
   );
 }
