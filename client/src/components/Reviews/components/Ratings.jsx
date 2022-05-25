@@ -1,5 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
+import Stars from 'App/Stars.jsx'
 
 const Container = styled.div`
   border: 2px solid black;
@@ -19,6 +20,7 @@ const AllRatings = styled.div`
 `;
 
 function Ratings({ reviewsMetadata }) {
+<<<<<<< HEAD
   let total = 0;
   let totalStars = 0;
   let highest = 0;
@@ -31,6 +33,9 @@ function Ratings({ reviewsMetadata }) {
       highest = num;
     }
   });
+=======
+  // TODO parse the data that we get passed in to render things
+>>>>>>> main
   return (
     // TODO add in stars once that gets merged
     <Container>
