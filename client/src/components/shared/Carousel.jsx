@@ -4,7 +4,15 @@ import styled from 'styled-components';
 
 const StyledCarousel = styled.div`
   display: flex;
-  flex-direction: ${props => props.direction};
+  flex-direction: ${(props) => props.direction};
+`;
+
+const CarouselItem = styled.div`
+  display: ${({visible}) => (visible ? 'block' : 'none')};
+`;
+
+const CarouselButton = styled.button`
+  visibility: ${({visible}) => (visible ? 'visible' : 'hidden')};
 `;
 
 /**
@@ -15,24 +23,37 @@ const StyledCarousel = styled.div`
 function Carousel({ items, size, direction = 'row' }) {
   const [start, setStart] = useState(0);
   const decrement = (event) => {
-    event.preventDefault();
-    setStart((oldStart) => Math.max(0, oldStart - size));
+    setStart(Math.max(0, start - size));
   };
 
   const increment = (event) => {
-    event.preventDefault();
-    setStart((oldStart) => Math.min(items.length - size, oldStart + size));
+    setStart(Math.min(items.length - size + 1, start + size));
   };
 
   return (
     <StyledCarousel direction={direction}>
-      <button type="button" onClick={decrement}>
+      <CarouselButton
+        type="button"
+        onClick={decrement}
+        visible={start !== 0}
+      >
         &lt;
-      </button>
-      {items.slice(start, start + size)}
-      <button type="button" onClick={increment}>
+      </CarouselButton>
+      {items.map((item, i) => (
+        <CarouselItem
+          visible={start <= i && i < start + size}
+          key={item.key}
+        >
+          {item}
+        </CarouselItem>
+      ))}
+      <CarouselButton
+        type="button"
+        onClick={increment}
+        visible={start < items.length - size}
+      >
         &gt;
-      </button>
+      </CarouselButton>
     </StyledCarousel>
   );
 }
