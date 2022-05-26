@@ -12,7 +12,7 @@ function App() {
   return (
     <Container>
       <Overview productId={11}/>
-      <Reviews />
+      <Reviews productId={40344} />
       <RelatedItemsList />
     </Container>
   );
