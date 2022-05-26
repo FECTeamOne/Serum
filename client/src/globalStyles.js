@@ -53,6 +53,7 @@ const GlobalStyle = styled.createGlobalStyle`
     --space-0: 4px;
     --space-1: 8px;
     --space-2: 12px;
+    /* space-3 is the base size */
     --space-3: 16px;
     --space-4: 24px;
     --space-5: 32px;
@@ -67,8 +68,26 @@ const GlobalStyle = styled.createGlobalStyle`
     --space-14: 640px;
     --space-15: 768px;
 
+    --size-0: 4px;
+    --size-1: 8px;
+    --size-2: 12px;
+    --size-3: 16px;
+    --size-4: 24px;
+    --size-5: 32px;
+    --size-6: 48px;
+    --size-7: 64px;
+    --size-8: 96px;
+    --size-9: 128px;
+    --size-10: 192px;
+    --size-11: 256px;
+    --size-12: 384px;
+    --size-13: 512px;
+    --size-14: 640px;
+    --size-15: 768px;
+
     --text-1: 12px;
     --text-2: 14px;
+    /* text-3 is the base size */
     --text-3: 16px;
     --text-4: 18px;
     --text-5: 20px;
@@ -93,6 +112,20 @@ const GlobalStyle = styled.createGlobalStyle`
     }
     /* Extra large devices (large laptops and desktops, 1200px and up) */
     @media only screen and (min-width: 1200px) {
+    }
+    /* Light mode */
+    @media (prefers-color-scheme: light) {
+      body {
+        background-color: white;
+        color: black;
+      }
+    }
+    /* Dark mode */
+    @media (prefers-color-scheme: dark) {
+        body {
+            background-color: black;
+            color: white;
+      }
     }
   }
 `;
