@@ -36,7 +36,7 @@ function ReviewList({reviewsMetadata}) {
   useEffect(() => {
     // TODO add in page once it is not erroring anymore
     // TODO could optimize this at somepoint (making first request before and passing it down)
-    axios.get(`/reviews?product_id=${productId}&sort="${currentSort}"&count=3&page=${page}`)
+    axios.get(`/reviews?product_id=${productId}&sort="${currentSort}"&count=3`)
       .then((res) => { setReviews(res.data); })
       .catch((err) => console.log(err));
   }, [currentSort]);
