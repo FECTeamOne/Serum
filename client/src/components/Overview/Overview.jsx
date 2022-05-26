@@ -46,8 +46,7 @@ function Overview({ productId }) {
       }
     }
 
-    // TODO: enable data fetching
-    // fetchData();
+    fetchData();
   }, []);
 
   const selectedStyle = styles.find((style) => style.style_id === selectedStyleId);

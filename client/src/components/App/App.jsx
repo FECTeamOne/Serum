@@ -15,7 +15,7 @@ function App() {
     <>
       <GlobalStyle />
       <Wrapper>
-        <Overview productId={11}/>
+        <Overview productId={40344}/>
         {/*<Reviews />*/}
         {/*<RelatedItemsList />*/}
       </Wrapper>
