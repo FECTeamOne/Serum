@@ -14,7 +14,7 @@ function ImageGallery({ photos }) {
     <img
       key={i}
       src={photo.url}
-      alt={`alt text`}
+      alt={`Current style ${i}`}
       width="500"
     />
   ));
@@ -27,7 +27,7 @@ function ImageGallery({ photos }) {
       <img
         key={i}
         src={photo.url}
-        alt={`alt text`}
+        alt={`Current style thumnail ${i}`}
         width="50"
       />
     </button>
@@ -42,8 +42,10 @@ function ImageGallery({ photos }) {
 }
 
 ImageGallery.propTypes = {
-  photos: PropTypes.objectOf(
-    PropTypes.string,
+  photos: PropTypes.arrayOf(
+    PropTypes.objectOf(
+      PropTypes.string
+    ),
   ).isRequired,
 };
 
