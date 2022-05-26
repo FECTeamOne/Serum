@@ -24,6 +24,7 @@ function RelatedItemsList() {
   return (
     <div>
       <div>RELATED PRODUCTS</div>
+      <div>{relatedItems.length}</div>
       <Carousel items={relatedItemsEntries} size={4} />
       <Modal showModal={showModal} onClose={() => setShowModal(false)} />
 

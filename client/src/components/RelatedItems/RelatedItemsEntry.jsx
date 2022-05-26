@@ -13,7 +13,7 @@ const Container = styled.div`
 const Action = styled.button`
   position: absolute;
   top: 5px;
-  right: 485px;
+  right: 45%;
   width: 80px;
   height: 35px;
   background-color: #555;
