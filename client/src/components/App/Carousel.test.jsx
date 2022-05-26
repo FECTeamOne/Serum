@@ -3,6 +3,7 @@ import Carousel from 'App/Carousel.jsx';
 
 describe('Carousel', () => {
 
+  // TODO: refactor tests to remove nesting
   const range = (start, end) => (
     Array(end - start + 1).fill().map((_, i) => i + start)
   );
@@ -58,4 +59,6 @@ describe('Carousel', () => {
     await user.click(backButton);
     checkScreenItems(range(0, size - 1));
   });
+
+  it.todo('should not show the appropriate buttons at corresponding end ranges');
 });
