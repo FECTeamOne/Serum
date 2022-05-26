@@ -51,6 +51,7 @@ module.exports = {
       RelatedItems: path.resolve(__dirname, 'client/src/components/RelatedItems/'),
       Reviews: path.resolve(__dirname, 'client/src/components/Reviews/'),
       tests: path.resolve(__dirname, 'client/src/tests'),
+      shared: path.resolve(__dirname, 'client/src/components/shared/'),
     }
   }
 };

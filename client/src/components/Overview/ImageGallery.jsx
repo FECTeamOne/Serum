@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
-import Carousel from 'App/Carousel.jsx';
+import Carousel from 'shared/Carousel.jsx';
 
 function ImageGallery({ photos }) {
   // TODO: create photo_ids for photos

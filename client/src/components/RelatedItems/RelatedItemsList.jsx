@@ -1,7 +1,7 @@
 import React from 'react';
 // import styled from 'styled-components';
 import RelatedItemsEntry from 'RelatedItems/RelatedItemsEntry.jsx';
-import Carousel from 'App/Carousel.jsx'
+import Carousel from 'shared/Carousel.jsx'
 import { products } from 'tests/testData.js';
 
 // need to pass {currentItemId} into the props
