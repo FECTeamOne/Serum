@@ -21,7 +21,7 @@ function Carousel({ items, size, direction = 'row' }) {
 
   const increment = (event) => {
     event.preventDefault();
-    setStart((oldStart) => Math.min(items.length - size + 1, oldStart + size));
+    setStart((oldStart) => Math.min(items.length - size, oldStart + size));
   };
 
   return (
