@@ -1,16 +1,24 @@
 import React from 'react';
+import styled from 'styled-components';
 import GlobalStyle from '../../globalStyles.js';
 import Reviews from 'Reviews/Reviews.jsx';
 import Overview from 'Overview/Overview.jsx';
 import RelatedItemsList from 'RelatedItems/RelatedItemsList.jsx'
 
+const Wrapper = styled.div`
+  margin:auto;
+  width: fit-content;
+`;
+
 function App() {
   return (
     <>
       <GlobalStyle />
-      <Overview productId={11}/>
-      <Reviews />
-      <RelatedItemsList />
+      <Wrapper>
+        <Overview productId={11}/>
+        {/*<Reviews />*/}
+        {/*<RelatedItemsList />*/}
+      </Wrapper>
     </>
   );
 }

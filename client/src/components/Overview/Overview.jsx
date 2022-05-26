@@ -10,6 +10,7 @@ import testData from 'tests/testData.js';
 
 
 const StyledOverview = styled.div`
+  width: fit-content;
   display: flex;
 `;
 
