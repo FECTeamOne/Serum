@@ -35,7 +35,11 @@ function ImageGallery({ photos }) {
 
   return (
     <>
-      <Carousel items={thumbnails} size={7} />
+      <Carousel
+        items={thumbnails}
+        size={7}
+        direction="column"
+      />
       <Carousel items={images} size={1} />
     </>
   );
