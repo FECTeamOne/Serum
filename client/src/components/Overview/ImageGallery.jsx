@@ -6,7 +6,7 @@ function ImageGallery({ photos }) {
   // TODO: create photo_ids for photos
   const [mainImageIndex, setMainImageIndex] = useState(0);
   photos.forEach((photo, i) => {
-    photo.photo_id = i;
+    photo.photo_id = i.toString();
   });
 
   const handleThumbnailClick = (index) => {
