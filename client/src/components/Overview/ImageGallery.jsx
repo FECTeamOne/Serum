@@ -5,6 +5,9 @@ import Carousel from 'App/Carousel.jsx';
 function ImageGallery({ photos }) {
   // TODO: create photo_ids for photos
   const [mainImageIndex, setMainImageIndex] = useState(0);
+  photos.forEach((photo, i) => {
+    photo.photo_id = i;
+  });
 
   const handleThumbnailClick = (index) => {
     setMainImageIndex(index);
@@ -12,7 +15,7 @@ function ImageGallery({ photos }) {
 
   const images = photos.map((photo, i) => (
     <img
-      key={i}
+      key={`image gallery main phtoo ${photo.photo_id}`}
       src={photo.url}
       alt={`Current style ${i}`}
       width="500"
@@ -21,7 +24,7 @@ function ImageGallery({ photos }) {
 
   const thumbnails = photos.map((photo, i) => (
     <button
-      key={i}
+      key={`image gallery thumbnail ${photo.photo_id}`}
       type="button"
       onClick={() => { handleThumbnailClick(i); }}
     >
