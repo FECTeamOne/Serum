@@ -32,11 +32,11 @@ function ReviewList({reviewsMetadata}) {
   const [currentSort, setCurrentSort] = useState('relevant');
   const [toggleModal, setToggleModal] = useState(false);
   const [reviews, setReviews] = useState({});
-  const [page, setPage] = useState(0);
+  const [page, setPage] = useState(1);
   useEffect(() => {
     // TODO add in page once it is not erroring anymore
     // TODO could optimize this at somepoint (making first request before and passing it down)
-    axios.get(`/reviews?product_id=${productId}&sort="${currentSort}"&count=3`)
+    axios.get(`/reviews?product_id=${productId}&sort="${currentSort}"&count=3&page=${page}`)
       .then((res) => { setReviews(res.data); })
       .catch((err) => console.log(err));
   }, [currentSort]);
@@ -47,8 +47,13 @@ function ReviewList({reviewsMetadata}) {
     setToggleModal(!toggleModal);
   };
   const handleMoreReviews = () => {
-    // TODO make a request to the api to get more/will change which reviews are being displayed
-    // ? may just add into useEffect and use page state to change
+    setPage(page + 1);
+    axios.get(`/reviews?product_id=${productId}&sort="${currentSort}"&count=2&page=${page}`)
+      .then((res) => {
+        res.data.results = [...res.data.results, ...reviews.results];
+        setReviews(res.data);
+      })
+      .catch((err) => console.log(err));
   };
   if (toggleModal) {
     const productCharacteristics = Object.keys(reviewsMetadata.characteristics);
