@@ -1,19 +1,19 @@
-import React, { useState } from 'react';
+import React from 'react';
 import styled from 'styled-components';
 import PropTypes from 'prop-types';
-import Modal from './Modal.jsx';
 
 // const Container = styled.div`
 //   text-align: center;
 // `;
-const Container = styled.div`
 
+const Container = styled.div`
+  position: relative
 `;
 
 const Action = styled.button`
-  position: static;
-  top: 10px;
-  right: 580px;
+  position: absolute;
+  top: 5px;
+  right: 485px;
   width: 80px;
   height: 35px;
   background-color: #555;
@@ -25,9 +25,7 @@ const Action = styled.button`
   border-radius: 5px;
 `;
 
-function RelatedItemsEntry({ item }) {
-  const [showModal, setShowModal] = useState(false);
-
+function RelatedItemsEntry({ item, onOpen }) {
   return (
     <Container>
       <img
@@ -36,10 +34,9 @@ function RelatedItemsEntry({ item }) {
         height="300"
         alt={`Thumbnail for related item ${item.name}`}
       />
-      <Action type="button" onClick={() => setShowModal(true)}>
+      <Action onClick={() => onOpen()}>
         Compare
       </Action>
-      <Modal showModal={showModal} onClose={() => setShowModal(false)} />
       <div>
         {item.category}
       </div>
@@ -53,6 +50,7 @@ function RelatedItemsEntry({ item }) {
 RelatedItemsEntry.propTypes = {
   // item: PropTypes.arrayOf(PropTypes.element).isRequired,
   item: PropTypes.object.isRequired,
+  onOpen: PropTypes.object.isRequired,
   // size: PropTypes.number.isRequired,
 };
 

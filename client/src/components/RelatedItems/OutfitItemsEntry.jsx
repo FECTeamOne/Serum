@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import styled from 'styled-components';
 import PropTypes from 'prop-types';
 
@@ -6,13 +6,13 @@ import PropTypes from 'prop-types';
 //   text-align: center;
 // `;
 const Container = styled.div`
-
+  position: relative
 `;
 
 const Action = styled.button`
-  position: static;
-  top: 10px;
-  right: 580px;
+  position: absolute;
+  top: 5px;
+  right: 485px;
   width: 80px;
   height: 35px;
   background-color: #555;
@@ -33,7 +33,7 @@ function OutfitItemsEntry({ item }) {
         height="300"
         alt={`Thumbnail for Outfit item ${item.name}`}
       />
-      <Action type="button" onClick={() => setShowModal(true)}>
+      <Action onClick={() => {}}>
         Remove
       </Action>
       <div>
