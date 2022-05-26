@@ -1,16 +1,26 @@
 import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import axios from 'axios';
+import styled from 'styled-components';
 import ImageGallery from 'Overview/ImageGallery.jsx';
 import ProductInformation from 'Overview/ProductInformation.jsx';
 import StyleSelector from 'Overview/StyleSelector.jsx';
 import AddToCart from 'Overview/AddToCart.jsx';
 import testData from 'tests/testData.js';
 
+
+const StyledOverview = styled.div`
+  display: flex;
+`;
+
 function Overview({ productId }) {
-  const [product, setProduct] = useState({});
-  const [styles, setStyles] = useState([]);
-  const [selectedStyleId, setSelectedStyleId] = useState();
+  // const [product, setProduct] = useState({});
+  // const [styles, setStyles] = useState([]);
+  // const [selectedStyleId, setSelectedStyleId] = useState();
+  //TODO: delete once data fetching is up
+  const [product, setProduct] = useState(testData.product);
+  const [styles, setStyles] = useState(testData.styles.results);
+  const [selectedStyleId, setSelectedStyleId] = useState(1);
 
   useEffect(() => {
     // TODO: account for unmounting
@@ -35,29 +45,32 @@ function Overview({ productId }) {
       }
     }
 
-    fetchData();
+    // TODO: enable data fetching
+    // fetchData();
   }, []);
 
+  const selectedStyle = styles.find((style) => style.style_id === selectedStyleId);
   const handleStyleSelect = (styleId) => {
     setSelectedStyleId(styleId);
   };
 
+
   return (
-    <div>
-      <ImageGallery selectedStyleId={selectedStyleId} />
-      <ProductInformation
-        product={testData.product}
-        selectedStyle={styles.find((style) => style.style_id === selectedStyleId)}
-      />
-      <StyleSelector
-        // styles={styles}
-        selectedStyleId={selectedStyleId}
-        handleStyleSelect={handleStyleSelect}
-        // TODO: delete once fetching is working
-        styles={testData.styles.results}
-      />
-      <AddToCart />
-    </div>
+    <StyledOverview>
+      <ImageGallery photos={selectedStyle.photos} />
+      <div>
+        <ProductInformation
+          product={product}
+          selectedStyle={selectedStyle}
+        />
+        <StyleSelector
+          styles={styles}
+          selectedStyleId={selectedStyleId}
+          handleStyleSelect={handleStyleSelect}
+        />
+        <AddToCart skus={selectedStyle.skus} />
+      </div>
+    </StyledOverview>
   );
 }
 
