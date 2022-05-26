@@ -6,27 +6,39 @@ import { products } from 'tests/testData.js';
 import Modal from './Modal.jsx';
 
 // need to pass {currentItemId} into the props
-function RelatedItemsList() {
+function RelatedItemsList({ currentItem }) {
   const [showModal, setShowModal] = useState(false);
+  const [currentRelated, setCurrentRelated] = useState(0);
 
   // get related items from the API; [array of item id]
   // get related items detail from the API; [{item 1}, {item 2}..]
-  const relatedItems = [products, products, products].flat();
+  const relatedItems = products.slice();
+  // change the product id for test only;
+  // relatedItems.forEach((item, index) => { item.id = index; });
+  console.log(relatedItems);
+  // detail of Modal
+  const currentItemChars = [{ char1: 'String' }, { char2: 'String' }, { char3: 'String' }];
+  const currentRelatedChars = [{ char1: 'String' }, { char2: 'String' }, { char3: 'String' }];
 
   const relatedItemsEntries = relatedItems.map((item) => (
-    <RelatedItemsEntry key={item.id} item={item} onOpen={() => setShowModal(true)} />
+    <RelatedItemsEntry
+      key={item.id}
+      item={item}
+      onOpen={() => setShowModal(true)}
+      onCompare={() => setCurrentRelated(item.id)}
+    />
   ));
-
-  // detail of Modal
-  // item1: [{char1: true}, {char2: true}]
-  // item2: [{char1: true}, {char2: true}]
 
   return (
     <div>
       <div>RELATED PRODUCTS</div>
-      <div>{relatedItems.length}</div>
-      <Carousel items={relatedItemsEntries} size={4} />
-      <Modal showModal={showModal} onClose={() => setShowModal(false)} />
+      <Carousel items={relatedItemsEntries} size={2} />
+      <Modal
+        showModal={showModal}
+        onClose={() => setShowModal(false)}
+        currentItemChars={currentItemChars}
+        currentRelatedChars={currentRelatedChars}
+      />
 
     </div>
   );

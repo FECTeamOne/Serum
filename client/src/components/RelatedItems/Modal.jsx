@@ -12,6 +12,7 @@ const Overlay = styled.div`
   display: flex;
   align-items:center;
   justify-content: center;
+  z-index:1;
 `;
 
 const Content = styled.div`
@@ -33,7 +34,9 @@ const Body = styled.div`
   border-bottom: 1px solid #eee;
 `;
 
-function Modal({ showModal, onClose }) {
+function Modal({
+  showModal, onClose, currentItemChars, currentRelatedChars,
+}) {
   if (!showModal) {
     return null;
   }
@@ -41,7 +44,8 @@ function Modal({ showModal, onClose }) {
     <Overlay onClick={onClose}>
       <Content>
         <Body>
-          This is a modal
+          {currentItemChars[0].char1}
+          {currentRelatedChars[0].char1}
         </Body>
       </Content>
     </Overlay>
@@ -52,6 +56,8 @@ Modal.propTypes = {
   // item: PropTypes.arrayOf(PropTypes.element).isRequired,
   showModal: PropTypes.number.isRequired,
   onClose: PropTypes.number.isRequired,
+  currentItemChars: PropTypes.arrayOf(PropTypes.object).isRequired,
+  currentRelatedChars: PropTypes.arrayOf(PropTypes.object).isRequired,
   // size: PropTypes.number.isRequired,
 };
 

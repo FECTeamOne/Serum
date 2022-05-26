@@ -8,16 +8,19 @@ import { products } from 'tests/testData.js';
 function OutfitItemsList() {
   // get related items from the API; [array of item id]
   // get related items detail from the API; [{item 1}, {item 2}..]
-  const OutfitItems = [products, products, products].flat();
+  const OutfitItems = products.slice();
 
   const OutfitItemsEntries = OutfitItems.map((item) => (
-    <OutfitItemsEntry key={item.id} item={item} />
+    <OutfitItemsEntry
+      key={item.id}
+      item={item}
+    />
   ));
 
   return (
     <div>
       <div>YOUR OUTFIT</div>
-      <Carousel items={OutfitItemsEntries} size={4} />
+      <Carousel items={OutfitItemsEntries} size={2} />
     </div>
   );
 }

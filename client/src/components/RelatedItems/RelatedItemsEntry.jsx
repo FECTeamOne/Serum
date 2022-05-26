@@ -25,7 +25,7 @@ const Action = styled.button`
   border-radius: 5px;
 `;
 
-function RelatedItemsEntry({ item, onOpen }) {
+function RelatedItemsEntry({ item, onOpen, onCompare }) {
   return (
     <Container>
       <img
@@ -34,7 +34,7 @@ function RelatedItemsEntry({ item, onOpen }) {
         height="300"
         alt={`Thumbnail for related item ${item.name}`}
       />
-      <Action onClick={() => onOpen()}>
+      <Action onClick={() => { onOpen(); onCompare(); }}>
         Compare
       </Action>
       <div>
@@ -51,6 +51,7 @@ RelatedItemsEntry.propTypes = {
   // item: PropTypes.arrayOf(PropTypes.element).isRequired,
   item: PropTypes.object.isRequired,
   onOpen: PropTypes.object.isRequired,
+  onCompare: PropTypes.object.isRequired,
   // size: PropTypes.number.isRequired,
 };
 
