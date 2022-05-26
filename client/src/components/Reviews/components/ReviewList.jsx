@@ -56,11 +56,11 @@ function ReviewList({reviewsMetadata}) {
       .catch((err) => console.log(err));
   };
   if (toggleModal) {
-    const productCharacteristics = Object.keys(reviewsMetadata.characteristics);
     return (
       <AddReview
         handleModalToggle={handleModalToggle}
-        productCharacteristics={productCharacteristics}
+        allCharacteristics={reviewsMetadata.characteristics}
+        productId={Number(productId)}
       />
     );
   }

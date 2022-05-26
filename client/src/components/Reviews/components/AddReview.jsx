@@ -5,13 +5,7 @@ import axios from 'axios';
 
 // TODO Change this to be the modal styles to make it a popup window
 const Modal = styled.div`
-  position: relative;
-  border: 2px solid black;
-  color: black;
-  width: calc(60% - (.5em + 6px));
-  float: right;
   min-height: 400px;
-  margin-top: 1em;
 `;
 const HiddenRadioButton = styled.input.attrs({
   type: 'radio',
@@ -33,10 +27,12 @@ const data = {
 };
 const starsMeaning = ['Poor', 'Fair', 'Average', 'Good', 'Great'];
 
-function AddReview({ handleModalToggle, productCharacteristics }) {
-  const [isRecommended, setIsRecommended] = useState(null);
+function AddReview({ handleModalToggle, allCharacteristics, productId }) {
+  const productCharacteristics = Object.keys(allCharacteristics);
+  const [isRecommended, setIsRecommended] = useState(false);
   const [rating, setRating] = useState(null);
   const [img, setImg] = useState(null);
+  const [submissonErr, setSubmissonErr] = useState(false);
   const [reviewText, setReviewText] = useState({
     summary: '',
     body: '',
@@ -53,26 +49,28 @@ function AddReview({ handleModalToggle, productCharacteristics }) {
   });
 
   function handleReviewSubmit(e) {
-    // TODO add in checks for data
-    // TODO finish data submisson
     e.preventDefault();
+    setSubmissonErr(false);
+    const characteristicSubmit = {};
+    const keysArray = Object.keys(allCharacteristics);
+    keysArray.forEach((key) => {
+      characteristicSubmit[allCharacteristics[key].id] = characteristics[key];
+    });
     const submitedData = {
       ...reviewText,
-      product_id: 'NEED TO CHANGE', // TODO get product id
+      product_id: Number(productId),
       rating,
-      isRecommended,
-      characteristics: {
-        14: characteristics.Size,
-        15: characteristics.Width,
-        16: characteristics.Comfort,
-        17: characteristics.Quality,
-        18: characteristics.Length,
-        19: characteristics.Fit,
-      },
+      recommend: isRecommended,
+      characteristics: characteristicSubmit,
+      photos: [],
     };
-    axios.post('/TEMP', submitedData)
-      .then(() => handleModalToggle)
-      .catch((err) => console.log(err));
+    if (submitedData.email.indexOf('@') === -1 || submitedData.email.indexOf('.') === -1) {
+      setSubmissonErr(true);
+    } else {
+      axios.post('/reviews', submitedData)
+        .then(() => handleModalToggle())
+        .catch((err) => console.log(err));
+    }
   }
   const handleFile = (e) => {
     setImg(e.target.files[0]);
@@ -193,6 +191,7 @@ function AddReview({ handleModalToggle, productCharacteristics }) {
               }}
             />
           </div>
+          {submissonErr ? <div>Error in submisson, check all feilds and try again</div> : ''}
           <input type="submit" />
         </form>
       </div>
