@@ -21,11 +21,11 @@ function ImageGallery({ photos }) {
 
   const thumbnails = photos.map((photo, i) => (
     <button
+      key={i}
       type="button"
       onClick={() => { handleThumbnailClick(i); }}
     >
       <img
-        key={i}
         src={photo.url}
         alt={`Current style thumnail ${i}`}
         width="50"

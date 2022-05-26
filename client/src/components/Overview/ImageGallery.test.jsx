@@ -7,7 +7,7 @@ describe('ImageGallery', () => {
       render(<ImageGallery photos={testData.styles.results[0].photos} />);
 
       expect(screen.getByAltText('Current style 0')).toBeVisible();
-      expect(screen.queryByAltText('Current style 1')).not.toBeVisible();
+      expect(screen.queryByAltText('Current style 1')).not.toBeInTheDocument();
     });
 
     it.todo('should display up to 7 thumbnails');

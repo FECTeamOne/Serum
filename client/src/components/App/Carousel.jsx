@@ -14,8 +14,6 @@ const StyledCarousel = styled.div`
  */
 function Carousel({ items, size, direction = 'row' }) {
   const [start, setStart] = useState(0);
-  console.log(direction);
-
   const decrement = (event) => {
     event.preventDefault();
     setStart((oldStart) => Math.max(0, oldStart - size));
