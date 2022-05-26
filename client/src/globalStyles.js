@@ -47,6 +47,9 @@ const GlobalStyle = styled.createGlobalStyle`
     border-spacing: 0;
   }
   :root {
+
+    font-family: 'Open Sans', helvetica, arial, sans-serif;
+
     --space-0: 4px;
     --space-1: 8px;
     --space-2: 12px;

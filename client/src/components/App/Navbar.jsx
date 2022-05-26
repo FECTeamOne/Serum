@@ -9,9 +9,12 @@ const StyledNavbar = styled.nav`
   margin-bottom: var(--space-6);
   margin-left: var(--space-6);
   margin-right: var(--space-6);
+  text-transform: uppercase;
 `;
 
 const Logo = styled.span`
+  font-weight: 600;
+  letter-spacing: .1rem;
   font-size: var(--text-8);
 `;
 
@@ -23,10 +26,10 @@ const Nav = styled.span`
 function Navbar() {
   return (
     <StyledNavbar>
-      <Logo>SERUM</Logo>
+      <Logo>Serum</Logo>
       <Nav>
-        <div>SHOP</div>
-        <div>CART</div>
+        <div>Shop</div>
+        <div>Cart</div>
       </Nav>
     </StyledNavbar>
   );
