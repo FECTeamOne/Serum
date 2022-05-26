@@ -1,11 +1,17 @@
 import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import axios from 'axios';
+import styled from 'styled-components';
 import ImageGallery from 'Overview/ImageGallery.jsx';
 import ProductInformation from 'Overview/ProductInformation.jsx';
 import StyleSelector from 'Overview/StyleSelector.jsx';
 import AddToCart from 'Overview/AddToCart.jsx';
 import testData from 'tests/testData.js';
+
+
+const StyledOverview = styled.div`
+  display: flex;
+`;
 
 function Overview({ productId }) {
   // const [product, setProduct] = useState({});
@@ -50,19 +56,21 @@ function Overview({ productId }) {
 
 
   return (
-    <div>
+    <StyledOverview>
       <ImageGallery photos={selectedStyle.photos} />
-      <ProductInformation
-        product={product}
-        selectedStyle={selectedStyle}
-      />
-      <StyleSelector
-        styles={styles}
-        selectedStyleId={selectedStyleId}
-        handleStyleSelect={handleStyleSelect}
-      />
-      <AddToCart skus={selectedStyle.skus} />
-    </div>
+      <div>
+        <ProductInformation
+          product={product}
+          selectedStyle={selectedStyle}
+        />
+        <StyleSelector
+          styles={styles}
+          selectedStyleId={selectedStyleId}
+          handleStyleSelect={handleStyleSelect}
+        />
+        <AddToCart skus={selectedStyle.skus} />
+      </div>
+    </StyledOverview>
   );
 }
 
