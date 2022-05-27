@@ -26,58 +26,52 @@ const CarouselButton = styled(Button)`
 function Carousel({
   items,
   size,
+  scrollTo,
   direction = 'row',
   arrowWidth,
   arrowHeight,
-  scrollTo,
+  handleScroll = () => {},
 }) {
-  const [start, setStart] = useState(0);
-  const decrement = (event) => {
-    setStart(Math.max(0, start - size));
-  };
-
-  const increment = (event) => {
-    setStart(Math.min(items.length - size + 1, start + size));
-  };
-
-  useEffect(() => {
-    if (scrollTo < start || start + size - 1 < scrollTo) {
-      setStart(scrollTo);
-    }
-  }, [scrollTo]);
-
   return (
     <StyledCarousel direction={direction}>
+
       <CarouselButton
         type="button"
-        onClick={decrement}
-        visible={start !== 0}
+        onClick={() => { handleScroll('decrement', size, scrollTo); }}
+        visible={scrollTo !== 0}
       >
+
         <ArrowIcon
           iconWidth={arrowWidth}
           iconHeight={arrowHeight}
           rotation={2 + Number(direction === 'column')}
         />
+
       </CarouselButton>
+
       {items.map((item, i) => (
         <CarouselItem
-          visible={start <= i && i < start + size}
+          visible={scrollTo <= i && i < scrollTo + size}
           key={item.key}
         >
           {item}
         </CarouselItem>
       ))}
+
       <CarouselButton
         type="button"
-        onClick={increment}
-        visible={start < items.length - size}
+        onClick={() => { handleScroll('increment', size, scrollTo); }}
+        visible={scrollTo < items.length - size}
       >
+
         <ArrowIcon
           iconWidth={arrowWidth}
           iconHeight={arrowHeight}
           rotation={Number(direction === 'column')}
         />
+
       </CarouselButton>
+
     </StyledCarousel>
   );
 }
