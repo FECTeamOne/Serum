@@ -14,7 +14,16 @@ const StyledOverview = styled.div`
   width: fit-content;
   display: flex;
   align-items:flex-start;
-  gap: var(--space-8);
+  gap: var(--space-6);
+`;
+
+const OverviewMain = styled.main`
+  width: var(--size-11);
+  margin-top: var(--space-7);
+
+  * {
+    margin-bottom: var(--size-6);
+  }
 `;
 
 function Overview({ productId }) {
@@ -61,7 +70,7 @@ function Overview({ productId }) {
   return (
     <StyledOverview>
       <ImageGallery photos={selectedStyle.photos} />
-      <div>
+      <OverviewMain>
         <ProductInformation
           product={product}
           selectedStyle={selectedStyle}
@@ -72,7 +81,7 @@ function Overview({ productId }) {
           handleStyleSelect={handleStyleSelect}
         />
         <AddToCart skus={selectedStyle.skus} />
-      </div>
+      </OverviewMain>
     </StyledOverview>
   );
 }

@@ -1,7 +1,13 @@
 import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
+import styled from 'styled-components';
 import Carousel from 'shared/Carousel.jsx';
 import ImageButton from 'shared/ImageButton.jsx';
+
+const StyledImageGallery = styled.section`
+  display:flex;
+  gap: var(--space-1);
+`;
 
 function ImageGallery({ photos }) {
   // for use as key
@@ -63,7 +69,7 @@ function ImageGallery({ photos }) {
   ));
 
   return (
-    <>
+    <StyledImageGallery>
       <Carousel
         items={thumbnails}
         size={thumbnailGallerySize}
@@ -81,7 +87,7 @@ function ImageGallery({ photos }) {
         scrollIndex={mainImageIndex}
         handleScroll={handleMainImageScroll}
       />
-    </>
+    </StyledImageGallery>
   );
 }
 

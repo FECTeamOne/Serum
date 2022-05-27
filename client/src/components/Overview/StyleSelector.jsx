@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import styled from 'styled-components';
 import ImageButton from 'shared/ImageButton.jsx';
 
 /**
@@ -25,11 +26,21 @@ Style.propTypes = {
   selected: PropTypes.bool.isRequired,
 };
 
+
+const StyledStyleSelector = styled.section`
+  display: flex;
+  flex-wrap: wrap;
+
+  * {
+    margin-bottom: 0;
+  }
+`;
+
 function StyleSelector({ styles, selectedStyleId, handleStyleSelect }) {
   // TODO: use color-thief to extract color of thumbnails server-side
   // or parse style name
   return (
-    <div>
+    <StyledStyleSelector>
       {styles.map((style) => (
         <Style
           key={style.style_id}
@@ -38,7 +49,7 @@ function StyleSelector({ styles, selectedStyleId, handleStyleSelect }) {
           selected={style.style_id === selectedStyleId}
         />
       ))}
-    </div>
+    </StyledStyleSelector>
   );
 }
 
