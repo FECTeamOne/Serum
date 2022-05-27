@@ -30,7 +30,7 @@ function AddToCart({ skus }) {
   // the <Select /> for quantity selection
   const [quantities, setQuantities] = useState([1]);
   const [selectedQuantity, setSelectedQuantity] = useState();
-  const [promptForSize, setPromptForSize] = useState(false);
+  const [shouldPromptForSize, setShouldPromptForSize] = useState(false);
 
   const availableSkus = Object.values(skus).filter((sku) => sku.quantity > 0);
   const isInStock = availableSkus.length > 0;
@@ -69,19 +69,18 @@ function AddToCart({ skus }) {
 
   const handleSizeChange = (event) => {
     setSelectedSize(event.target.value);
+    setShouldPromptForSize(false);
   };
 
   const handleQuantityChange = (event) => {
     setSelectedQuantity(event.target.value);
-    setPromptForSize(false);
   };
 
   const handleAddToCartClick = (event) => {
     event.preventDefault();
 
-    // TODO: account for default selection
     if (selectedSize === 'default') {
-      setPromptForSize(true);
+      setShouldPromptForSize(true);
     } else {
       // TODO: actually add the purchase to cart
       const selectedSku = Object.keys(skus)
