@@ -80,6 +80,7 @@ function ReviewList({reviewsMetadata, currentFilter }) {
           <option value="newest">Newest</option>
           <option value="helpful">Helpful</option>
         </StyledSelect>
+        {currentFilter.length > 0 ? `Filterd by ${currentFilter.join(', ')} stars` : ''}
       </form>
       {reviews.results.map((review) => <Review review={review} key={review.review_id} />)}
       <br />
