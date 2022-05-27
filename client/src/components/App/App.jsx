@@ -18,8 +18,8 @@ function App() {
       <Wrapper>
         <Navbar />
         <Overview productId={40344}/>
-        <Reviews
-        <RelatedItemsList
+        <Reviews />
+        <RelatedItemsList />
       </Wrapper>
     </>
   );
