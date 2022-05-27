@@ -22,6 +22,10 @@ const HiddenRadioButton = styled.input.attrs({
   position: absolute;
   opacity: 0;
 `;
+const Image = styled.img`
+  height: 50px;
+  width: 35px;
+`;
 
 const data = {
   Size: ['A size too small', '1/2 a size too small', 'Perfect', '1/2 a size too big', 'A size too big'],
@@ -36,7 +40,7 @@ const starsMeaning = ['Poor', 'Fair', 'Average', 'Good', 'Great'];
 function AddReview({ handleModalToggle, productCharacteristics }) {
   const [isRecommended, setIsRecommended] = useState(null);
   const [rating, setRating] = useState(null);
-  const [img, setImg] = useState(null);
+  const [img, setImg] = useState([]);
   const [reviewText, setReviewText] = useState({
     summary: '',
     body: '',
@@ -52,6 +56,20 @@ function AddReview({ handleModalToggle, productCharacteristics }) {
     Fit: null,
   });
 
+  function getBase64(file) {
+    return new Promise((resolve, reject) => {
+      const reader = new FileReader();
+      reader.readAsDataURL(file);
+      reader.onload = () => {
+        let encoded = reader.result.toString().replace(/^data:(.*,)?/, '');
+        if ((encoded.length % 4) > 0) {
+          encoded += '='.repeat(4 - (encoded.length % 4));
+        }
+        resolve(encoded);
+      };
+      reader.onerror = error => reject(error);
+    });
+  }
   function handleReviewSubmit(e) {
     // TODO add in checks for data
     // TODO finish data submisson
@@ -74,8 +92,23 @@ function AddReview({ handleModalToggle, productCharacteristics }) {
       .then(() => handleModalToggle)
       .catch((err) => console.log(err));
   }
-  const handleFile = (e) => {
-    setImg(e.target.files[0]);
+  const handleFile = async (e) => {
+    try {
+      const file64 = await getBase64(e.target.files[0]);
+      let body = new FormData();
+      body.append('image', file64);
+      const results = await axios({
+        method: 'post',
+        url: 'https://api.imgbb.com/1/upload?key=fe7a3df7bca50228ca58e71e62ad33f7',
+        data: body,
+      });
+      const url = results.data.data.display_url;
+      const arr = [...img];
+      arr.push(url);
+      setImg(arr);
+    } catch (err) {
+      console.log(err);
+    }
   };
   return (
     <Modal>
@@ -149,7 +182,8 @@ function AddReview({ handleModalToggle, productCharacteristics }) {
                 temp.summary = e.target.value;
                 setReviewText(temp);
               }}
-              placeholder="Example: Best purchase ever!" />
+              placeholder="Example: Best purchase ever!"
+            />
           </div>
           <div>
             Review
@@ -166,7 +200,7 @@ function AddReview({ handleModalToggle, productCharacteristics }) {
           {reviewText.body.length <= 50 ? `Minimum required characters left ${50 - reviewText.body.length}` : 'Minimum reached'}
           <div>
             <input type="file" onChange={handleFile} />
-            {/* need to add in stateful for this */}
+            {img.map((current) => <Image src={current} alt="img upload" />)}
           </div>
           <div>
             name
