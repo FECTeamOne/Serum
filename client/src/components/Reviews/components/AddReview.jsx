@@ -93,6 +93,10 @@ function AddReview({ handleModalToggle, productCharacteristics }) {
       .catch((err) => console.log(err));
   }
   const handleFile = async (e) => {
+    if (img.length > 4) {
+      alert('too many photos');
+      return;
+    }
     try {
       const file64 = await getBase64(e.target.files[0]);
       let body = new FormData();
