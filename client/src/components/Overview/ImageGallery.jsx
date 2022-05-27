@@ -18,35 +18,25 @@ function ImageGallery({ photos }) {
   // if so augment in overview before passing (should make a copy to be augmented first)
   useEffect(() => {
     setMainImageIndex(Math.min(mainImageIndex, photos.length));
-    setThumbnailScrollIndex(Math.min(thumbnailScrollIndex, photos.length - thumbnailGallerySize + 1));
-  }, [photos])
+    setThumbnailScrollIndex(
+      Math.min(thumbnailScrollIndex, photos.length - thumbnailGallerySize + 1)
+    );
+  }, [photos]);
 
   const handleThumbnailClick = (photo_id) => {
-    const index = photos.findIndex(photo => photo.photo_id === photo_id);
+    const index = photos.findIndex((photo) => photo.photo_id === photo_id);
     setMainImageIndex(index);
   };
 
-  const handleThumbnailScroll = (type, size) => {
-    if (type === 'decrement') {
-      setThumbnailScrollIndex(Math.max(0, thumbnailScrollIndex - size)); 
-    } else if (type === 'increment') {
-      setThumbnailScrollIndex(Math.min(photos.length - size + 1, thumbnailScrollIndex + size));
-    }
-  }
-  const handleMainImageScroll = (type, size) => {
-    let newMainImageIndex;
+  const handleThumbnailScroll = (scrollTo) => {
+    setThumbnailScrollIndex(scrollTo);
+  };
+  const handleMainImageScroll = (scrollTo) => {
+    setMainImageIndex(scrollTo);
 
-    if (type === 'decrement') {
-      newMainImageIndex = mainImageIndex - 1;
-      setMainImageIndex(Math.max(0, newMainImageIndex));
-    } else if (type === 'increment') {
-      newMainImageIndex = mainImageIndex + 1;
-      setMainImageIndex(Math.min(photos.length, newMainImageIndex));
-    }
-
-    if (newMainImageIndex < thumbnailScrollIndex
-      || thumbnailScrollIndex + thumbnailGallerySize - 1 < newMainImageIndex) {
-      setThumbnailScrollIndex(newMainImageIndex);
+    if (scrollTo < thumbnailScrollIndex
+      || thumbnailScrollIndex + thumbnailGallerySize - 1 < scrollTo) {
+      setThumbnailScrollIndex(scrollTo);
     }
   };
 

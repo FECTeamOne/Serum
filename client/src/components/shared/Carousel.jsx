@@ -32,13 +32,20 @@ function Carousel({
   arrowHeight,
   handleScroll = () => {},
 }) {
+  const placeInRange = (index) => {
+    const adjustedIndex = Math.min(index, items.length - size + 1);
+    return Math.max(0, adjustedIndex);
+  };
+
+  const adjustedScrollTo = placeInRange(scrollTo);
+
   return (
     <StyledCarousel direction={direction}>
 
       <CarouselButton
         type="button"
-        onClick={() => { handleScroll('decrement', size, scrollTo); }}
-        visible={scrollTo !== 0}
+        onClick={() => { handleScroll(placeInRange(adjustedScrollTo - size), size); }}
+        visible={adjustedScrollTo !== 0}
       >
 
         <ArrowIcon
@@ -51,7 +58,7 @@ function Carousel({
 
       {items.map((item, i) => (
         <CarouselItem
-          visible={scrollTo <= i && i < scrollTo + size}
+          visible={adjustedScrollTo <= i && i < adjustedScrollTo + size}
           key={item.key}
         >
           {item}
@@ -60,8 +67,8 @@ function Carousel({
 
       <CarouselButton
         type="button"
-        onClick={() => { handleScroll('increment', size, scrollTo); }}
-        visible={scrollTo < items.length - size}
+        onClick={() => { handleScroll(placeInRange(adjustedScrollTo + size), size); }}
+        visible={adjustedScrollTo < items.length - size}
       >
 
         <ArrowIcon
