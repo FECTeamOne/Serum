@@ -4,7 +4,6 @@ import axios from 'axios';
 import ReviewList from 'Reviews/components/ReviewList.jsx';
 import Ratings from 'Reviews/components/Ratings.jsx';
 import Fit from 'Reviews/components/Fit.jsx';
-// import { reviewsMetadata } from 'tests/testData.js'
 
 const Container = styled.div`
   text-align: center;
@@ -32,7 +31,7 @@ const Right = styled.div`
 function Reviews({ productId }) {
   const [reviewsMetadata, setReviewsMetaData] = useState('');
   const [productName, setProductName] = useState('');
-  const [currentFilter, setCurrentFilter] = useState([1]);
+  const [currentFilter, setCurrentFilter] = useState([]);
   useEffect(() => {
     axios.get(`/reviews/meta?product_id=${productId}`)
       .then((res) => { setReviewsMetaData(res.data); })
