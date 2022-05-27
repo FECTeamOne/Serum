@@ -17,7 +17,7 @@ function Select({
   label,
   value,
   options,
-  defaultSelection,
+  selectionPrompt,
   disabled,
   onChange,
   ...rest
@@ -31,13 +31,13 @@ function Select({
       disabled={disabled}
       {...rest}
     >
-      {defaultSelection ? (
+      {selectionPrompt ? (
         <option
           key="default"
           value={"default"}
           disabled
         >
-          {defaultSelection}
+          {selectionPrompt}
         </option>
       ) : null}
       {options.map((option) => (
@@ -57,7 +57,7 @@ Select.propTypes = {
     PropTypes.string,
     PropTypes.number,
   ])),
-  defaultSelection: PropTypes.string,
+  selectionPrompt: PropTypes.string,
   disabled: PropTypes.bool,
   onChange: PropTypes.func.isRequired,
 };

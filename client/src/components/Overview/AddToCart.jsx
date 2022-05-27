@@ -100,7 +100,7 @@ function AddToCart({ skus }) {
           label="Select Size"
           value={selectedSize}
           options={sizes}
-          defaultSelection="Select Size"
+          selectionPrompt="Select Size"
           onChange={handleSizeChange}
           disabled={!isInStock}
           width="var(--size-9)"
