@@ -18,6 +18,7 @@ const CarouselButton = styled(Button)`
   visibility: ${({ visible }) => (visible ? 'visible' : 'hidden')};
 `;
 
+// TODO: update docs
 /**
  * Displays a set of items with buttons to scroll through them
  * @param {Array}  items The items to be displayed
@@ -26,7 +27,7 @@ const CarouselButton = styled(Button)`
 function Carousel({
   items,
   size,
-  scrollTo,
+  scrollIndex,
   direction = 'row',
   arrowWidth,
   arrowHeight,
@@ -37,15 +38,15 @@ function Carousel({
     return Math.max(0, adjustedIndex);
   };
 
-  const adjustedScrollTo = placeInRange(scrollTo);
+  const adjustedScrollIndex = placeInRange(scrollIndex);
 
   return (
     <StyledCarousel direction={direction}>
 
       <CarouselButton
         type="button"
-        onClick={() => { handleScroll(placeInRange(adjustedScrollTo - size), size); }}
-        visible={adjustedScrollTo !== 0}
+        onClick={() => { handleScroll(placeInRange(adjustedScrollIndex - size), size); }}
+        visible={adjustedScrollIndex !== 0}
       >
 
         <ArrowIcon
@@ -58,7 +59,7 @@ function Carousel({
 
       {items.map((item, i) => (
         <CarouselItem
-          visible={adjustedScrollTo <= i && i < adjustedScrollTo + size}
+          visible={adjustedScrollIndex <= i && i < adjustedScrollIndex + size}
           key={item.key}
         >
           {item}
@@ -67,8 +68,8 @@ function Carousel({
 
       <CarouselButton
         type="button"
-        onClick={() => { handleScroll(placeInRange(adjustedScrollTo + size), size); }}
-        visible={adjustedScrollTo < items.length - size}
+        onClick={() => { handleScroll(placeInRange(adjustedScrollIndex + size), size); }}
+        visible={adjustedScrollIndex < items.length - size}
       >
 
         <ArrowIcon

@@ -70,7 +70,7 @@ function ImageGallery({ photos }) {
         direction="column"
         arrowHeight="var(--space-4)"
         arrowWidth="var(--space-4)"
-        scrollTo={thumbnailScrollIndex}
+        scrollIndex={thumbnailScrollIndex}
         handleScroll={handleThumbnailScroll}
       />
       <Carousel
@@ -78,7 +78,7 @@ function ImageGallery({ photos }) {
         size={1}
         arrowHeight="var(--space-6)"
         arrowWidth="var(--space-6)"
-        scrollTo={mainImageIndex}
+        scrollIndex={mainImageIndex}
         handleScroll={handleMainImageScroll}
       />
     </>
