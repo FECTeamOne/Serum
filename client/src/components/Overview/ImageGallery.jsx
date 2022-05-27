@@ -39,10 +39,17 @@ function ImageGallery({ photos }) {
     <>
       <Carousel
         items={thumbnails}
-        size={7}
+        size={4}
         direction="column"
+        arrowHeight="var(--space-4)"
+        arrowWidth="var(--space-4)"
       />
-      <Carousel items={images} size={1} />
+      <Carousel
+        items={images}
+        size={1}
+        arrowHeight="var(--space-6)"
+        arrowWidth="var(--space-6)"
+      />
     </>
   );
 }

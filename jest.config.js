@@ -84,8 +84,9 @@ module.exports = {
     '^Overview(.*)$': '<rootDir>/client/src/components/Overview$1',
     '^RelatedItems(.*)$': '<rootDir>/client/src/components/RelatedItems$1',
     '^Reviews(.*)$': '<rootDir>/client/src/components/Reviews$1',
-    '^tests(.*)$': '<rootDir>/client/src/tests$1',
     '^shared(.*)$': '<rootDir>/client/src/components/shared$1',
+    '^tests(.*)$': '<rootDir>/client/src/tests$1',
+    '^assets(.*)$': '<rootDir>/client/src/assets$1',
   },
 
   // An array of regexp pattern strings, matched against all module paths before considered 'visible' to the module loader

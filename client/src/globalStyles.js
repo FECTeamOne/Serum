@@ -50,6 +50,8 @@ const GlobalStyle = styled.createGlobalStyle`
 
     font-family: 'Open Sans', helvetica, arial, sans-serif;
 
+    --color-main: black;
+    --color-bg: white;
     --space-0: 4px;
     --space-1: 8px;
     --space-2: 12px;

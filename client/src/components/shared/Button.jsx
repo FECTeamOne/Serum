@@ -4,10 +4,12 @@ import styled from 'styled-components';
 const Button = styled.button.attrs((props) => ({
   type: props.type || 'button',
 }))`
-  border: 0;
-  background-color: transparent;
   height: ${({ height }) => height};
   width: ${({ width }) => width};
+  border: 0;
+  padding: 0;
+  margin: 0;
+  background-color: transparent;
 `;
 
 export default Button;

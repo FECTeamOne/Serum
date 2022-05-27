@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
+import Button from 'shared/Button.jsx';
+import ArrowIcon from 'assets/ArrowIcon.jsx';
 
 const StyledCarousel = styled.div`
   display: flex;
@@ -9,10 +11,10 @@ const StyledCarousel = styled.div`
 `;
 
 const CarouselItem = styled.div`
-  display: ${({ visible }) => (visible ? 'block' : 'none')};
+  display: ${({ visible }) => (visible ? '' : 'none')};
 `;
 
-const CarouselButton = styled.button`
+const CarouselButton = styled(Button)`
   visibility: ${({ visible }) => (visible ? 'visible' : 'hidden')};
 `;
 
@@ -21,7 +23,13 @@ const CarouselButton = styled.button`
  * @param {Array}  items The items to be displayed
  * @param {Number} size  How many items to display at once
  */
-function Carousel({ items, size, direction = 'row' }) {
+function Carousel({
+  items,
+  size,
+  direction = 'row',
+  arrowWidth,
+  arrowHeight,
+}) {
   const [start, setStart] = useState(0);
   const decrement = (event) => {
     setStart(Math.max(0, start - size));
@@ -38,7 +46,11 @@ function Carousel({ items, size, direction = 'row' }) {
         onClick={decrement}
         visible={start !== 0}
       >
-        &lt;
+        <ArrowIcon
+          iconWidth={arrowWidth}
+          iconHeight={arrowHeight}
+          rotation={2 + Number(direction === 'column')}
+        />
       </CarouselButton>
       {items.map((item, i) => (
         <CarouselItem
@@ -53,7 +65,11 @@ function Carousel({ items, size, direction = 'row' }) {
         onClick={increment}
         visible={start < items.length - size}
       >
-        &gt;
+        <ArrowIcon
+          iconWidth={arrowWidth}
+          iconHeight={arrowHeight}
+          rotation={Number(direction === 'column')}
+        />
       </CarouselButton>
     </StyledCarousel>
   );

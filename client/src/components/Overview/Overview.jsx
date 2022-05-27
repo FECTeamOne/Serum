@@ -10,10 +10,10 @@ import testData from 'tests/testData.js';
 
 
 const StyledOverview = styled.div`
-
   margin: var(--space-6);
   width: fit-content;
   display: flex;
+  align-items:flex-start;
   gap: var(--space-8);
 `;
 
