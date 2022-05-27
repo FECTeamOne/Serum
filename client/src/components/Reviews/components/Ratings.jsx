@@ -28,19 +28,15 @@ function Ratings({ reviewsMetadata, name, setCurrentFilter, currentFilter }) {
   const avgStars = totalStars / total;
   const highest = Math.max(...values);
   const handleStarClick = (currentStar) => {
-    console.log(currentStar)
     if (currentFilter.indexOf(currentStar) !== -1) {
       const temp = [...currentFilter];
-      console.log('temp', temp)
       temp.splice(currentFilter.indexOf(currentStar), 1);
       setCurrentFilter(temp);
     } else {
-      console.log(currentFilter)
       setCurrentFilter(currentFilter.concat([currentStar]));
     }
   };
   return (
-    // TODO add in stars once that gets merged
     <Container>
       {name}
       <Stars rating={avgStars} />
