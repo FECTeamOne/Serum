@@ -17,12 +17,12 @@ const StyledSelect = styled.select`
 `;
 
 function Select({
-  label,
   value,
+  onChange,
+  label,
   options,
   selectionPrompt,
   disabled,
-  onChange,
   ...props
 }) {
   return (
@@ -30,7 +30,6 @@ function Select({
       aria-label={label}
       value={value}
       onChange={onChange}
-      defaultValue={"default"}
       disabled={disabled}
       {...props}
     >
@@ -53,10 +52,7 @@ function Select({
 Select.propTypes = {
   /** The value the select should take. This is the
    * prop for using Select as a controlled component */
-  value: PropTypes.oneOfType([
-    PropTypes.string,
-    PropTypes.number,
-  ]).isRequired,
+  value: PropTypes.oneOfType([PropTypes.string, PropTypes.number]).isRequired,
   /* Change handler for the Select. Used to make
    * Select a controlled component */
   onChange: PropTypes.func.isRequired,
@@ -66,10 +62,12 @@ Select.propTypes = {
    * The elements are used for both the displayed text and the
    * value of the option itself. */
   options: PropTypes.arrayOf(
-    PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+    PropTypes.oneOfType([PropTypes.string, PropTypes.number])
   ).isRequired,
   /* String to be displayed by default, e.g. as a placeholder to
-  * prompt the user to the purpose of the Select: 'Select Size'. */
+   * prompt the user to the purpose of the Select: 'Select Size'.
+   * Initialize the state variable used for the 'value' parameter
+   * to 'default' in this case. */
   selectionPrompt: PropTypes.string,
   /* Whether the Select should be disabled */
   disabled: PropTypes.bool,
