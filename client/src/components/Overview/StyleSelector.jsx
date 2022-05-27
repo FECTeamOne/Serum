@@ -31,7 +31,7 @@ const StyledStyleSelector = styled.section`
   display: flex;
   flex-wrap: wrap;
 
-  * {
+  && * {
     margin-bottom: 0;
   }
 `;

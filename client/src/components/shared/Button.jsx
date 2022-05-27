@@ -6,10 +6,14 @@ const Button = styled.button.attrs((props) => ({
 }))`
   height: ${({ height }) => height};
   width: ${({ width }) => width};
-  border: 0;
-  padding: 0;
+  border: 1px solid;
+  padding-top: var(--space-2);
+  padding-bottom: var(--space-2);
+  padding-left: var(--space-4);
+  padding-right: var(--space-4);
   margin: 0;
   background-color: transparent;
+  cursor: pointer;
 `;
 
 export default Button;

@@ -1,43 +1,26 @@
 import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
+import styled from 'styled-components';
+import Select from 'shared/Select.jsx';
+import Button from 'shared/Button.jsx';
 
-// TODO: make Select take all unspecified props from parent
-function Select({
-  label,
-  value,
-  options,
-  defaultSelection,
-  disabled,
-  onChange,
-}) {
-  return (
-    <select aria-label={label} value={value} onChange={onChange}>
-      {options.map((option) => (
-        <option key={option} value={option}>{option}</option>
-      ))}
-    </select>
-  );
-}
+const StyledAddToCart = styled.form`
+  * {
+    margin-bottom: var(--space-1);
+  }
+`;
 
-Select.propTypes = {
-  label: PropTypes.string.isRequired,
-  value: PropTypes.oneOfType([
-    PropTypes.string,
-    PropTypes.number,
-  ]),
-  options: PropTypes.arrayOf(PropTypes.oneOfType([
-    PropTypes.string,
-    PropTypes.number,
-  ])),
-  defaultSelection: PropTypes.string,
-  disabled: PropTypes.bool,
-  onChange: PropTypes.func.isRequired,
-};
+const StyledSizeQuantity = styled.div`
+  padding: 0;
 
-Select.defaultProps = {
-  options: [],
-  disabled: false,
-};
+  && * {
+    margin-bottom: 0
+  }
+
+  & :first-child {
+    margin-right: var(--space-1);
+  }
+`;
 
 function AddToCart({ skus }) {
   const [selectedSize, setSelectedSize] = useState();
@@ -105,30 +88,35 @@ function AddToCart({ skus }) {
   };
 
   return (
-    <form>
-      <Select
-        label="Select size"
-        value={selectedSize}
-        options={sizes}
-        onChange={handleSizeChange}
-        disabled={!isInStock}
-      />
-      <Select
-        label="Select quantity"
-        value={selectedQuantity}
-        options={quantities}
-        onChange={handleQuantityChange}
-        // TODO: might need to adjust this for !isInStock
-        disabled={!selectedSize}
-      />
-      <button
+    <StyledAddToCart>
+      <StyledSizeQuantity>
+        <Select
+          label="Select size"
+          value={selectedSize}
+          options={sizes}
+          onChange={handleSizeChange}
+          disabled={!isInStock}
+          width="var(--size-10)"
+        />
+        <Select
+          label="Select quantity"
+          value={selectedQuantity}
+          options={quantities}
+          onChange={handleQuantityChange}
+          // TODO: might need to adjust this for !isInStock
+          disabled={!selectedSize}
+          width="var(--size-6)"
+        />
+      </StyledSizeQuantity>
+      <Button
         type="submit"
         onClick={handleAddToCartClick}
         hidden={!isInStock}
+        width="var(--size-11)"
       >
         Add to Cart
-      </button>
-    </form>
+      </Button>
+    </StyledAddToCart>
   );
 }
 
