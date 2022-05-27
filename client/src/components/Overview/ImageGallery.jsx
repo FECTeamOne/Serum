@@ -4,14 +4,14 @@ import Carousel from 'shared/Carousel.jsx';
 import ImageButton from 'shared/ImageButton.jsx';
 
 function ImageGallery({ photos }) {
-  // TODO: create photo_ids for photos
-  const [mainImageIndex, setMainImageIndex] = useState(0);
   photos.forEach((photo, i) => {
     photo.photo_id = i.toString();
   });
+  const [mainImageId, setMainImageId] = useState(photos[0].photo_id);
 
-  const handleThumbnailClick = (index) => {
-    setMainImageIndex(index);
+  const handleThumbnailClick = (photo_id) => {
+    const index = photos.findIndex(photo => photo.photo_id === photo_id);
+    setMainImageId(index);
   };
 
   const images = photos.map((photo, i) => (
@@ -24,12 +24,12 @@ function ImageGallery({ photos }) {
     />
   ));
 
-  const thumbnails = photos.map((photo, i) => (
+  const thumbnails = photos.map((photo) => (
     <ImageButton
       url={photo.url}
       key={`image gallery thumbnail ${photo.photo_id}`}
-      aria-label={`Current style thumbnail ${i}`}
-      onClick={() => { handleThumbnailClick(i); }}
+      aria-label={`Current style thumbnail ${photo.photo_id}`}
+      onClick={() => { handleThumbnailClick(photo.photo_id); }}
       height="var(--size-8)"
       width="var(--size-7)"
     />
@@ -49,6 +49,7 @@ function ImageGallery({ photos }) {
         size={1}
         arrowHeight="var(--space-6)"
         arrowWidth="var(--space-6)"
+        scrollTo={mainImageId}
       />
     </>
   );

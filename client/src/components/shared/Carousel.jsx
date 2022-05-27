@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import Button from 'shared/Button.jsx';
@@ -29,6 +29,7 @@ function Carousel({
   direction = 'row',
   arrowWidth,
   arrowHeight,
+  scrollTo,
 }) {
   const [start, setStart] = useState(0);
   const decrement = (event) => {
@@ -38,6 +39,12 @@ function Carousel({
   const increment = (event) => {
     setStart(Math.min(items.length - size + 1, start + size));
   };
+
+  useEffect(() => {
+    if (scrollTo < start || start + size - 1 < scrollTo) {
+      setStart(scrollTo);
+    }
+  }, [scrollTo]);
 
   return (
     <StyledCarousel direction={direction}>
