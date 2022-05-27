@@ -2,6 +2,10 @@ import React, { useEffect, useState } from 'react';
 import Review from 'Reviews/components/Review.jsx';
 import AddReview from 'Reviews/components/AddReview.jsx';
 import styled from 'styled-components';
+<<<<<<< HEAD
+=======
+// import { reviews } from 'tests/testData.js'
+>>>>>>> main
 import axios from 'axios';
 
 const AddReviewButton = styled.button`
@@ -10,7 +14,11 @@ const AddReviewButton = styled.button`
   padding: 0!important;
   position: absolute;
   right:  30%;
+<<<<<<< HEAD
   bottom:  3px;
+=======
+  bottom:  1%;
+>>>>>>> main
   cursor: pointer;
 `;
 const MoreReviewsButton = styled.button`
@@ -19,13 +27,18 @@ const MoreReviewsButton = styled.button`
   padding: 0!important;
   position: absolute;
   left:  30%;
+<<<<<<< HEAD
   bottom:  3px;
+=======
+  bottom:  1%;
+>>>>>>> main
   cursor: pointer;
 `;
 const StyledSelect = styled.select`
   border: none;
 `;
 
+<<<<<<< HEAD
 function ReviewList({reviewsMetadata, currentFilter }) {
   const productId = reviewsMetadata.product_id;
   const [currentSort, setCurrentSort] = useState('relevant');
@@ -35,6 +48,18 @@ function ReviewList({reviewsMetadata, currentFilter }) {
   useEffect(() => {
     setCount(2);
     axios.get(`/reviews?product_id=${productId}&sort=${currentSort}&count=2`)
+=======
+function ReviewList({reviewsMetadata}) {
+  const productId = reviewsMetadata.product_id;
+  const [currentSort, setCurrentSort] = useState('relevant');
+  const [modalIsVisible, setModalIsVisible] = useState(false);
+  const [reviews, setReviews] = useState({});
+  const [page, setPage] = useState(1);
+  useEffect(() => {
+    // TODO add in page once it is not erroring anymore
+    // TODO could optimize this at somepoint (making first request before and passing it down)
+    axios.get(`/reviews?product_id=${productId}&sort="${currentSort}"&count=3`)
+>>>>>>> main
       .then((res) => { setReviews(res.data); })
       .catch((err) => console.log(err));
   }, [currentSort]);
@@ -53,12 +78,28 @@ function ReviewList({reviewsMetadata, currentFilter }) {
     setCurrentSort(e.target.value);
   };
   const handleModalToggle = () => {
+<<<<<<< HEAD
     setToggleModal(!toggleModal);
   };
   const handleMoreReviews = () => {
     setCount(count + 2);
   };
   if (toggleModal) {
+=======
+    setModalIsVisible(!modalIsVisible);
+  };
+  const handleMoreReviews = () => {
+    setPage(page + 1);
+    axios.get(`/reviews?product_id=${productId}&sort="${currentSort}"&count=2&page=${page}`)
+      .then((res) => {
+        res.data.results = [...res.data.results, ...reviews.results];
+        setReviews(res.data);
+      })
+      .catch((err) => console.log(err));
+  };
+  if (modalIsVisible) {
+    const productCharacteristics = Object.keys(reviewsMetadata.characteristics);
+>>>>>>> main
     return (
       <AddReview
         handleModalToggle={handleModalToggle}
