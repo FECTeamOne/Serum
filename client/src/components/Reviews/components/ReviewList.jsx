@@ -26,7 +26,7 @@ const StyledSelect = styled.select`
   border: none;
 `;
 
-function ReviewList({reviewsMetadata}) {
+function ReviewList({reviewsMetadata, currentFilter }) {
   const productId = reviewsMetadata.product_id;
   const [currentSort, setCurrentSort] = useState('relevant');
   const [toggleModal, setToggleModal] = useState(false);
@@ -41,10 +41,15 @@ function ReviewList({reviewsMetadata}) {
   useEffect(() => {
     axios.get(`/reviews?product_id=${productId}&sort=${currentSort}&count=${count}`)
       .then((res) => {
+        console.log(currentFilter)
+        const filter = currentFilter.map((current) => Number(current));
+        if (filter.length !== 0) {
+          res.data.results = res.data.results.filter((each) => filter.indexOf(each.rating) !== -1);
+        }
         setReviews(res.data);
       })
       .catch((err) => console.log(err));
-  }, [count]);
+  }, [count, currentFilter]);
   const handleSort = (e) => {
     setCurrentSort(e.target.value);
   };

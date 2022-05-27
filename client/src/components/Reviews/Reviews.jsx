@@ -32,6 +32,7 @@ const Right = styled.div`
 function Reviews({ productId }) {
   const [reviewsMetadata, setReviewsMetaData] = useState('');
   const [productName, setProductName] = useState('');
+  const [currentFilter, setCurrentFilter] = useState([1]);
   useEffect(() => {
     axios.get(`/reviews/meta?product_id=${productId}`)
       .then((res) => { setReviewsMetaData(res.data); })
@@ -46,11 +47,16 @@ function Reviews({ productId }) {
   return (
     <Container>
       <Left>
-        <Ratings reviewsMetadata={reviewsMetadata} name={productName} />
+        <Ratings
+          reviewsMetadata={reviewsMetadata}
+          name={productName}
+          setCurrentFilter={setCurrentFilter}
+          currentFilter={currentFilter}
+        />
         <Fit reviewsMetadata={reviewsMetadata} />
       </Left>
       <Right>
-        <ReviewList reviewsMetadata={reviewsMetadata} />
+        <ReviewList reviewsMetadata={reviewsMetadata} currentFilter={currentFilter} />
       </Right>
     </Container>
   );

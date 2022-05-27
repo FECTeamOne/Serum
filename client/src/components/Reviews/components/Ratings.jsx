@@ -16,16 +16,29 @@ const StyledDiv = styled.div`
   padding-right: ${(props) => props.stars}%;
 `;
 const AllRatings = styled.div`
+  cursor: pointer;
   text-align: left;
 `;
 
-function Ratings({ reviewsMetadata, name }) {
+function Ratings({ reviewsMetadata, name, setCurrentFilter, currentFilter }) {
   let totalStars = 0;
   const values = Object.values(reviewsMetadata.ratings);
   const total = values.reduce((num, totals) => Number(num) + Number(totals), 0);
   Object.entries(reviewsMetadata.ratings).forEach((item) => { totalStars += item[0] * item[1]; });
   const avgStars = totalStars / total;
   const highest = Math.max(...values);
+  const handleStarClick = (currentStar) => {
+    console.log(currentStar)
+    if (currentFilter.indexOf(currentStar) !== -1) {
+      const temp = [...currentFilter];
+      console.log('temp', temp)
+      temp.splice(currentFilter.indexOf(currentStar), 1);
+      setCurrentFilter(temp);
+    } else {
+      console.log(currentFilter)
+      setCurrentFilter(currentFilter.concat([currentStar]));
+    }
+  };
   return (
     // TODO add in stars once that gets merged
     <Container>
@@ -38,7 +51,7 @@ function Ratings({ reviewsMetadata, name }) {
           currentNumber = 0;
         }
         return (
-          <AllRatings>
+          <AllRatings onClick={() => handleStarClick(currentStar)}>
             {`${currentStar} stars: ${currentNumber}`}
             <StyledDiv stars={100 - (currentNumber / highest) * 100}>
               <Bar />
