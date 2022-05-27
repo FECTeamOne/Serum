@@ -30,7 +30,7 @@ const StyledSelect = styled.select`
 function ReviewList({reviewsMetadata}) {
   const productId = reviewsMetadata.product_id;
   const [currentSort, setCurrentSort] = useState('relevant');
-  const [toggleModal, setToggleModal] = useState(false);
+  const [modalIsVisible, setModalIsVisible] = useState(false);
   const [reviews, setReviews] = useState({});
   const [page, setPage] = useState(1);
   useEffect(() => {
@@ -44,7 +44,7 @@ function ReviewList({reviewsMetadata}) {
     setCurrentSort(e.target.value);
   };
   const handleModalToggle = () => {
-    setToggleModal(!toggleModal);
+    setModalIsVisible(!modalIsVisible);
   };
   const handleMoreReviews = () => {
     setPage(page + 1);
@@ -55,7 +55,7 @@ function ReviewList({reviewsMetadata}) {
       })
       .catch((err) => console.log(err));
   };
-  if (toggleModal) {
+  if (modalIsVisible) {
     const productCharacteristics = Object.keys(reviewsMetadata.characteristics);
     return (
       <AddReview
