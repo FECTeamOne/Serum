@@ -20,18 +20,13 @@ const AllRatings = styled.div`
   text-align: left;
 `;
 
-<<<<<<< HEAD
 function Ratings({ reviewsMetadata, name, setCurrentFilter, currentFilter }) {
-=======
-function Ratings({ reviewsMetadata, name }) {
->>>>>>> main
   let totalStars = 0;
   const values = Object.values(reviewsMetadata.ratings);
   const total = values.reduce((num, totals) => Number(num) + Number(totals), 0);
   Object.entries(reviewsMetadata.ratings).forEach((item) => { totalStars += item[0] * item[1]; });
   const avgStars = totalStars / total;
   const highest = Math.max(...values);
-<<<<<<< HEAD
   const handleStarClick = (currentStar) => {
     if (currentFilter.indexOf(currentStar) !== -1) {
       const temp = [...currentFilter];
@@ -41,8 +36,6 @@ function Ratings({ reviewsMetadata, name }) {
       setCurrentFilter(currentFilter.concat([currentStar]));
     }
   };
-=======
->>>>>>> main
   return (
     <Container>
       {name}
