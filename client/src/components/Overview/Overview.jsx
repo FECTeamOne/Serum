@@ -10,8 +10,11 @@ import testData from 'tests/testData.js';
 
 
 const StyledOverview = styled.div`
+
+  margin: var(--space-6);
   width: fit-content;
   display: flex;
+  gap: var(--space-8);
 `;
 
 function Overview({ productId }) {

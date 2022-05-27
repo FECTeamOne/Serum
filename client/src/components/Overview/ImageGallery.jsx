@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import Carousel from 'shared/Carousel.jsx';
+import ImageButton from 'shared/ImageButton.jsx';
 
 function ImageGallery({ photos }) {
   // TODO: create photo_ids for photos
@@ -14,26 +15,24 @@ function ImageGallery({ photos }) {
   };
 
   const images = photos.map((photo, i) => (
-    <img
+    <ImageButton
+      url={photo.url}
       key={`image gallery main phtoo ${photo.photo_id}`}
-      src={photo.url}
-      alt={`Current style ${i}`}
-      width="500"
+      aria-label={`Current style ${i}`}
+      width="var(--size-12)"
+      height="var(--size-14)"
     />
   ));
 
   const thumbnails = photos.map((photo, i) => (
-    <button
+    <ImageButton
+      url={photo.url}
       key={`image gallery thumbnail ${photo.photo_id}`}
-      type="button"
+      aria-label={`Current style thumbnail ${i}`}
       onClick={() => { handleThumbnailClick(i); }}
-    >
-      <img
-        src={photo.url}
-        alt={`Current style thumnail ${i}`}
-        width="50"
-      />
-    </button>
+      height="var(--size-8)"
+      width="var(--size-7)"
+    />
   ));
 
   return (

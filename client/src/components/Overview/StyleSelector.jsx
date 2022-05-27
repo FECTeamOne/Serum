@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import ImageButton from 'shared/ImageButton.jsx';
 
 /**
  * Displays thumbnails of the product styles and
@@ -8,16 +9,13 @@ import PropTypes from 'prop-types';
 function Style({ style, handleStyleSelect, selected }) {
   // TODO: handle selected overlay
   return (
-    <button
-      type="button"
+    <ImageButton
+      url={style.photos[0].thumbnail_url}
+      aria-label={`${style.name} style selector`}
       onClick={() => handleStyleSelect(style.style_id)}
-    >
-      <img
-        src={style.photos[0].thumbnail_url}
-        alt={`${style.name} style thumbnail`}
-        width="50"
-      />
-    </button>
+      width="var(--size-6)"
+      height="var(--size-6)"
+    />
   );
 }
 

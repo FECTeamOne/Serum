@@ -46,7 +46,7 @@ const GlobalStyle = styled.createGlobalStyle`
     border-collapse: collapse;
     border-spacing: 0;
   }
-  :root {
+  html {
 
     font-family: 'Open Sans', helvetica, arial, sans-serif;
 
@@ -123,8 +123,8 @@ const GlobalStyle = styled.createGlobalStyle`
     /* Dark mode */
     @media (prefers-color-scheme: dark) {
         body {
-            background-color: black;
-            color: white;
+            /*background-color: black;
+            color: white;*/
       }
     }
   }

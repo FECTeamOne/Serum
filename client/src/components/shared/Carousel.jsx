@@ -4,15 +4,16 @@ import styled from 'styled-components';
 
 const StyledCarousel = styled.div`
   display: flex;
-  flex-direction: ${(props) => props.direction};
+  flex-direction: ${({ direction }) => direction};
+  gap: ${({ gap }) => gap};
 `;
 
 const CarouselItem = styled.div`
-  display: ${({visible}) => (visible ? 'block' : 'none')};
+  display: ${({ visible }) => (visible ? 'block' : 'none')};
 `;
 
 const CarouselButton = styled.button`
-  visibility: ${({visible}) => (visible ? 'visible' : 'hidden')};
+  visibility: ${({ visible }) => (visible ? 'visible' : 'hidden')};
 `;
 
 /**
