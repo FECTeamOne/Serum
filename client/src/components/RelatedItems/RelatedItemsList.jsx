@@ -2,7 +2,6 @@ import React, { useEffect, useState } from 'react';
 // import styled from 'styled-components';
 import RelatedItemsEntry from 'RelatedItems/RelatedItemsEntry.jsx';
 import Carousel from 'App/Carousel.jsx'
-import { products } from 'tests/testData.js';
 import Modal from './Modal.jsx';
 import axios from 'axios';
 
@@ -17,30 +16,35 @@ function RelatedItemsList({ currentItemId }) {
 
   const fetchData = async () => {
     const [relatedItemsArray, allProducts] = await Promise.all([axios.get('/products/40346/related'), axios.get('/products')]);
-    const temps = allProducts.data.filter((item) => (relatedItemsArray.data.indexOf(item.id) >= 0));
-    setAllRelated(temps);
+    const relatedProducts = allProducts.data.filter((item) => (
+      relatedItemsArray.data.indexOf(item.id) >= 0));
+    setAllRelated(relatedProducts);
     setArrayRelated(relatedItemsArray.data);
+
     relatedItemsArray.data.forEach((itemId) => {
       relatedItemsStyles.push(axios.get(`/products/${itemId}/styles`));
     });
-    const test = await Promise.all(relatedItemsStyles);
-    const allRelatedCopy = temps.slice();
-    test.forEach((item) => {
-      allRelatedCopy.forEach((product) => {
-        const tmpProduct = product;
-        if (tmpProduct.id.toString() === item.data.product_id) {
-          tmpProduct.img = item.data.results[0].photos[0].url;
-          console.log('product in copy: ', tmpProduct);
+    const relatedStyles = await Promise.all(relatedItemsStyles);
+
+    const relatedProductsCopy = relatedProducts.slice();
+    relatedStyles.forEach((item) => {
+      relatedProductsCopy.forEach((product) => {
+        const productCopy = product;
+        if (productCopy.id.toString() === item.data.product_id) {
+          productCopy.img = item.data.results[0].photos[0].url;
         }
       });
     });
-    setAllRelated(allRelatedCopy);
+    setAllRelated(relatedProductsCopy);
   };
+
+  const fetch
 
   useEffect(() => { fetchData(); }, []);
 
-  const currentItemChars = [{ char1: 'String' }, { char2: 'String' }, { char3: 'String' }];
-  const currentRelatedChars = [{ char1: 'String' }, { char2: 'String' }, { char3: 'String' }];
+  const currentChars = ['char1', 'char2', 'char3'];
+  const currentItemVals = ['1', '2', '3'];
+  const currentRelatedVals = ['2', '3', '4'];
 
   const relatedItemsEntries = allRelated.map((item) => (
     <RelatedItemsEntry
@@ -55,12 +59,13 @@ function RelatedItemsList({ currentItemId }) {
   return (
     <div>
       <div>RELATED PRODUCTS</div>
-      <Carousel items={relatedItemsEntries} size={2} />
+      <Carousel items={relatedItemsEntries} size={4} />
       <Modal
         showModal={showModal}
         onClose={() => setShowModal(false)}
-        currentItemChars={currentItemChars}
-        currentRelatedChars={currentRelatedChars}
+        currentChars={currentChars}
+        currentItemVals={currentItemVals}
+        currentRelatedVals={currentRelatedVals}
       />
 
     </div>

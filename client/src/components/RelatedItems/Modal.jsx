@@ -21,10 +21,20 @@ const Content = styled.div`
   top:200px;
   right:400px;
   bottom:200px;
-  background-color: rgba(0, 0, 0, 0.5);
+  background-color: rgba(0, 0, 0, 0.2);
   display: flex;
+  flex-direction: row;
   align-items:center;
-  justify-content: center;
+  justify-content:center;
+`;
+
+const BodyWrapper = styled.div`
+  padding: 10px;
+  color: #eee;
+  border-top: 1px solid #eee;
+  border-bottom: 1px solid #eee;
+  display: flex;
+  flex-direction: column;
 `;
 
 const Body = styled.div`
@@ -35,7 +45,7 @@ const Body = styled.div`
 `;
 
 function Modal({
-  showModal, onClose, currentItemChars, currentRelatedChars,
+  showModal, onClose, currentChars, currentItemVals, currentRelatedVals,
 }) {
   if (!showModal) {
     return null;
@@ -43,10 +53,27 @@ function Modal({
   return (
     <Overlay onClick={onClose}>
       <Content>
-        <Body>
-          {currentItemChars[0].char1}
-          {currentRelatedChars[0].char1}
-        </Body>
+        <BodyWrapper>
+          {currentItemVals.map((item) => (
+            <Body>
+              {item}
+            </Body>
+          ))}
+        </BodyWrapper>
+        <BodyWrapper>
+          {currentChars.map((item) => (
+            <Body>
+              {item}
+            </Body>
+          ))}
+        </BodyWrapper>
+        <BodyWrapper>
+          {currentRelatedVals.map((item) => (
+            <Body>
+              {item}
+            </Body>
+          ))}
+        </BodyWrapper>
       </Content>
     </Overlay>
   );
@@ -56,8 +83,9 @@ Modal.propTypes = {
   // item: PropTypes.arrayOf(PropTypes.element).isRequired,
   showModal: PropTypes.number.isRequired,
   onClose: PropTypes.number.isRequired,
-  currentItemChars: PropTypes.arrayOf(PropTypes.object).isRequired,
-  currentRelatedChars: PropTypes.arrayOf(PropTypes.object).isRequired,
+  currentItemVals: PropTypes.arrayOf(PropTypes.object).isRequired,
+  currentRelatedVals: PropTypes.arrayOf(PropTypes.object).isRequired,
+  currentChars: PropTypes.arrayOf(PropTypes.object).isRequired,
   // size: PropTypes.number.isRequired,
 };
 
