@@ -4,10 +4,6 @@ import axios from 'axios';
 import ReviewList from 'Reviews/components/ReviewList.jsx';
 import Ratings from 'Reviews/components/Ratings.jsx';
 import Fit from 'Reviews/components/Fit.jsx';
-<<<<<<< HEAD
-=======
-// import { reviewsMetadata } from 'tests/testData.js'
->>>>>>> main
 
 const Container = styled.div`
   text-align: center;
