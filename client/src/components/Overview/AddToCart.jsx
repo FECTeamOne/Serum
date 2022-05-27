@@ -23,7 +23,7 @@ const StyledSizeQuantity = styled.div`
 `;
 
 function AddToCart({ skus }) {
-  const [selectedSize, setSelectedSize] = useState();
+  const [selectedSize, setSelectedSize] = useState('default');
   // TODO: should quantities be state?
   // It's computed from selectedSize and I only added it to state so
   // updates to it would trigger a rerender and update
@@ -34,7 +34,7 @@ function AddToCart({ skus }) {
 
   const availableSkus = Object.values(skus).filter((sku) => sku.quantity > 0);
   const isInStock = availableSkus.length > 0;
-  let sizes = [];
+  let sizes;
 
   if (isInStock) {
     sizes = availableSkus.map((sku) => sku.size);
@@ -44,13 +44,19 @@ function AddToCart({ skus }) {
 
   useEffect(() => {
     if (isInStock) {
-      // TODO: change to 'Select Size'
-      setSelectedSize(Object.values(availableSkus)[0].size);
+      setSelectedSize('default');
+    } else {
+      setSelectedSize('OUT OF STOCK');
     }
   }, [skus]);
 
   useEffect(() => {
-    if (selectedSize) {
+    if (selectedSize === 'default' || !isInStock) {
+      const mdash = String.fromCharCode(8212);
+      setQuantities([mdash]);
+      setSelectedQuantity(mdash);
+    }
+    if (selectedSize !== 'default') {
       const maxQuantity = Object.values(skus)
         .find((sku) => sku.size === selectedSize)
         .quantity;
@@ -74,7 +80,7 @@ function AddToCart({ skus }) {
     event.preventDefault();
 
     // TODO: account for default selection
-    if (!selectedSize) {
+    if (selectedSize === 'default') {
       setPromptForSize(true);
     } else {
       // TODO: actually add the purchase to cart
@@ -91,21 +97,21 @@ function AddToCart({ skus }) {
     <StyledAddToCart>
       <StyledSizeQuantity>
         <Select
-          label="Select size"
+          label="Select Size"
           value={selectedSize}
           options={sizes}
+          defaultSelection="Select Size"
           onChange={handleSizeChange}
           disabled={!isInStock}
-          width="var(--size-10)"
+          width="var(--size-9)"
         />
         <Select
           label="Select quantity"
           value={selectedQuantity}
           options={quantities}
           onChange={handleQuantityChange}
-          // TODO: might need to adjust this for !isInStock
-          disabled={!selectedSize}
-          width="var(--size-6)"
+          disabled={selectedSize === 'default' || !isInStock}
+          width="var(--size-7)"
         />
       </StyledSizeQuantity>
       <Button

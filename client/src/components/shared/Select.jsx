@@ -23,7 +23,23 @@ function Select({
   ...rest
 }) {
   return (
-    <StyledSelect aria-label={label} value={value} onChange={onChange} {...rest}>
+    <StyledSelect
+      aria-label={label}
+      value={value}
+      onChange={onChange}
+      defaultValue={"default"}
+      disabled={disabled}
+      {...rest}
+    >
+      {defaultSelection ? (
+        <option
+          key="default"
+          value={"default"}
+          disabled
+        >
+          {defaultSelection}
+        </option>
+      ) : null}
       {options.map((option) => (
         <option key={option} value={option}>{option}</option>
       ))}
