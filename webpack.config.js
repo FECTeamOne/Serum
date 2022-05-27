@@ -50,6 +50,8 @@ module.exports = {
       Overview: path.resolve(__dirname, 'client/src/components/Overview/'),
       RelatedItems: path.resolve(__dirname, 'client/src/components/RelatedItems/'),
       Reviews: path.resolve(__dirname, 'client/src/components/Reviews/'),
+      shared: path.resolve(__dirname, 'client/src/components/shared/'),
+      assets: path.resolve(__dirname, 'client/src/assets/'),
       tests: path.resolve(__dirname, 'client/src/tests'),
     }
   }
