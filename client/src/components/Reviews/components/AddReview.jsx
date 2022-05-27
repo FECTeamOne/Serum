@@ -147,7 +147,8 @@ function AddReview({ handleModalToggle, allCharacteristics, productId }) {
                 temp.summary = e.target.value;
                 setReviewText(temp);
               }}
-              placeholder="Example: Best purchase ever!" />
+              placeholder="Example: Best purchase ever!"
+            />
           </div>
           <div>
             Review
