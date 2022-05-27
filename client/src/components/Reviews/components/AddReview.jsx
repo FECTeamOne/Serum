@@ -16,6 +16,15 @@ const HiddenRadioButton = styled.input.attrs({
   position: absolute;
   opacity: 0;
 `;
+const CloseButton = styled.button`
+  background: none!important;
+  border: none;
+  padding: 0!important;
+  cursor: pointer;
+  text-align: right;
+  font-size: 36px;
+  width: 90%;
+`;
 
 const data = {
   Size: ['A size too small', '1/2 a size too small', 'Perfect', '1/2 a size too big', 'A size too big'],
@@ -77,7 +86,7 @@ function AddReview({ handleModalToggle, allCharacteristics, productId }) {
   };
   return (
     <Modal>
-      <button type="button" onClick={handleModalToggle}>X</button>
+      <CloseButton type="button" onClick={handleModalToggle}>X</CloseButton>
       <div>
         {[...Array(5)].map((star, i) => {
           const ratingVal = i + 1;
