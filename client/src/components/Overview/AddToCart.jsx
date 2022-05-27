@@ -110,6 +110,7 @@ function AddToCart({ skus }) {
       </StyledSizeQuantity>
       <Button
         type="submit"
+        variant="primary"
         onClick={handleAddToCartClick}
         hidden={!isInStock}
         width="var(--size-11)"
