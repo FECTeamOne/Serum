@@ -2,8 +2,10 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
 
-// TODO: make Select take all unspecified props from parent
-
+/**
+ * A generic Select component meant as a replacement for
+ * the select tag.
+ */
 const StyledSelect = styled.select`
   margin: 0;
   border-radius: 0;
@@ -13,6 +15,7 @@ const StyledSelect = styled.select`
   padding-bottom: var(--space-2);
   width: ${(props) => props.width};
 `;
+
 function Select({
   label,
   value,
@@ -20,7 +23,7 @@ function Select({
   selectionPrompt,
   disabled,
   onChange,
-  ...rest
+  ...props
 }) {
   return (
     <StyledSelect
@@ -29,7 +32,7 @@ function Select({
       onChange={onChange}
       defaultValue={"default"}
       disabled={disabled}
-      {...rest}
+      {...props}
     >
       {selectionPrompt ? (
         <option
@@ -48,22 +51,32 @@ function Select({
 }
 
 Select.propTypes = {
-  label: PropTypes.string.isRequired,
+  /** The value the select should take. This is the
+   * prop for using Select as a controlled component */
   value: PropTypes.oneOfType([
     PropTypes.string,
     PropTypes.number,
-  ]),
-  options: PropTypes.arrayOf(PropTypes.oneOfType([
-    PropTypes.string,
-    PropTypes.number,
-  ])),
-  selectionPrompt: PropTypes.string,
-  disabled: PropTypes.bool,
+  ]).isRequired,
+  /* Change handler for the Select. Used to make
+   * Select a controlled component */
   onChange: PropTypes.func.isRequired,
+  /* Accesibility label text */
+  label: PropTypes.string.isRequired,
+  /** Contains the text of the options that are to be used in Select.
+   * The elements are used for both the displayed text and the
+   * value of the option itself. */
+  options: PropTypes.arrayOf(
+    PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+  ).isRequired,
+  /* String to be displayed by default, e.g. as a placeholder to
+  * prompt the user to the purpose of the Select: 'Select Size'. */
+  selectionPrompt: PropTypes.string,
+  /* Whether the Select should be disabled */
+  disabled: PropTypes.bool,
 };
 
 Select.defaultProps = {
-  options: [],
+  selectionPrompt: null,
   disabled: false,
 };
 
