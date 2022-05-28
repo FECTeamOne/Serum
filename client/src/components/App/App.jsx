@@ -12,9 +12,9 @@ const Container = styled.div`
 function App() {
   return (
     <Container>
-      <Overview productId={11}/>
-      <Reviews />
-      <RelatedItemsList currentItemId={40346}/>
+      <Overview productId={11} />
+      <Reviews productId={40344} />
+      <RelatedItemsList currentItemId={40346} />
       <OutfitItemsList />
     </Container>
   );
