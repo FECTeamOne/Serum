@@ -14,7 +14,7 @@ function App() {
     <Container>
       <Overview productId={11}/>
       <Reviews />
-      <RelatedItemsList />
+      <RelatedItemsList currentItemId={40346}/>
       <OutfitItemsList />
     </Container>
   );
