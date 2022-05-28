@@ -25,7 +25,8 @@ jobs:
     - name: Generate coverage report
       run:  |
         SUMMARY="$(npm test --coverage --coverageReporters=text-summary | tail -3 | head -1)"
-        TOKENS=($SUMMARY)      echo "COVERAGE=$(echo ${TOKENS[2]})" >> $GITHUB_ENV
+        TOKENS=($SUMMARY)      
+        echo "COVERAGE=$(echo ${TOKENS[2]})" >> $GITHUB_ENV
     - name: Create Coverage Badge
       uses: schneegans/dynamic-badges-action@v1.4.0
       with:
@@ -36,7 +37,7 @@ jobs:
         message: ${{ env.COVERAGE }}
         namedLogo: jest
         logoColor: "#C21325"
-        valColorRange: ${{ env.ANSWER }}
+        valColorRange: ${{ env.COVERAGE }}
         maxColorRange: 100
         minColorRange: 0
         style: flat
