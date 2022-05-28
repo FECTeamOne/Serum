@@ -1,6 +1,11 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import styled, { css } from 'styled-components';
 
+/**
+ * Generic button component meant as a replacement for
+ * the button tag.
+ */
 const Button = styled.button.attrs((props) => ({
   type: props.type || 'button',
 }))`
@@ -26,7 +31,11 @@ const Button = styled.button.attrs((props) => ({
         `;
     }
   }}
-  
 `;
+
+Button.PropTypes = {
+  /** Button variant, e.g. 'primary' for a primary action. */
+  variant: PropTypes.string,
+};
 
 export default Button;
