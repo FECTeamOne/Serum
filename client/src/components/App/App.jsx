@@ -6,11 +6,6 @@ import Overview from 'Overview/Overview.jsx';
 import RelatedItemsList from 'RelatedItems/RelatedItemsList.jsx';
 import GlobalStyle from '../../globalStyles.js';
 
-const Wrapper = styled.div`
-  margin:auto;
-  width: fit-content;
-`;
-
 function App() {
   return (
     <>
@@ -24,5 +19,10 @@ function App() {
     </>
   );
 }
+
+const Wrapper = styled.div`
+  margin:auto;
+  width: fit-content;
+`;
 
 export default App;
