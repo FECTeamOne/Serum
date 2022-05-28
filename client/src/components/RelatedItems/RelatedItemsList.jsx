@@ -10,16 +10,18 @@ import axios from 'axios';
 function RelatedItemsList({ currentItemId }) {
   const [modalIsVisible, setModalIsVisible] = useState(false);
   const [relatedProducts, setRelatedProducts] = useState([]);
-  const [currentRelated, setCurrentRelated] = useState(0);
+  const [currentRelated, setCurrentRelated] = useState('');
+  const [allProductChars, setAllProductChars] = useState('');
+  const [relatedProductChars, setRelatedProductChars] = useState('');
+  const [currentProductChars, setcurrentProductChars] = useState('');
 
-  const relatedItemsStyles = [];
+
   useEffect(() => {
     const fetchData = async () => {
       try {
         const [relatedItemsIds, allProducts] = await Promise.all([axios.get('/products/40346/related'), axios.get('/products')]);
         const filteredProducts = allProducts.data.filter((item) => (
           relatedItemsIds.data.includes(item.id)));
-        // console.log('filteredProduct: ', filteredProducts);
 
         await Promise.all(
           relatedItemsIds.data.map(async (itemId) => {
@@ -43,9 +45,81 @@ function RelatedItemsList({ currentItemId }) {
   }, [currentItemId]);
   // Defining fetchData outside of our useEffect hook is worse because it reinitializes fetchData on every rerender
   // useEffect(() => {fetchData();}, [currentItemId]);
-  const currentChars = ['char1', 'char2', 'char3'];
-  const currentItemVals = ['1', '2', '3'];
-  const currentRelatedVals = ['2', '3', '4'];
+  // const currentCharsTest = ['char1', 'char2', 'char3'];
+  // const currentItemVals = ['1', '2', '3'];
+  // const currentRelatedVals = ['2', '3', '4'];
+
+  const fetchFeatures = async (relatedId) => {
+    const relatedFeatures = [];
+    const currentFeatures = [];
+    await (
+      axios.get(`/products/${relatedId}`)
+        .then((res) => (res.data.features.forEach((feature) => {
+          relatedFeatures.push(feature);
+        })))
+        // [{f1: value}, {f2: value}...]
+    );
+    await (
+      axios.get(`/products/${currentItemId}`)
+        .then((res) => (res.data.features.forEach((feature) => {
+          currentFeatures.push(feature);
+        })))
+        // [{f1: value}, {f2: value}...]
+    );
+    console.log('relatedFeatures: ', relatedFeatures);
+    console.log('currentFeatures: ', currentFeatures);
+    // create allKeys(array), push object1.keys and object2.keys without duplicate
+    const relatedKeys = [];
+    relatedFeatures.forEach((item) => (relatedKeys.push(item.feature)));
+    console.log('relatedKeys: ', relatedKeys);
+
+    const currentKeys = [];
+    currentFeatures.forEach((item) => (currentKeys.push(item.feature)));
+    console.log('currentKeys : ', currentKeys);
+
+    const allFeatures = relatedKeys.slice();
+    currentKeys.forEach((key) => {
+      if (allFeatures.indexOf(key) < 0) {
+        allFeatures.push(key);
+      }
+    });
+    console.log('allFeatures: ', allFeatures);
+
+    // create relatedChars(array), for allKeys, if object1.keys includes it,
+    // push the value, else, push '',
+    // feature = ['f1', 'f2', 'f3'...]
+    // featureObject = [{feature: f1, value: v1}, {feature:f2, value: v2}...]
+    const relatedChars = [];
+    allFeatures.forEach((feature) => {
+      for (let i = 0; i < relatedFeatures.length; i += 1) {
+        if (relatedFeatures[i].feature === feature) {
+          relatedChars.push(relatedFeatures[i].value);
+          break;
+        } else if (i === relatedFeatures.length - 1) {
+          relatedChars.push('NA');
+        }
+      }
+    });
+    console.log('relatedChars: ', relatedChars);
+
+    const currentChars = [];
+    allFeatures.forEach((feature) => {
+      for (let i = 0; i < currentFeatures.length; i += 1) {
+        if (currentFeatures[i].feature === feature) {
+          currentChars.push(currentFeatures[i].value);
+          break;
+        } else if (i === currentFeatures.length - 1) {
+          currentChars.push('NA');
+        }
+      }
+    });
+    console.log('currentChars: ', currentChars);
+    setAllProductChars(allFeatures);
+    setRelatedProductChars(relatedChars);
+    setcurrentProductChars(currentChars);
+  };
+  // click on compare, input relatedId
+  // fetchFeatures of currentRelated
 
   const relatedItemsEntries = relatedProducts.map((item) => (
     <RelatedItemsEntry
@@ -53,7 +127,7 @@ function RelatedItemsList({ currentItemId }) {
       img={item.img}
       item={item}
       onOpen={() => setModalIsVisible(true)}
-      onCompare={() => setCurrentRelated(item.id)}
+      onCompare={() => fetchFeatures(item.id)}
     />
   ));
 
@@ -61,22 +135,21 @@ function RelatedItemsList({ currentItemId }) {
     <div>
       <div>RELATED PRODUCTS</div>
       <Carousel items={relatedItemsEntries} size={4} />
+      { currentProductChars && allProductChars && relatedProductChars
+        &&
       <Modal
         showModal={modalIsVisible}
         onClose={() => setModalIsVisible(false)}
-        currentChars={currentChars}
-        currentItemVals={currentItemVals}
-        currentRelatedVals={currentRelatedVals}
-      />
-
+        currentChars={allProductChars}
+        currentItemVals={currentProductChars}
+        currentRelatedVals={relatedProductChars}
+      />}
     </div>
   );
 }
 
 RelatedItemsList.propTypes = {
-  // item: PropTypes.arrayOf(PropTypes.element).isRequired,
   currentItemId: PropTypes.string.isRequired,
-  // size: PropTypes.number.isRequired,
 };
 
 export default RelatedItemsList;

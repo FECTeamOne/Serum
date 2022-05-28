@@ -38,6 +38,9 @@ const BodyWrapper = styled.div`
 `;
 
 const Body = styled.div`
+  width: 200px;
+  height: 300px
+  margin: 10px;
   padding: 10px;
   color: #eee;
   border-top: 1px solid #eee;
@@ -50,6 +53,10 @@ function Modal({
   if (!showModal) {
     return null;
   }
+  console.log('currentItemVals: ', currentItemVals);
+  console.log('currentChars: ', currentChars);
+  console.log('currentRelatedVals: ', currentRelatedVals);
+
   return (
     <Overlay onClick={onClose}>
       <Content>
