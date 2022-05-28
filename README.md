@@ -1,7 +1,7 @@
 # Serum
 
 ![build](https://github.com/FECTeamOne/Serum/actions/workflows/tests.yml/badge.svg)
-![Coverage Badge](https://img.shields.io/endpoint?url=https://gist.githubusercontent.com/slargman/543788f5251dd639ee579c24fba7a2a4/raw/670635928fef416a8d99fc62ad46d8fcc857b6ce/SERUM_coverage.json)
+![Coverage Badge](https://img.shields.io/endpoint?url=https://gist.githubusercontent.com/slargman/543788f5251dd639ee579c24fba7a2a4/raw/SERUM_coverage.json)
 
 Serum is an ecommerce product detail page built for a fictional clothing company as an exercise in front-end development. It contains three modules: an overview, a ratings and reviews section, and a related items and comparison section.
 
