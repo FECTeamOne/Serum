@@ -36,7 +36,7 @@ jobs:
         label: coverage
         message: ${{ env.COVERAGE }}
         namedLogo: jest
-        logoColor: "#C21325"
+        logoColor: white
         valColorRange: ${{ env.COVERAGE }}
         maxColorRange: 100
         minColorRange: 0
