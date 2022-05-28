@@ -27,7 +27,7 @@ jobs:
         SUMMARY="$(npm test --coverage --coverageReporters=text-summary | tail -3 | head -1)"
         TOKENS=($SUMMARY)      echo "COVERAGE=$(echo ${TOKENS[2]})" >> $GITHUB_ENV
     - name: Create Coverage Badge
-      uses: schneegans/dynamic-badges-action@v1.1.0
+      uses: schneegans/dynamic-badges-action@v1.4.0
       with:
         auth: ${{ secrets.GIST_SECRET }}
         gistID: 543788f5251dd639ee579c24fba7a2a4
