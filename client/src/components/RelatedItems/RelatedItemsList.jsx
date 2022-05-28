@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 // import styled from 'styled-components';
+import PropTypes from 'prop-types';
 import RelatedItemsEntry from 'RelatedItems/RelatedItemsEntry.jsx';
 import Carousel from 'App/Carousel.jsx'
 import Modal from './Modal.jsx';
@@ -18,6 +19,7 @@ function RelatedItemsList({ currentItemId }) {
         const [relatedItemsIds, allProducts] = await Promise.all([axios.get('/products/40346/related'), axios.get('/products')]);
         const filteredProducts = allProducts.data.filter((item) => (
           relatedItemsIds.data.includes(item.id)));
+        // console.log('filteredProduct: ', filteredProducts);
 
         await Promise.all(
           relatedItemsIds.data.map(async (itemId) => {
@@ -26,7 +28,9 @@ function RelatedItemsList({ currentItemId }) {
             // find the item with id itemId
             const itemWithItemId = filteredProducts.find((item) => (item.id === itemId));
             // add image from styles to item
-            itemWithItemId.img = styles.results[0].photos[0].url;
+            if (itemWithItemId) {
+              itemWithItemId.img = styles.data.results[0].photos[0].url;
+            }
           }),
         );
         setRelatedProducts(filteredProducts);
@@ -68,5 +72,11 @@ function RelatedItemsList({ currentItemId }) {
     </div>
   );
 }
+
+RelatedItemsList.propTypes = {
+  // item: PropTypes.arrayOf(PropTypes.element).isRequired,
+  currentItemId: PropTypes.string.isRequired,
+  // size: PropTypes.number.isRequired,
+};
 
 export default RelatedItemsList;
