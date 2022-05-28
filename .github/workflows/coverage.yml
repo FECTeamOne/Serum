@@ -22,9 +22,11 @@ jobs:
       run: npm ci
     - name: Build
       run: npm run build
+    - name: Test
+      run: npm test -- --coverageReporters='text-summary'
     - name: Generate coverage report
       run:  |
-        SUMMARY="$(npm test --coverage --coverageReporters='text-summary' | tail -3 | head -1)"
+        SUMMARY="$(npm test -- --coverageReporters='text-summary' | tail -3 | head -1)"
         TOKENS=($SUMMARY)      
         echo "COVERAGE=$(echo ${TOKENS[2]})" >> $GITHUB_ENV
     - name: Create Coverage Badge
