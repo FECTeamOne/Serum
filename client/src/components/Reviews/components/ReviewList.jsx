@@ -2,7 +2,6 @@ import React, { useEffect, useState } from 'react';
 import Review from 'Reviews/components/Review.jsx';
 import AddReview from 'Reviews/components/AddReview.jsx';
 import styled from 'styled-components';
-// import { reviews } from 'tests/testData.js'
 import axios from 'axios';
 
 const AddReviewButton = styled.button`
@@ -11,7 +10,7 @@ const AddReviewButton = styled.button`
   padding: 0!important;
   position: absolute;
   right:  30%;
-  bottom:  1%;
+  bottom:  3px;
   cursor: pointer;
 `;
 const MoreReviewsButton = styled.button`
@@ -20,47 +19,51 @@ const MoreReviewsButton = styled.button`
   padding: 0!important;
   position: absolute;
   left:  30%;
-  bottom:  1%;
+  bottom:  3px;
   cursor: pointer;
 `;
 const StyledSelect = styled.select`
   border: none;
 `;
 
-function ReviewList({reviewsMetadata}) {
+function ReviewList({reviewsMetadata, currentFilter }) {
   const productId = reviewsMetadata.product_id;
   const [currentSort, setCurrentSort] = useState('relevant');
-  const [modalIsVisible, setModalIsVisible] = useState(false);
+  const [toggleModal, setToggleModal] = useState(false);
   const [reviews, setReviews] = useState({});
-  const [page, setPage] = useState(1);
+  const [count, setCount] = useState(2);
   useEffect(() => {
-    // TODO add in page once it is not erroring anymore
-    // TODO could optimize this at somepoint (making first request before and passing it down)
-    axios.get(`/reviews?product_id=${productId}&sort="${currentSort}"&count=3`)
+    setCount(2);
+    axios.get(`/reviews?product_id=${productId}&sort=${currentSort}&count=2`)
       .then((res) => { setReviews(res.data); })
       .catch((err) => console.log(err));
   }, [currentSort]);
+  useEffect(() => {
+    axios.get(`/reviews?product_id=${productId}&sort=${currentSort}&count=${count}`)
+      .then((res) => {
+        const filter = currentFilter.map((current) => Number(current));
+        if (filter.length !== 0) {
+          res.data.results = res.data.results.filter((each) => filter.indexOf(each.rating) !== -1);
+        }
+        setReviews(res.data);
+      })
+      .catch((err) => console.log(err));
+  }, [count, currentFilter]);
   const handleSort = (e) => {
     setCurrentSort(e.target.value);
   };
   const handleModalToggle = () => {
-    setModalIsVisible(!modalIsVisible);
+    setToggleModal(!toggleModal);
   };
   const handleMoreReviews = () => {
-    setPage(page + 1);
-    axios.get(`/reviews?product_id=${productId}&sort="${currentSort}"&count=2&page=${page}`)
-      .then((res) => {
-        res.data.results = [...res.data.results, ...reviews.results];
-        setReviews(res.data);
-      })
-      .catch((err) => console.log(err));
+    setCount(count + 2);
   };
-  if (modalIsVisible) {
-    const productCharacteristics = Object.keys(reviewsMetadata.characteristics);
+  if (toggleModal) {
     return (
       <AddReview
         handleModalToggle={handleModalToggle}
-        productCharacteristics={productCharacteristics}
+        allCharacteristics={reviewsMetadata.characteristics}
+        productId={Number(productId)}
       />
     );
   }
@@ -76,6 +79,7 @@ function ReviewList({reviewsMetadata}) {
           <option value="newest">Newest</option>
           <option value="helpful">Helpful</option>
         </StyledSelect>
+        {currentFilter.length > 0 ? `Filtered by ${currentFilter.join(', ')} stars` : ''}
       </form>
       {reviews.results.map((review) => <Review review={review} key={review.review_id} />)}
       <br />
