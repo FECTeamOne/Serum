@@ -7,9 +7,10 @@ describe('Review', () => {
     render(<Review review={testData.reviews.results[0]} />);
 
     await user.click(screen.getByText('Report', { exact: false }));
+    await user.click(screen.getByText('Helpful', { exact: false }));
 
     expect(screen.getByText('Report', { exact: false })).toBeInTheDocument();
-    expect(screen.getByText('Helpful', { exact: false })).toBeInTheDocument();
+    expect(screen.getByText('Helpful', { exact: false })).toBeDisabled();
     expect(screen.getByText('Comfortable', { exact: false })).toBeInTheDocument();
     expect(screen.getByRole('heading')).toBeInTheDocument();
   });

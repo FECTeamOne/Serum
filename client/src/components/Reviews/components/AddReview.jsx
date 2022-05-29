@@ -5,13 +5,7 @@ import axios from 'axios';
 
 // TODO Change this to be the modal styles to make it a popup window
 const Modal = styled.div`
-  position: relative;
-  border: 2px solid black;
-  color: black;
-  width: calc(60% - (.5em + 6px));
-  float: right;
   min-height: 400px;
-  margin-top: 1em;
 `;
 const HiddenRadioButton = styled.input.attrs({
   type: 'radio',
@@ -22,6 +16,15 @@ const HiddenRadioButton = styled.input.attrs({
   position: absolute;
   opacity: 0;
 `;
+const CloseButton = styled.button`
+  background: none!important;
+  border: none;
+  padding: 0!important;
+  cursor: pointer;
+  text-align: right;
+  font-size: 36px;
+  width: 90%;
+  `;
 const Image = styled.img`
   height: 50px;
   width: 35px;
@@ -37,10 +40,12 @@ const data = {
 };
 const starsMeaning = ['Poor', 'Fair', 'Average', 'Good', 'Great'];
 
-function AddReview({ handleModalToggle, productCharacteristics }) {
-  const [isRecommended, setIsRecommended] = useState(null);
+function AddReview({ handleModalToggle, allCharacteristics, productId }) {
+  const productCharacteristics = Object.keys(allCharacteristics);
+  const [isRecommended, setIsRecommended] = useState(false);
   const [rating, setRating] = useState(null);
   const [img, setImg] = useState([]);
+  const [submissonErr, setSubmissonErr] = useState(false);
   const [reviewText, setReviewText] = useState({
     summary: '',
     body: '',
@@ -71,26 +76,28 @@ function AddReview({ handleModalToggle, productCharacteristics }) {
     });
   }
   function handleReviewSubmit(e) {
-    // TODO add in checks for data
-    // TODO finish data submisson
     e.preventDefault();
-    const submitedData = {
+    setSubmissonErr(false);
+    const characteristicSubmit = {};
+    const keysArray = Object.keys(allCharacteristics);
+    keysArray.forEach((key) => {
+      characteristicSubmit[allCharacteristics[key].id] = characteristics[key];
+    });
+    const submittedData = {
       ...reviewText,
-      product_id: 'NEED TO CHANGE', // TODO get product id
+      product_id: Number(productId),
       rating,
-      isRecommended,
-      characteristics: {
-        14: characteristics.Size,
-        15: characteristics.Width,
-        16: characteristics.Comfort,
-        17: characteristics.Quality,
-        18: characteristics.Length,
-        19: characteristics.Fit,
-      },
+      recommend: isRecommended,
+      characteristics: characteristicSubmit,
+      photos: [],
     };
-    axios.post('/TEMP', submitedData)
-      .then(() => handleModalToggle)
-      .catch((err) => console.log(err));
+    if (submittedData.email.search(/^\S+@\S+\.\S+$/) === -1) {
+      setSubmissonErr(true);
+    } else {
+      axios.post('/reviews', submittedData)
+        .then(() => handleModalToggle())
+        .catch((err) => console.log(err));
+    }
   }
   const handleFile = async (e) => {
     if (img.length > 4) {
@@ -116,7 +123,7 @@ function AddReview({ handleModalToggle, productCharacteristics }) {
   };
   return (
     <Modal>
-      <button type="button" onClick={handleModalToggle}>X</button>
+      <CloseButton type="button" onClick={handleModalToggle}>X</CloseButton>
       <div>
         {[...Array(5)].map((star, i) => {
           const ratingVal = i + 1;
@@ -231,6 +238,7 @@ function AddReview({ handleModalToggle, productCharacteristics }) {
               }}
             />
           </div>
+          {submissonErr ? <div>Error in submisson, check all feilds and try again</div> : ''}
           <input type="submit" />
         </form>
       </div>
