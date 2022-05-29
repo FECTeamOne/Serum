@@ -33,7 +33,6 @@ const Button = styled.button.attrs((props) => ({
   }}
 `;
 
-
 Button.propTypes = {
   /** Button variant, e.g. 'primary' for a primary action. */
   variant: PropTypes.string,
