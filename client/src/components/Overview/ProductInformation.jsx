@@ -1,6 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
+import {StarIconFills, StarIcon} from 'assets/StarIcon.jsx';
+import Stars from 'shared/Stars.jsx';
 
 const ProductCategory = styled.h1`
   font-size: var(--text-2);
@@ -30,7 +32,17 @@ function ProductInformation({ product, selectedStyle}) {
   return (
     <>
       {/*TODO: add rating stars*/}
-      *****
+      <StarIconFills />
+      <StarIcon iconWidth="var(--size-2)" value={.1}/>
+      <StarIcon iconWidth="var(--size-2)" value={.3}/>
+      <StarIcon iconWidth="var(--size-2)" value={.4}/>
+      <StarIcon iconWidth="var(--size-2)" value={.7}/>
+      <StarIcon iconWidth="var(--size-2)" value={.9}/>
+      <Stars
+        interactive={true}
+        value={0}
+        onClick={(e) => console.log(e.currentTarget.value)}
+      />
       <br />
       <ProductCategory>{product.category}</ProductCategory>
       <ProductName>{product.name}</ProductName>
