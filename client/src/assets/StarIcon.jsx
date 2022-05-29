@@ -2,8 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 import Icon from 'assets/Icon.jsx';
 
-let counter = 0;
-
+// Need to place the fills in the DOM so that StarIcon can access and use them
 function StarIconFills() {
   // If an offset of .25 is used for a star that has a value of .25,
   // it won't look right because the fill will barely be visible.
@@ -12,7 +11,7 @@ function StarIconFills() {
   const fillOffsets = [0, 0.46, 0.5, 0.565, 1];
 
   return (
-    <Icon viewBox="0 0 20 19">
+    <InvisibleIcon viewBox="0 0 20 19">
       <defs>
         {fillOffsets.map((fillOffset, i) => (
           <linearGradient key={fillOffset} id={`gradient-${i}`}>
@@ -21,7 +20,7 @@ function StarIconFills() {
           </linearGradient>
         ))}
       </defs>
-    </Icon>
+    </InvisibleIcon>
   );
 }
 
@@ -35,6 +34,8 @@ function StarIcon({value, ...props}) {
   );
 }
 
-
+const InvisibleIcon = styled(Icon)`
+  width: 0;
+`;
 
 export { StarIconFills, StarIcon };
