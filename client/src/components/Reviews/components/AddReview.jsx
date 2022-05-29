@@ -24,6 +24,10 @@ const CloseButton = styled.button`
   text-align: right;
   font-size: 36px;
   width: 90%;
+  `;
+const Image = styled.img`
+  height: 50px;
+  width: 35px;
 `;
 
 const data = {
@@ -40,7 +44,7 @@ function AddReview({ handleModalToggle, allCharacteristics, productId }) {
   const productCharacteristics = Object.keys(allCharacteristics);
   const [isRecommended, setIsRecommended] = useState(false);
   const [rating, setRating] = useState(null);
-  const [img, setImg] = useState(null);
+  const [img, setImg] = useState([]);
   const [submissonErr, setSubmissonErr] = useState(false);
   const [reviewText, setReviewText] = useState({
     summary: '',
@@ -57,6 +61,20 @@ function AddReview({ handleModalToggle, allCharacteristics, productId }) {
     Fit: null,
   });
 
+  function getBase64(file) {
+    return new Promise((resolve, reject) => {
+      const reader = new FileReader();
+      reader.readAsDataURL(file);
+      reader.onload = () => {
+        let encoded = reader.result.toString().replace(/^data:(.*,)?/, '');
+        if ((encoded.length % 4) > 0) {
+          encoded += '='.repeat(4 - (encoded.length % 4));
+        }
+        resolve(encoded);
+      };
+      reader.onerror = error => reject(error);
+    });
+  }
   function handleReviewSubmit(e) {
     e.preventDefault();
     setSubmissonErr(false);
@@ -81,8 +99,27 @@ function AddReview({ handleModalToggle, allCharacteristics, productId }) {
         .catch((err) => console.log(err));
     }
   }
-  const handleFile = (e) => {
-    setImg(e.target.files[0]);
+  const handleFile = async (e) => {
+    if (img.length > 4) {
+      alert('too many photos');
+      return;
+    }
+    try {
+      const file64 = await getBase64(e.target.files[0]);
+      let body = new FormData();
+      body.append('image', file64);
+      const results = await axios({
+        method: 'post',
+        url: 'https://api.imgbb.com/1/upload?key=fe7a3df7bca50228ca58e71e62ad33f7',
+        data: body,
+      });
+      const url = results.data.data.display_url;
+      const arr = [...img];
+      arr.push(url);
+      setImg(arr);
+    } catch (err) {
+      console.log(err);
+    }
   };
   return (
     <Modal>
@@ -174,7 +211,7 @@ function AddReview({ handleModalToggle, allCharacteristics, productId }) {
           {reviewText.body.length <= 50 ? `Minimum required characters left ${50 - reviewText.body.length}` : 'Minimum reached'}
           <div>
             <input type="file" onChange={handleFile} />
-            {/* need to add in stateful for this */}
+            {img.map((current) => <Image src={current} alt="img upload" />)}
           </div>
           <div>
             name
