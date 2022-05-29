@@ -37,7 +37,8 @@ function StarIcon({
   value,
   ...props
 }) {
-  const valueRoundedToFourth = Math.round(value * 4);
+  // Number.EPSILON is added to attempt to avoid floating point errors
+  const valueRoundedToFourth = Math.round((value + Number.EPSILON) * 4);
   return (
     <Icon viewBox="0 0 20 19" {...props}>
       <path fill={`url(#star-icon-gradient-${valueRoundedToFourth})`} d="m10,0l-2.582,6.953l-7.418,0.304l5.822,4.602l-2.002,7.141l6.18,-4.11l6.18,4.11l-2.002,-7.14l5.822,-4.604l-7.418,-0.305l-2.582,-6.951z" />
