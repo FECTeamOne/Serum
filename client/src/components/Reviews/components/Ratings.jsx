@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
-import Stars from 'App/Stars.jsx'
+import Stars from 'App/Stars.jsx';
 
 const Container = styled.div`
   border: 2px solid black;
@@ -19,23 +19,17 @@ const AllRatings = styled.div`
   text-align: left;
 `;
 
-function Ratings({ reviewsMetadata }) {
-  let total = 0;
+function Ratings({ reviewsMetadata, name }) {
   let totalStars = 0;
-  let highest = 0;
-  Object.values(reviewsMetadata.ratings).forEach((num) => { total += num; });
-  const temp = Object.entries(reviewsMetadata.ratings)
-  temp.forEach((item) => { totalStars += item[0] * item[1]; });
+  const values = Object.values(reviewsMetadata.ratings);
+  const total = values.reduce((num, totals) => Number(num) + Number(totals), 0);
+  Object.entries(reviewsMetadata.ratings).forEach((item) => { totalStars += item[0] * item[1]; });
   const avgStars = totalStars / total;
-  Object.values(reviewsMetadata.ratings).forEach((num) => {
-    if (num > highest) {
-      highest = num;
-    }
-  });
+  const highest = Math.max(...values);
   return (
     // TODO add in stars once that gets merged
     <Container>
-      Product name here
+      {name}
       <Stars rating={avgStars} />
       {[...Array(5)].map((val, i) => {
         const currentStar = i + 1;
