@@ -1,6 +1,18 @@
 import React from 'react';
 import styled from 'styled-components';
 
+function Navbar() {
+  return (
+    <StyledNavbar>
+      <Logo>Serum</Logo>
+      <Nav>
+        <div>Shop</div>
+        <div>Cart</div>
+      </Nav>
+    </StyledNavbar>
+  );
+}
+
 const StyledNavbar = styled.nav`
   display: flex;
   align-items: baseline;
@@ -22,17 +34,5 @@ const Nav = styled.span`
   display: flex;
   gap: var(--space-8);
 `;
-
-function Navbar() {
-  return (
-    <StyledNavbar>
-      <Logo>Serum</Logo>
-      <Nav>
-        <div>Shop</div>
-        <div>Cart</div>
-      </Nav>
-    </StyledNavbar>
-  );
-}
 
 export default Navbar;
