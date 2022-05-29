@@ -10,11 +10,9 @@ import axios from 'axios';
 function RelatedItemsList({ currentItemId }) {
   const [modalIsVisible, setModalIsVisible] = useState(false);
   const [relatedProducts, setRelatedProducts] = useState([]);
-  const [currentRelated, setCurrentRelated] = useState('');
   const [allProductChars, setAllProductChars] = useState('');
   const [relatedProductChars, setRelatedProductChars] = useState('');
-  const [currentProductChars, setcurrentProductChars] = useState('');
-
+  const [currentProductChars, setCurrentProductChars] = useState('');
 
   useEffect(() => {
     const fetchData = async () => {
@@ -45,50 +43,30 @@ function RelatedItemsList({ currentItemId }) {
   }, [currentItemId]);
   // Defining fetchData outside of our useEffect hook is worse because it reinitializes fetchData on every rerender
   // useEffect(() => {fetchData();}, [currentItemId]);
-  // const currentCharsTest = ['char1', 'char2', 'char3'];
-  // const currentItemVals = ['1', '2', '3'];
-  // const currentRelatedVals = ['2', '3', '4'];
 
   const fetchFeatures = async (relatedId) => {
-    const relatedFeatures = [];
-    const currentFeatures = [];
-    await (
+    const relatedFeaturesResponse = await (
       axios.get(`/products/${relatedId}`)
-        .then((res) => (res.data.features.forEach((feature) => {
-          relatedFeatures.push(feature);
-        })))
-        // [{f1: value}, {f2: value}...]
+      // [{f1: value}, {f2: value}...]
     );
-    await (
-      axios.get(`/products/${currentItemId}`)
-        .then((res) => (res.data.features.forEach((feature) => {
-          currentFeatures.push(feature);
-        })))
-        // [{f1: value}, {f2: value}...]
-    );
-    console.log('relatedFeatures: ', relatedFeatures);
-    console.log('currentFeatures: ', currentFeatures);
-    // create allKeys(array), push object1.keys and object2.keys without duplicate
-    const relatedKeys = [];
-    relatedFeatures.forEach((item) => (relatedKeys.push(item.feature)));
-    console.log('relatedKeys: ', relatedKeys);
+    const relatedFeatures = relatedFeaturesResponse.data.features;
 
-    const currentKeys = [];
-    currentFeatures.forEach((item) => (currentKeys.push(item.feature)));
-    console.log('currentKeys : ', currentKeys);
+    const currentFeaturesResponse = await (
+      axios.get(`/products/${currentItemId}`)
+    );
+    const currentFeatures = currentFeaturesResponse.data.features;
+
+    // create allKeys(array), push object1.keys and object2.keys without duplicate
+    const relatedKeys = relatedFeatures.map((item) => (item.feature));
+    const currentKeys = currentFeatures.map((item) => (item.feature));
 
     const allFeatures = relatedKeys.slice();
     currentKeys.forEach((key) => {
-      if (allFeatures.indexOf(key) < 0) {
+      if (!allFeatures.includes(key)) {
         allFeatures.push(key);
       }
     });
-    console.log('allFeatures: ', allFeatures);
 
-    // create relatedChars(array), for allKeys, if object1.keys includes it,
-    // push the value, else, push '',
-    // feature = ['f1', 'f2', 'f3'...]
-    // featureObject = [{feature: f1, value: v1}, {feature:f2, value: v2}...]
     const relatedChars = [];
     allFeatures.forEach((feature) => {
       for (let i = 0; i < relatedFeatures.length; i += 1) {
@@ -100,7 +78,6 @@ function RelatedItemsList({ currentItemId }) {
         }
       }
     });
-    console.log('relatedChars: ', relatedChars);
 
     const currentChars = [];
     allFeatures.forEach((feature) => {
@@ -113,10 +90,10 @@ function RelatedItemsList({ currentItemId }) {
         }
       }
     });
-    console.log('currentChars: ', currentChars);
+
     setAllProductChars(allFeatures);
     setRelatedProductChars(relatedChars);
-    setcurrentProductChars(currentChars);
+    setCurrentProductChars(currentChars);
   };
   // click on compare, input relatedId
   // fetchFeatures of currentRelated
@@ -126,8 +103,10 @@ function RelatedItemsList({ currentItemId }) {
       key={item.id}
       img={item.img}
       item={item}
-      onOpen={() => setModalIsVisible(true)}
-      onCompare={() => fetchFeatures(item.id)}
+      handleCompare={() => {
+        setModalIsVisible(true);
+        fetchFeatures(item.id);
+      }}
     />
   ));
 
@@ -136,14 +115,20 @@ function RelatedItemsList({ currentItemId }) {
       <div>RELATED PRODUCTS</div>
       <Carousel items={relatedItemsEntries} size={4} />
       { currentProductChars && allProductChars && relatedProductChars
-        &&
-      <Modal
-        showModal={modalIsVisible}
-        onClose={() => setModalIsVisible(false)}
-        currentChars={allProductChars}
-        currentItemVals={currentProductChars}
-        currentRelatedVals={relatedProductChars}
-      />}
+        && (
+        <Modal
+          modalIsVisible={modalIsVisible}
+          handleClose={() => {
+            setModalIsVisible(false);
+            setAllProductChars('');
+            setCurrentProductChars('');
+            setRelatedProductChars('');
+          }}
+          currentChars={allProductChars}
+          currentItemVals={currentProductChars}
+          currentRelatedVals={relatedProductChars}
+        />
+        )}
     </div>
   );
 }

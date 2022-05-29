@@ -48,9 +48,9 @@ const Body = styled.div`
 `;
 
 function Modal({
-  showModal, onClose, currentChars, currentItemVals, currentRelatedVals,
+  modalIsVisible, handleClose, currentChars, currentItemVals, currentRelatedVals,
 }) {
-  if (!showModal) {
+  if (!modalIsVisible) {
     return null;
   }
   console.log('currentItemVals: ', currentItemVals);
@@ -58,25 +58,25 @@ function Modal({
   console.log('currentRelatedVals: ', currentRelatedVals);
 
   return (
-    <Overlay onClick={onClose}>
+    <Overlay onClick={handleClose}>
       <Content>
         <BodyWrapper>
           {currentItemVals.map((item) => (
-            <Body>
+            <Body key={item.id}>
               {item}
             </Body>
           ))}
         </BodyWrapper>
         <BodyWrapper>
           {currentChars.map((item) => (
-            <Body>
+            <Body key={item.id}>
               {item}
             </Body>
           ))}
         </BodyWrapper>
         <BodyWrapper>
           {currentRelatedVals.map((item) => (
-            <Body>
+            <Body key={item.id}>
               {item}
             </Body>
           ))}
@@ -88,8 +88,8 @@ function Modal({
 
 Modal.propTypes = {
   // item: PropTypes.arrayOf(PropTypes.element).isRequired,
-  showModal: PropTypes.number.isRequired,
-  onClose: PropTypes.number.isRequired,
+  modalIsVisible: PropTypes.number.isRequired,
+  handleClose: PropTypes.number.isRequired,
   currentItemVals: PropTypes.arrayOf(PropTypes.object).isRequired,
   currentRelatedVals: PropTypes.arrayOf(PropTypes.object).isRequired,
   currentChars: PropTypes.arrayOf(PropTypes.object).isRequired,

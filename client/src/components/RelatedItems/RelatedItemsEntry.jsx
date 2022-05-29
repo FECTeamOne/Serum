@@ -25,7 +25,7 @@ const Action = styled.button`
   border-radius: 5px;
 `;
 
-function RelatedItemsEntry({ img, item, onOpen, onCompare }) {
+function RelatedItemsEntry({ img, item, handleCompare }) {
   // console.log(img);
 
   return (
@@ -36,7 +36,7 @@ function RelatedItemsEntry({ img, item, onOpen, onCompare }) {
         height="300"
         alt={`Thumbnail for related item ${item.name}`}
       />
-      <Action onClick={() => { onOpen(); onCompare(); }}>
+      <Action onClick={() => { handleCompare(); }}>
         Compare
       </Action>
       <div>
@@ -52,8 +52,7 @@ function RelatedItemsEntry({ img, item, onOpen, onCompare }) {
 RelatedItemsEntry.propTypes = {
   // item: PropTypes.arrayOf(PropTypes.element).isRequired,
   item: PropTypes.object.isRequired,
-  onOpen: PropTypes.object.isRequired,
-  onCompare: PropTypes.object.isRequired,
+  handleCompare: PropTypes.object.isRequired,
   img: PropTypes.object.isRequired,
   // size: PropTypes.number.isRequired,
 };
