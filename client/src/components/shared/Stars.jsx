@@ -4,6 +4,10 @@ import styled from 'styled-components';
 import { StarIcon } from 'assets/StarIcon.jsx';
 import Button from 'shared/Button.jsx';
 
+/**
+ * Five star rating component used to display a static rating
+ * or used interactively to capture a rating in a form.
+ */
 function Stars({
   value,
   onClick,
@@ -58,15 +62,25 @@ function Stars({
 }
 
 Stars.propTypes = {
+  /** The value the stars should represent */
   value: PropTypes.number.isRequired,
-  // use event.currentTarget.value
-  onClick: PropTypes.func,
+  /**
+   * Whether the stars should be interactive, e.g. for use to capture a rating in a form
+   */
   interactive: PropTypes.bool,
-}
+  /**
+   * Click handler to be supplied when Stars are being used interactively.
+   * Use event.currentTarget.value to access the value of the star clicked
+   * since the button contains children elements that won't have a value and
+   * which event.target might refer to.
+   */
+  onClick: PropTypes.func,
+};
 
 Stars.defaultProps = {
   interactive: false,
-}
+  onClick: () => {},
+};
 
 const StyledStars = styled.div`
   display: flex;
