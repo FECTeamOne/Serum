@@ -12,8 +12,8 @@ function App() {
       <GlobalStyle />
       <Wrapper>
         <Navbar />
-        <Overview productId={40344}/>
-        <Reviews />
+        <Overview productId={40344} />
+        <Reviews productId={40344} />
         <RelatedItemsList />
       </Wrapper>
     </>

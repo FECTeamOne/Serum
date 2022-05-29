@@ -41,7 +41,7 @@
     "start": "node server/index.js",
     "start:dev": "NODE_ENV=development nodemon server/index.js",
     "test": "jest --silent=false",
-    "test:ci": "jest --maxWorkers=2"
+    "test:ci": "jest --coverage --maxWorkers=2"
   },
   "dependencies": {
     "axios": "^0.27.2",

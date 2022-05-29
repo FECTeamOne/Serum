@@ -8,7 +8,7 @@ const StyledReview = styled.div`
   border: 2px solid black;
   margin: 10px;
 `;
-const Star = styled.p`
+const Star = styled.div`
   padding-top: 10px;
   float: left;
   padding-left: 10px;
@@ -47,7 +47,6 @@ function Review({ review }) {
       <Star>
         <Stars rating={review.rating} />
       </Star>
-      {/* need to add fn to display stars */}
       <User>
         {`${rec} ${review.reviewer_name}, ${date} ago`}
       </User>
