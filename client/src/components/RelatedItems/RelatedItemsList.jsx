@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import RelatedItemsEntry from 'RelatedItems/RelatedItemsEntry.jsx';
 import Carousel from 'App/Carousel.jsx'
 import axios from 'axios';
-import Modal from './Modal.jsx';
+import Modal from 'RelatedItems/Modal.jsx';
 
 // need to pass {currentItemId} into the props
 function RelatedItemsList({ currentItemId }) {
