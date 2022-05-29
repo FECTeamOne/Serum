@@ -1,7 +1,9 @@
 import React from 'react';
-import styled from 'styled-components';
 import Icon from 'assets/Icon.jsx';
 
+/**
+ * A wedge arrow icon
+ */
 function ArrowIcon(props) {
   return (
     <Icon viewBox="0 0 20 20" {...props}>
