@@ -48,14 +48,11 @@ const Body = styled.div`
 `;
 
 function Modal({
-  modalIsVisible, handleClose, currentChars, currentItemVals, currentRelatedVals,
+  modalIsVisible, handleClose, allChars, currentItemVals, currentRelatedVals,
 }) {
   if (!modalIsVisible) {
     return null;
   }
-  console.log('currentItemVals: ', currentItemVals);
-  console.log('currentChars: ', currentChars);
-  console.log('currentRelatedVals: ', currentRelatedVals);
 
   return (
     <Overlay onClick={handleClose}>
@@ -68,7 +65,7 @@ function Modal({
           ))}
         </BodyWrapper>
         <BodyWrapper>
-          {currentChars.map((item) => (
+          {allChars.map((item) => (
             <Body key={item.id}>
               {item}
             </Body>
@@ -92,7 +89,7 @@ Modal.propTypes = {
   handleClose: PropTypes.number.isRequired,
   currentItemVals: PropTypes.arrayOf(PropTypes.object).isRequired,
   currentRelatedVals: PropTypes.arrayOf(PropTypes.object).isRequired,
-  currentChars: PropTypes.arrayOf(PropTypes.object).isRequired,
+  allChars: PropTypes.arrayOf(PropTypes.object).isRequired,
   // size: PropTypes.number.isRequired,
 };
 

@@ -1,12 +1,16 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
+import axios from 'axios';
 import ReviewList from 'Reviews/components/ReviewList.jsx';
 import Ratings from 'Reviews/components/Ratings.jsx';
 import Fit from 'Reviews/components/Fit.jsx';
-import { reviewsMetadata } from 'tests/testData.js'
+// import { reviewsMetadata } from 'tests/testData.js'
 
 const Container = styled.div`
   text-align: center;
+  postiton: relative;
+  width: 100%;
+  overflow: auto;
 `;
 const Left = styled.div`
   border: 2px solid black;
@@ -15,15 +19,39 @@ const Left = styled.div`
   min-height: 400px;
   margin-top: 1em;
 `;
+const Right = styled.div`
+  position: relative;
+  border: 2px solid black;
+  color: black;
+  width: calc(60% - (.5em + 6px));
+  float: right;
+  min-height: 400px;
+  margin-top: 1em;
+`;
 // TODO meta data req will happen here
-function Reviews() {
+function Reviews({ productId }) {
+  const [reviewsMetadata, setReviewsMetaData] = useState('');
+  const [productName, setProductName] = useState('');
+  useEffect(() => {
+    axios.get(`/reviews/meta?product_id=${productId}`)
+      .then((res) => { setReviewsMetaData(res.data); })
+      .catch((err) => console.log(err));
+    axios.get(`/products/${productId}`)
+      .then((res) => { setProductName(res.data.name); })
+      .catch((err) => console.log(err));
+  }, []);
+  if (!reviewsMetadata) {
+    return '';
+  }
   return (
     <Container>
       <Left>
-        <Ratings reviewsMetadata={reviewsMetadata} />
+        <Ratings reviewsMetadata={reviewsMetadata} name={productName} />
         <Fit reviewsMetadata={reviewsMetadata} />
       </Left>
-      <ReviewList reviewsMetadata={reviewsMetadata} />
+      <Right>
+        <ReviewList reviewsMetadata={reviewsMetadata} />
+      </Right>
     </Container>
   );
 }

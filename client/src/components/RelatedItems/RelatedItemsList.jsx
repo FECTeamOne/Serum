@@ -3,8 +3,8 @@ import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import RelatedItemsEntry from 'RelatedItems/RelatedItemsEntry.jsx';
 import Carousel from 'App/Carousel.jsx'
-import Modal from './Modal.jsx';
 import axios from 'axios';
+import Modal from './Modal.jsx';
 
 // need to pass {currentItemId} into the props
 function RelatedItemsList({ currentItemId }) {
@@ -124,7 +124,7 @@ function RelatedItemsList({ currentItemId }) {
             setCurrentProductChars('');
             setRelatedProductChars('');
           }}
-          currentChars={allProductChars}
+          allChars={allProductChars}
           currentItemVals={currentProductChars}
           currentRelatedVals={relatedProductChars}
         />
