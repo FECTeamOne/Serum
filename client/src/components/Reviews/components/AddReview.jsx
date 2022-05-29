@@ -5,13 +5,7 @@ import axios from 'axios';
 
 // TODO Change this to be the modal styles to make it a popup window
 const Modal = styled.div`
-  position: relative;
-  border: 2px solid black;
-  color: black;
-  width: calc(60% - (.5em + 6px));
-  float: right;
   min-height: 400px;
-  margin-top: 1em;
 `;
 const HiddenRadioButton = styled.input.attrs({
   type: 'radio',
@@ -21,6 +15,19 @@ const HiddenRadioButton = styled.input.attrs({
   cursor: pointer;
   position: absolute;
   opacity: 0;
+`;
+const CloseButton = styled.button`
+  background: none!important;
+  border: none;
+  padding: 0!important;
+  cursor: pointer;
+  text-align: right;
+  font-size: 36px;
+  width: 90%;
+  `;
+const Image = styled.img`
+  height: 50px;
+  width: 35px;
 `;
 
 const data = {
@@ -33,10 +40,12 @@ const data = {
 };
 const starsMeaning = ['Poor', 'Fair', 'Average', 'Good', 'Great'];
 
-function AddReview({ handleModalToggle, productCharacteristics }) {
-  const [isRecommended, setIsRecommended] = useState(null);
+function AddReview({ handleModalToggle, allCharacteristics, productId }) {
+  const productCharacteristics = Object.keys(allCharacteristics);
+  const [isRecommended, setIsRecommended] = useState(false);
   const [rating, setRating] = useState(null);
-  const [img, setImg] = useState(null);
+  const [img, setImg] = useState([]);
+  const [submissonErr, setSubmissonErr] = useState(false);
   const [reviewText, setReviewText] = useState({
     summary: '',
     body: '',
@@ -52,34 +61,69 @@ function AddReview({ handleModalToggle, productCharacteristics }) {
     Fit: null,
   });
 
-  function handleReviewSubmit(e) {
-    // TODO add in checks for data
-    // TODO finish data submisson
-    e.preventDefault();
-    const submitedData = {
-      ...reviewText,
-      product_id: 'NEED TO CHANGE', // TODO get product id
-      rating,
-      isRecommended,
-      characteristics: {
-        14: characteristics.Size,
-        15: characteristics.Width,
-        16: characteristics.Comfort,
-        17: characteristics.Quality,
-        18: characteristics.Length,
-        19: characteristics.Fit,
-      },
-    };
-    axios.post('/TEMP', submitedData)
-      .then(() => handleModalToggle)
-      .catch((err) => console.log(err));
+  function getBase64(file) {
+    return new Promise((resolve, reject) => {
+      const reader = new FileReader();
+      reader.readAsDataURL(file);
+      reader.onload = () => {
+        let encoded = reader.result.toString().replace(/^data:(.*,)?/, '');
+        if ((encoded.length % 4) > 0) {
+          encoded += '='.repeat(4 - (encoded.length % 4));
+        }
+        resolve(encoded);
+      };
+      reader.onerror = error => reject(error);
+    });
   }
-  const handleFile = (e) => {
-    setImg(e.target.files[0]);
+  function handleReviewSubmit(e) {
+    e.preventDefault();
+    setSubmissonErr(false);
+    const characteristicSubmit = {};
+    const keysArray = Object.keys(allCharacteristics);
+    keysArray.forEach((key) => {
+      characteristicSubmit[allCharacteristics[key].id] = characteristics[key];
+    });
+    const submittedData = {
+      ...reviewText,
+      product_id: Number(productId),
+      rating,
+      recommend: isRecommended,
+      characteristics: characteristicSubmit,
+      photos: [],
+    };
+    if (submittedData.email.search(/^\S+@\S+\.\S+$/) === -1) {
+      setSubmissonErr(true);
+    } else {
+      axios.post('/reviews', submittedData)
+        .then(() => handleModalToggle())
+        .catch((err) => console.log(err));
+    }
+  }
+  const handleFile = async (e) => {
+    if (img.length > 4) {
+      alert('too many photos');
+      return;
+    }
+    try {
+      const file64 = await getBase64(e.target.files[0]);
+      let body = new FormData();
+      body.append('image', file64);
+      const results = await axios({
+        method: 'post',
+        url: 'https://api.imgbb.com/1/upload?key=fe7a3df7bca50228ca58e71e62ad33f7',
+        data: body,
+      });
+      const url = results.data.data.display_url;
+      const arr = [...img];
+      arr.push(url);
+      setImg(arr);
+    } catch (err) {
+      console.log(err);
+    }
   };
   return (
     <Modal>
-      <button type="button" onClick={handleModalToggle}>X</button>
+      <CloseButton type="button" onClick={handleModalToggle}>X</CloseButton>
       <div>
         {[...Array(5)].map((star, i) => {
           const ratingVal = i + 1;
@@ -149,7 +193,8 @@ function AddReview({ handleModalToggle, productCharacteristics }) {
                 temp.summary = e.target.value;
                 setReviewText(temp);
               }}
-              placeholder="Example: Best purchase ever!" />
+              placeholder="Example: Best purchase ever!"
+            />
           </div>
           <div>
             Review
@@ -166,7 +211,7 @@ function AddReview({ handleModalToggle, productCharacteristics }) {
           {reviewText.body.length <= 50 ? `Minimum required characters left ${50 - reviewText.body.length}` : 'Minimum reached'}
           <div>
             <input type="file" onChange={handleFile} />
-            {/* need to add in stateful for this */}
+            {img.map((current) => <Image src={current} alt="img upload" />)}
           </div>
           <div>
             name
@@ -193,6 +238,7 @@ function AddReview({ handleModalToggle, productCharacteristics }) {
               }}
             />
           </div>
+          {submissonErr ? <div>Error in submisson, check all feilds and try again</div> : ''}
           <input type="submit" />
         </form>
       </div>

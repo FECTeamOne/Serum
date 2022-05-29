@@ -12,7 +12,7 @@ const ImageButton = styled(Button)`
   background-size: cover;
 `;
 
-ImageButton.PropTypes = {
+ImageButton.propTypes = {
   /** The url/src for the image to be used in the button */
   url: PropTypes.string.isRequired,
 };
