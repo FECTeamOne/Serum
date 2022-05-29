@@ -28,7 +28,7 @@ function Ratings({ reviewsMetadata, name, setCurrentFilter, currentFilter }) {
   const avgStars = totalStars / total;
   const highest = Math.max(...values);
   const handleStarClick = (currentStar) => {
-    if (currentFilter.indexOf(currentStar) !== -1) {
+    if (currentFilter.includes(currentStar)) {
       const temp = [...currentFilter];
       temp.splice(currentFilter.indexOf(currentStar), 1);
       setCurrentFilter(temp);

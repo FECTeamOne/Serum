@@ -1,15 +1,16 @@
-import { screen, fireEvent } from '@testing-library/react';
+import { screen } from '@testing-library/react';
 import AddReview from 'Reviews/components/AddReview.jsx';
 
 describe('Add Review', () => {
-  test('It should have feilds to fill in', async () => {
+  test('It should have fields to fill in', async () => {
     const user = userEvent.setup();
     render(<AddReview allCharacteristics={testData.reviewsMetadata.characteristics} />);
 
     await user.click(screen.getByText('yes', { exact: false }));
-    await fireEvent.keyDown(screen.getByPlaceholderText('Why did you like the product or not?'), { key: 'A', code: 'KeyA' });
+    await userEvent.type(screen.getByPlaceholderText('Why did you like the product or not?'), 'test');
 
     expect(screen.getByText('Review', { exact: false })).toBeInTheDocument();
+    expect(screen.getByText('46', { exact: false })).toBeInTheDocument();
     expect(screen.getByText('Minimum required characters', { exact: false })).toBeInTheDocument();
     expect(screen.getAllByRole('textbox').length).toBe(4);
   });

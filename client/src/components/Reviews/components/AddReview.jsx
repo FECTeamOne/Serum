@@ -65,7 +65,7 @@ function AddReview({ handleModalToggle, allCharacteristics, productId }) {
     keysArray.forEach((key) => {
       characteristicSubmit[allCharacteristics[key].id] = characteristics[key];
     });
-    const submitedData = {
+    const submittedData = {
       ...reviewText,
       product_id: Number(productId),
       rating,
@@ -73,10 +73,10 @@ function AddReview({ handleModalToggle, allCharacteristics, productId }) {
       characteristics: characteristicSubmit,
       photos: [],
     };
-    if (submitedData.email.indexOf('@') === -1 || submitedData.email.indexOf('.') === -1) {
+    if (submittedData.email.search(/^\S+@\S+\.\S+$/) === -1) {
       setSubmissonErr(true);
     } else {
-      axios.post('/reviews', submitedData)
+      axios.post('/reviews', submittedData)
         .then(() => handleModalToggle())
         .catch((err) => console.log(err));
     }
