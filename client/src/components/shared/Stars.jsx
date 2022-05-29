@@ -40,6 +40,18 @@ function Stars({
     <StyledStars>
       {Array(5).fill().map((_, i) => {
         const starValue = i + 1;
+
+        if (!interactive) {
+          return (
+            <StarIcon
+              value={value === 0
+                ? interactive && determineStarFillFromStarsValue(starValue, hoverValue)
+                : determineStarFillFromStarsValue(starValue, value)}
+              iconWidth="var(--size-2)"
+            />
+          );
+        }
+
         return (
           <Button
             value={`${starValue}`}
