@@ -1,0 +1,39 @@
+name: coverage
+
+on:
+  push:
+    branches: [ main ]
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v3
+    - name: Use Node.js
+      uses: actions/setup-node@v3
+      with:
+        node-version: '16.x'
+        cache: 'npm'
+    - name: Install dependencies
+      run: npm ci
+    - name: Generate coverage report
+      run:  |
+        SUMMARY="$(npm run test:ci -- --coverageReporters='text-summary' | tail -3 | head -1)"
+        TOKENS=($SUMMARY)      
+        echo "COVERAGE=$(echo ${TOKENS[2]})" >> $GITHUB_ENV
+    - name: Create Coverage Badge
+      uses: schneegans/dynamic-badges-action@v1.4.0
+      with:
+        auth: ${{ secrets.GIST_SECRET }}
+        gistID: 543788f5251dd639ee579c24fba7a2a4
+        filename: SERUM_coverage.json
+        label: coverage
+        message: ${{ env.COVERAGE }}
+        namedLogo: jest
+        logoColor: white
+        valColorRange: ${{ env.COVERAGE }}
+        maxColorRange: 100
+        minColorRange: 0
+        style: flat
