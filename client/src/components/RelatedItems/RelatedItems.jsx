@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import RelatedItemsList from './RelatedItemsList';
-import OutfitItemsList from './OutfitItemsList';
+import RelatedItemsList from './RelatedItemsList.jsx';
+import OutfitItemsList from './OutfitItemsList.jsx';
 
 function RelatedItems({ productId }) {
   return (
