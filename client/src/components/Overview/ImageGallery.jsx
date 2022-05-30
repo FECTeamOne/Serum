@@ -1,93 +1,50 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import PropTypes from 'prop-types';
-import styled from 'styled-components';
-import Carousel from 'shared/Carousel.jsx';
-import ImageButton from 'shared/ImageButton.jsx';
-
-const StyledImageGallery = styled.section`
-  display:flex;
-  gap: var(--space-1);
-`;
+import Carousel from 'App/Carousel.jsx';
 
 function ImageGallery({ photos }) {
-  // for use as key
+  // TODO: create photo_ids for photos
+  const [mainImageIndex, setMainImageIndex] = useState(0);
   photos.forEach((photo, i) => {
-    photo.photo_id = i.toString();
+    photo.photo_id = i;
   });
 
-  const [mainImageIndex, setMainImageIndex] = useState(0);
-  const [thumbnailScrollIndex, setThumbnailScrollIndex] = useState(0);
-
-  const thumbnailGallerySize = 4;
-
-  // could this cause problems with the augmentation of photos with ids?
-  // if so augment in overview before passing (should make a copy to be augmented first)
-  useEffect(() => {
-    setMainImageIndex(Math.min(mainImageIndex, photos.length));
-    setThumbnailScrollIndex(
-      Math.min(thumbnailScrollIndex, photos.length - thumbnailGallerySize + 1)
-    );
-  }, [photos]);
-
-  const handleThumbnailClick = (photo_id) => {
-    const index = photos.findIndex((photo) => photo.photo_id === photo_id);
+  const handleThumbnailClick = (index) => {
     setMainImageIndex(index);
   };
 
-  const handleThumbnailScroll = (scrollTo) => {
-    setThumbnailScrollIndex(scrollTo);
-  };
-  const handleMainImageScroll = (scrollTo) => {
-    setMainImageIndex(scrollTo);
-
-    if (scrollTo < thumbnailScrollIndex
-      || thumbnailScrollIndex + thumbnailGallerySize - 1 < scrollTo) {
-      setThumbnailScrollIndex(scrollTo);
-    }
-  };
-
   const images = photos.map((photo, i) => (
-    <ImageButton
-      url={photo.url}
-      key={`image gallery main photo ${photo.photo_id}`}
-      aria-label={`Current style ${i}`}
-      width="var(--size-12)"
-      height="var(--size-14)"
+    <img
+      key={`image gallery main phtoo ${photo.photo_id}`}
+      src={photo.url}
+      alt={`Current style ${i}`}
+      width="500"
     />
   ));
 
-  const thumbnails = photos.map((photo) => (
-    <ImageButton
-      url={photo.url}
+  const thumbnails = photos.map((photo, i) => (
+    <button
       key={`image gallery thumbnail ${photo.photo_id}`}
-      aria-label={`Current style thumbnail ${photo.photo_id}`}
-      onClick={() => { handleThumbnailClick(photo.photo_id); }}
-      height="var(--size-8)"
-      width="var(--size-7)"
-      // selected={i === mainImageIndex}
-    />
+      type="button"
+      onClick={() => { handleThumbnailClick(i); }}
+    >
+      <img
+        src={photo.url}
+        alt={`Current style thumnail ${i}`}
+        width="50"
+      />
+    </button>
   ));
 
   return (
-    <StyledImageGallery>
+    <>
       <Carousel
         items={thumbnails}
-        size={thumbnailGallerySize}
+        size={7}
         direction="column"
-        arrowHeight="var(--space-4)"
-        arrowWidth="var(--space-4)"
-        scrollIndex={thumbnailScrollIndex}
-        handleScroll={handleThumbnailScroll}
       />
-      <Carousel
-        items={images}
-        size={1}
-        arrowHeight="var(--space-6)"
-        arrowWidth="var(--space-6)"
-        scrollIndex={mainImageIndex}
-        handleScroll={handleMainImageScroll}
-      />
-    </StyledImageGallery>
+      <Carousel items={images} size={1} />
+    </>
   );
 }
 

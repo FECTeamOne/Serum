@@ -1,5 +1,5 @@
 import { screen } from '@testing-library/react';
-import Carousel from 'shared/Carousel.jsx';
+import Carousel from 'App/Carousel.jsx';
 
 describe('Carousel', () => {
 

@@ -10,20 +10,7 @@ import testData from 'tests/testData.js';
 
 
 const StyledOverview = styled.div`
-  margin: var(--space-6);
-  width: fit-content;
   display: flex;
-  align-items:flex-start;
-  gap: var(--space-6);
-`;
-
-const OverviewMain = styled.main`
-  width: var(--size-11);
-  margin-top: var(--space-7);
-
-  * {
-    margin-bottom: var(--size-6);
-  }
 `;
 
 function Overview({ productId }) {
@@ -58,7 +45,8 @@ function Overview({ productId }) {
       }
     }
 
-    fetchData();
+    // TODO: enable data fetching
+    // fetchData();
   }, []);
 
   const selectedStyle = styles.find((style) => style.style_id === selectedStyleId);
@@ -70,7 +58,7 @@ function Overview({ productId }) {
   return (
     <StyledOverview>
       <ImageGallery photos={selectedStyle.photos} />
-      <OverviewMain>
+      <div>
         <ProductInformation
           product={product}
           selectedStyle={selectedStyle}
@@ -81,7 +69,7 @@ function Overview({ productId }) {
           handleStyleSelect={handleStyleSelect}
         />
         <AddToCart skus={selectedStyle.skus} />
-      </OverviewMain>
+      </div>
     </StyledOverview>
   );
 }
