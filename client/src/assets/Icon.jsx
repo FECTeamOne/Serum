@@ -14,17 +14,6 @@ const Icon = styled.svg.attrs({
   width: ${({ iconWidth }) => iconWidth || '1em'};
   height: ${({ iconHeight }) => iconHeight || '1em'};
   transform: ${({ rotation }) => (rotation ? `rotate(${rotation * 90}deg)` : '')};
-
-  path,
-  polygon,
-  rect {
-    fill: var(--color-main);
-  }
-
-  circle {
-    stroke: var(--color-main);
-    stroke-width: 1;
-  }
 `;
 
 Icon.propTypes = {
@@ -36,7 +25,7 @@ Icon.propTypes = {
   rotation: PropTypes.oneOfType([
     PropTypes.number,
     PropTypes.string,
-  ]);
+  ]),
 };
 
 export default Icon;
