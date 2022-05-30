@@ -18,7 +18,7 @@ const StyledOverview = styled.div`
 `;
 
 const OverviewMain = styled.main`
-  width: var(--size-11);
+  width: var(--size-12);
   margin-top: var(--space-7);
 
   * {

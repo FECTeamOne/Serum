@@ -51,8 +51,8 @@ function ImageGallery({ photos }) {
       url={photo.url}
       key={`image gallery main photo ${photo.photo_id}`}
       aria-label={`Current style ${i}`}
-      width="var(--size-12)"
-      height="var(--size-14)"
+      width="var(--size-13)"
+      height="var(--size-15)"
     />
   ));
 
@@ -73,19 +73,20 @@ function ImageGallery({ photos }) {
       <Carousel
         items={thumbnails}
         size={thumbnailGallerySize}
-        direction="column"
-        arrowHeight="var(--space-4)"
-        arrowWidth="var(--space-4)"
         scrollIndex={thumbnailScrollIndex}
         handleScroll={handleThumbnailScroll}
+        direction="column"
+        arrowHeight="var(--size-4)"
+        arrowWidth="var(--size-4)"
       />
       <Carousel
         items={images}
         size={1}
-        arrowHeight="var(--space-6)"
-        arrowWidth="var(--space-6)"
         scrollIndex={mainImageIndex}
         handleScroll={handleMainImageScroll}
+        arrowHeight="var(--size-4)"
+        arrowWidth="var(--size-4)"
+        margin="calc(-1 * var(--size-4))"
       />
     </StyledImageGallery>
   );

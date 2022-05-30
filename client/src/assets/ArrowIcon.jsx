@@ -18,9 +18,9 @@ const Svg = styled(Icon)`
 
 function ArrowIcon(props) {
   return (
-    //<Icon x="0px" y="0px" viewBox="0 0 20.633 20.633" {...props}>
-      <Icon stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 512 512" {...props}>
-      <path fill="none" stroke-linecap="square" stroke-miterlimit="10" stroke-width="48" d="M184 112l144 144-144 144" />
+    //<path fill="none" strokeLinecap="square" strokeMiterlimit="10" strokeWidth="48" d="M184 112l144 144-144 144" />
+    <Icon stroke="currentColor" fill="currentColor" strokeWidth="0" viewBox="0 0 512 512" {...props}>
+      <path fill="none" strokeLinecap="square" strokeMiterlimit="10" strokeWidth="48" d="M184 112l144 144-144 144" />
     </Icon>
   );
 }

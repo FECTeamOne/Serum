@@ -11,11 +11,27 @@ const StyledCarousel = styled.div`
 `;
 
 const CarouselItem = styled.div`
-  display: ${({ visible }) => (visible ? '' : 'none')};
+  display: ${({ visible }) => (visible ? null : 'none')};
 `;
 
 const CarouselButton = styled(Button)`
   visibility: ${({ visible }) => (visible ? 'visible' : 'hidden')};
+  margin: ${({ marginIndex, margin }) => {
+    const margins = [0, 0, 0, 0];
+    margins[marginIndex] = margin;
+    console.log(margins);
+    return margin ? margins.join(' ') : null;
+  }};
+
+  &:hover {
+    //background-color: red;
+  }
+  svg {
+    filter: drop-shadow(.5px .5px 0px rgb(255 255 255 / 1))
+    drop-shadow(.5px -.5px 0px rgb(255 255 255 / 1))
+    drop-shadow(-.5px .5px 0px rgb(255 255 255 / 1))
+    drop-shadow(-.5px -.5px 0px rgb(255 255 255 / 1))
+  }
 `;
 
 // TODO: update docs
@@ -28,10 +44,11 @@ function Carousel({
   items,
   size,
   scrollIndex,
+  handleScroll = () => {},
   direction = 'row',
   arrowWidth,
   arrowHeight,
-  handleScroll = () => {},
+  margin,
 }) {
   const placeInRange = (index) => {
     const adjustedIndex = Math.min(index, items.length - size + 1);
@@ -47,6 +64,8 @@ function Carousel({
         type="button"
         onClick={() => { handleScroll(placeInRange(adjustedScrollIndex - size), size); }}
         visible={adjustedScrollIndex !== 0}
+        marginIndex={direction === 'row' ? 1 : 2}
+        margin={margin}
       >
 
         <ArrowIcon
@@ -70,6 +89,9 @@ function Carousel({
         type="button"
         onClick={() => { handleScroll(placeInRange(adjustedScrollIndex + size), size); }}
         visible={adjustedScrollIndex < items.length - size}
+        marginIndex={Number(direction === 'row')}
+        margin={margin}
+        marginIndex={direction === 'row' ? 3 : 0}
       >
 
         <ArrowIcon
