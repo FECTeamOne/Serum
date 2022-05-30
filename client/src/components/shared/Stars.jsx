@@ -10,8 +10,9 @@ import Button from 'shared/Button.jsx';
  */
 function Stars({
   value,
-  onClick,
   interactive,
+  label,
+  onClick,
 }) {
   const [hoverValue, setHoverValue] = useState(0);
   const determineStarFillFromStarsValue = (star, starsValue) => {
@@ -55,6 +56,7 @@ function Stars({
         return (
           <Button
             value={`${starValue}`}
+            label={`Select rating value ${starValue} for ${label}`}
             key={starValue}
             onClick={onClick}
             onMouseEnter={handleMouseEnter}
@@ -80,6 +82,11 @@ Stars.propTypes = {
    * Whether the stars should be interactive, e.g. for use to capture a rating in a form
    */
   interactive: PropTypes.bool,
+  /**
+   * Accesibility label for when Stars is interactive. This value is used to
+   * interpolate the accesibility labels for the star buttons.
+   */
+  label: PropTypes.string,
   /**
    * Click handler to be supplied when Stars are being used interactively.
    * Use event.currentTarget.value to access the value of the star clicked
