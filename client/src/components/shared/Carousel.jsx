@@ -10,8 +10,9 @@ import ArrowIcon from 'assets/ArrowIcon.jsx';
 function Carousel({
   items,
   size,
+  label,
   scrollIndex,
-  handleScroll,
+  onScroll,
   direction,
   arrowWidth,
   arrowHeight,
@@ -28,7 +29,8 @@ function Carousel({
 
       <CarouselButton
         type="button"
-        onClick={() => { handleScroll(placeInRange(adjustedScrollIndex - size), size); }}
+        aria-label={`Back button for ${label} carousel`}
+        onClick={() => { onScroll(placeInRange(adjustedScrollIndex - size), size); }}
         visible={adjustedScrollIndex !== 0}
       >
         <ArrowIcon
@@ -49,7 +51,8 @@ function Carousel({
 
       <CarouselButton
         type="button"
-        onClick={() => { handleScroll(placeInRange(adjustedScrollIndex + size), size); }}
+        aria-label={`Forward button for ${label} carousel`}
+        onClick={() => { onScroll(placeInRange(adjustedScrollIndex + size), size); }}
         visible={adjustedScrollIndex < items.length - size}
       >
         <ArrowIcon
@@ -68,6 +71,11 @@ Carousel.propTypes = {
   items: PropTypes.arrayOf(PropTypes.element).isRequired,
   /** How many items to display at once */
   size: PropTypes.number.isRequired,
+  /**
+   * Accessibility label for carousel. Used to interpolate aria-labels
+   * for the forward and back buttons
+   */
+  label: PropTypes.string.isRequired,
   /** The index in items of the first item that should appear in the
    * carousel. This prop should be used to make Carousel behave as a
    * controlled component.
@@ -76,15 +84,15 @@ Carousel.propTypes = {
   /**
    * Function to be called when one of the carousel buttons is
    * clicked and the carousel should scroll. When this occurs
-   * handleScroll is called with two arguments: index and size. Index
+   * onScroll is called with two arguments: index and size. Index
    * is the value that scrollIndex should take to reflect the button
    * click and size is the value of size, provided for convenience.
-   * Passing handleScroll the following function suffices to provide
+   * Passing hand(eScroll the following function suffices to provide
    * the basic carousel behavior: (index) => { setScrollIndex(index); },
    * where setScrollIndex is the setter for the state variable passed
    * to scrollIndex.
    */
-  handleScroll: PropTypes.func.isRequired,
+  onScroll: PropTypes.func.isRequired,
   /**
    * Carousel direction. Use 'row' for horizontal and 'column' for
    * vertical.
