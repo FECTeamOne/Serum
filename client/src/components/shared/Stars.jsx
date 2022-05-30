@@ -56,7 +56,7 @@ function Stars({
         return (
           <Button
             value={`${starValue}`}
-            label={`Select rating value ${starValue} for ${label}`}
+            aria-label={`Select rating value ${starValue} for ${label}`}
             key={starValue}
             onClick={onClick}
             onMouseEnter={handleMouseEnter}
