@@ -61,6 +61,7 @@ StarIcon.defaultProps = {
 
 const InvisibleIcon = styled(Icon)`
   width: 0;
+  height: 0;
 `;
 
 export { StarIconFills, StarIcon };
