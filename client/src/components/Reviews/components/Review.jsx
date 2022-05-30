@@ -1,8 +1,9 @@
 // may add a diffrent file for helfult/report buttons
-import React from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components';
 import { formatDistanceToNow, parseISO } from 'date-fns';
 import Stars from 'App/Stars.jsx'
+import axios from 'axios';
 
 const StyledReview = styled.div`
   border: 2px solid black;
@@ -29,11 +30,14 @@ const Buttons = styled.button`
 `;
 
 function Review({ review }) {
+  const [isDisabled, setIsDisabled] = useState(false);
   let date;
   let rec = '';
   const handleReviewClick = (e, type) => {
-    e.preventDefault();
-    // send request to review.review_id, type (helpful or report)
+    setIsDisabled(true);
+    axios.put(`/reviews/${review.review_id}/${type}`)
+      .then((data) => console.log(data))
+      .catch((err) => console.log(err));
   };
   const parseData = () => {
     date = formatDistanceToNow(parseISO(review.date));
@@ -54,7 +58,7 @@ function Review({ review }) {
       <Title>{review.summary}</Title>
       <br />
       <p>{review.body}</p>
-      <Buttons onClick={(e) => handleReviewClick(e, 'helpful')}>
+      <Buttons disabled={isDisabled} onClick={(e) => handleReviewClick(e, 'helpful')}>
         {`Helpful? ${review.helpfulness}`}
       </Buttons>
       <Buttons type="button" onClick={(e) => handleReviewClick(e, 'report')}>| Report</Buttons>
