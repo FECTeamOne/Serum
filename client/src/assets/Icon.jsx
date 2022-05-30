@@ -25,7 +25,7 @@ Icon.propTypes = {
   rotation: PropTypes.oneOfType([
     PropTypes.number,
     PropTypes.string,
-  ]);
+  ]),
 };
 
 export default Icon;
