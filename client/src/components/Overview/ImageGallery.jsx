@@ -3,6 +3,8 @@ import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import Carousel from 'shared/Carousel.jsx';
 import ImageButton from 'shared/ImageButton.jsx';
+import Modal from 'shared/Modal.jsx';
+import ExpandedImageGallery from 'Overview/ExpandedImageGallery.jsx';
 
 function ImageGallery({ photos }) {
   // for use as key
@@ -12,6 +14,7 @@ function ImageGallery({ photos }) {
 
   const [mainImageIndex, setMainImageIndex] = useState(0);
   const [thumbnailScrollIndex, setThumbnailScrollIndex] = useState(0);
+  const [expandedViewIsActive, setExpandedViewIsActive] = useState(false);
 
   const thumbnailGallerySize = 6;
 
@@ -32,16 +35,6 @@ function ImageGallery({ photos }) {
     }
   };
 
-  const images = photos.map((photo, i) => (
-    <ImageButton
-      url={photo.url}
-      key={`image gallery main photo ${photo.photo_id}`}
-      aria-label={`Current style ${i}`}
-      width="var(--size-13)"
-      height="var(--size-15)"
-    />
-  ));
-
   const thumbnails = photos.map((photo) => (
     <ImageButton
       url={photo.url}
@@ -50,7 +43,19 @@ function ImageGallery({ photos }) {
       onClick={() => { handleThumbnailClick(photo.photo_id); }}
       height="var(--size-8)"
       width="var(--size-7)"
+      // TODO: handle selected state
       // selected={i === mainImageIndex}
+    />
+  ));
+
+  const images = photos.map((photo, i) => (
+    <ImageButton
+      url={photo.url}
+      key={`image gallery main photo ${photo.photo_id}`}
+      aria-label={`Current style ${i}`}
+      width="var(--size-13)"
+      height="var(--size-15)"
+      onClick={() => { setExpandedViewIsActive(true); }}
     />
   ));
 
@@ -79,6 +84,13 @@ function ImageGallery({ photos }) {
         buttonMargin="calc(-1 * var(--size-7))"
         hover
       />
+      <Modal modalIsActive={expandedViewIsActive}>
+        <ExpandedImageGallery
+          photos={photos}
+          mainImageIndex={mainImageIndex}
+          onClose={() => { setExpandedViewIsActive(false); }}
+        />
+      </Modal>
     </StyledImageGallery>
   );
 }
