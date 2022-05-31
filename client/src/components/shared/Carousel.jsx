@@ -14,24 +14,61 @@ function Carousel({
   scrollIndex,
   onScroll,
   direction,
+  gap,
   arrowWidth,
   arrowHeight,
   arrowOutline,
   buttonWidth,
   buttonHeight,
   buttonMargin,
+  buttonsAfterCarousel,
   hover,
-  animateButtonHide,
 }) {
   const placeInRange = (index) => {
-    const adjustedIndex = Math.min(index, items.length - size + 1);
+    const adjustedIndex = Math.min(index, items.length - size);
     return Math.max(0, adjustedIndex);
   };
 
+  const determineMarginIndex = (button) => {
+    if (button === 'back') {
+      if (direction === 'row') {
+        return 1;
+      }
+
+      if (buttonsAfterCarousel) {
+        return 0;
+      }
+
+      return 2;
+    }
+    if (button === 'forward') {
+      if (direction === 'row') {
+        return 3;
+      }
+
+      if (buttonsAfterCarousel) {
+        return 2;
+      }
+
+      return 0;
+    }
+  }
+
   const adjustedScrollIndex = placeInRange(scrollIndex);
 
+  const carouselItems = items.map((item, i) => (
+    <CarouselItem
+      visible={adjustedScrollIndex <= i && i < adjustedScrollIndex + size}
+      key={item.key}
+    >
+      {item}
+    </CarouselItem>
+  ));
+
   return (
-    <StyledCarousel direction={direction}>
+    <StyledCarousel direction={direction} gap={gap}>
+
+      {buttonsAfterCarousel ? carouselItems : null}
 
       <CarouselButton
         type="button"
@@ -41,7 +78,8 @@ function Carousel({
         width={buttonWidth}
         height={buttonHeight}
         buttonMargin={buttonMargin}
-        marginIndex={direction === 'row' ? 1 : 2}
+        marginIndex={determineMarginIndex('back')}
+        buttonsAfterCarousel= {buttonsAfterCarousel}
         hover={hover}
       >
 
@@ -49,18 +87,12 @@ function Carousel({
           iconWidth={arrowWidth}
           iconHeight={arrowHeight}
           outline={arrowOutline}
+          fillColor={buttonsAfterCarousel && adjustedScrollIndex === 0 && 'var(--color-disabled)'}
           rotation={2 + Number(direction === 'column')}
         />
       </CarouselButton>
 
-      {items.map((item, i) => (
-        <CarouselItem
-          visible={adjustedScrollIndex <= i && i < adjustedScrollIndex + size}
-          key={item.key}
-        >
-          {item}
-        </CarouselItem>
-      ))}
+      {buttonsAfterCarousel ? null : carouselItems}
 
       <CarouselButton
         type="button"
@@ -70,13 +102,15 @@ function Carousel({
         width={buttonWidth}
         height={buttonHeight}
         buttonMargin={buttonMargin}
-        marginIndex={direction === 'row' ? 3 : 0}
+        marginIndex={determineMarginIndex('forward')}
+        buttonsAfterCarousel={buttonsAfterCarousel}
         hover={hover}
       >
         <ArrowIcon
           iconWidth={arrowWidth}
           iconHeight={arrowHeight}
           outline={arrowOutline}
+          fillColor={buttonsAfterCarousel && (adjustedScrollIndex >= items.length - size) && 'var(--color-disabled)'}
           rotation={Number(direction === 'column')}
         />
       </CarouselButton>
@@ -136,6 +170,7 @@ Carousel.propTypes = {
    * Can be negative to overlap the buttons onto the Carousel.
    */
   buttonMargin: PropTypes.string,
+  buttonsAfterCarousel: PropTypes.bool,
   /**
    * Whether the buttons should show a transparent background when hovered.
    * Useful when the button is overlapped onto an image to improve
@@ -151,6 +186,7 @@ Carousel.defaultProps = {
   arrowOutline: false,
   buttonWidth: undefined,
   buttonMargin: undefined,
+  buttonsAfterCarousel: false,
   hover: false,
 };
 
@@ -170,7 +206,13 @@ const CarouselButton = styled(Button)`
   justify-content: center;
   z-index: 1;
 
-  visibility: ${({ visible }) => (visible ? 'visible' : 'hidden')};
+  visibility: ${({ visible, buttonsAfterCarousel }) => {
+    if (buttonsAfterCarousel) {
+      return 'buttonsAfterCarousel';
+    }
+    return visible ? 'visible' : 'hidden';
+  }};
+
   margin: ${({ marginIndex, buttonMargin }) => {
     const margins = [0, 0, 0, 0];
     margins[marginIndex] = buttonMargin;
