@@ -1,20 +1,11 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components';
-import { FaRegStar, FaStar } from 'react-icons/fa';
+import Stars from 'shared/Stars.jsx'
 import axios from 'axios';
 
 // TODO Change this to be the modal styles to make it a popup window
 const Modal = styled.div`
   min-height: 400px;
-`;
-const HiddenRadioButton = styled.input.attrs({
-  type: 'radio',
-})`
-  height: 25px;
-  width: 25px;
-  cursor: pointer;
-  position: absolute;
-  opacity: 0;
 `;
 const CloseButton = styled.button`
   background: none!important;
@@ -28,6 +19,10 @@ const CloseButton = styled.button`
 const Image = styled.img`
   height: 50px;
   width: 35px;
+`;
+const StyledStars = styled.div`
+  margin: auto;
+  width: 60px;
 `;
 
 const data = {
@@ -124,23 +119,14 @@ function AddReview({ handleModalToggle, allCharacteristics, productId }) {
   return (
     <Modal>
       <CloseButton type="button" onClick={handleModalToggle}>X</CloseButton>
-      <div>
-        {[...Array(5)].map((star, i) => {
-          const ratingVal = i + 1;
-          return (
-            <label>
-              <HiddenRadioButton
-                type="radio"
-                name="rating"
-                value={ratingVal}
-                onClick={() => setRating(ratingVal)}
-              />
-              {ratingVal <= rating ? <FaStar size={30} /> : <FaRegStar size={30} />}
-            </label>
-          );
-        })}
+      <StyledStars>
+        <Stars
+          value={Number(rating)}
+          interactive
+          onClick={(e) => setRating(e.currentTarget.value)}
+        />
         {starsMeaning[rating - 1]}
-      </div>
+      </StyledStars>
       <div>
         do you recommend this product?
         <label htmlFor="1">
