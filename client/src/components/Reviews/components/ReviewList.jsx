@@ -37,6 +37,7 @@ function ReviewList({reviewsMetadata, currentFilter }) {
   const [toggleModal, setToggleModal] = useState(false);
   const [reviews, setReviews] = useState({});
   const [count, setCount] = useState(2);
+  const [isMoreReviews, setIsMoreReviews] = useState(true);
   useEffect(() => {
     setCount(2);
     axios.get(`/reviews?product_id=${productId}&sort=${currentSort}&count=2`)
@@ -44,10 +45,7 @@ function ReviewList({reviewsMetadata, currentFilter }) {
       .catch((err) => console.log(err));
   }, [currentSort]);
   useEffect(() => {
-    if (!reviews.results) {
-      return;
-    }
-    if (reviews.results.length % 2 !== 0) {
+    if (!isMoreReviews) {
       return;
     }
     axios.get(`/reviews?product_id=${productId}&sort=${currentSort}&count=${count}`)
@@ -58,7 +56,7 @@ function ReviewList({reviewsMetadata, currentFilter }) {
         }
         setReviews(res.data);
       })
-      .catch((err) => console.log(err));
+      .catch(() => setIsMoreReviews(false));
   }, [count, currentFilter]);
   const handleSort = (e) => {
     setCurrentSort(e.target.value);
@@ -97,7 +95,8 @@ function ReviewList({reviewsMetadata, currentFilter }) {
       </AllReviews>
       <br />
       <AddReviewButton onClick={handleModalToggle}> Add review</AddReviewButton>
-      <MoreReviewsButton onClick={handleMoreReviews}>More reviews</MoreReviewsButton>
+      {isMoreReviews
+      && <MoreReviewsButton onClick={handleMoreReviews}>More reviews</MoreReviewsButton>}
     </>
   );
 }
