@@ -45,9 +45,7 @@ function Stars({
         if (!interactive) {
           return (
             <StarIcon
-              value={value === 0
-                ? interactive && determineStarFillFromStarsValue(starValue, hoverValue)
-                : determineStarFillFromStarsValue(starValue, value)}
+              value={determineStarFillFromStarsValue(starValue, value)}
               iconWidth="var(--size-2)"
             />
           );
@@ -64,7 +62,7 @@ function Stars({
           >
             <StarIcon
               value={value === 0
-                ? interactive && determineStarFillFromStarsValue(starValue, hoverValue)
+                ? determineStarFillFromStarsValue(starValue, hoverValue)
                 : determineStarFillFromStarsValue(starValue, value)}
               iconWidth="var(--size-2)"
             />
@@ -86,7 +84,7 @@ Stars.propTypes = {
    * Accesibility label for when Stars is interactive. This value is used to
    * interpolate the accesibility labels for the star buttons.
    */
-  label: PropTypes.string,
+  label: PropTypes.string.isRequired,
   /**
    * Click handler to be supplied when Stars are being used interactively.
    * Use event.currentTarget.value to access the value of the star clicked
