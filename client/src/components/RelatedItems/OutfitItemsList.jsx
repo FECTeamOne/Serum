@@ -1,7 +1,7 @@
 import React from 'react';
 // import styled from 'styled-components';
 import OutfitItemsEntry from 'RelatedItems/OutfitItemsEntry.jsx';
-import Carousel from 'shared/Carousel.jsx'
+import Carousel from 'App/Carousel.jsx'
 import { products } from 'tests/testData.js';
 
 // need to pass {currentItemId} into the props
@@ -20,7 +20,7 @@ function OutfitItemsList() {
   return (
     <div>
       <div>YOUR OUTFIT</div>
-      <Carousel items={OutfitItemsEntries} size={2} scrollIndex={0}/>
+      <Carousel items={OutfitItemsEntries} size={2} />
     </div>
   );
 }

@@ -1,40 +1,57 @@
 import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
-import styled from 'styled-components';
-import Select from 'shared/Select.jsx';
-import Button from 'shared/Button.jsx';
 
-const StyledAddToCart = styled.form`
-  * {
-    margin-bottom: var(--space-1);
-  }
-`;
+// TODO: make Select take all unspecified props from parent
+function Select({
+  label,
+  value,
+  options,
+  defaultSelection,
+  disabled,
+  onChange,
+}) {
+  return (
+    <select aria-label={label} value={value} onChange={onChange}>
+      {options.map((option) => (
+        <option key={option} value={option}>{option}</option>
+      ))}
+    </select>
+  );
+}
 
-const StyledSizeQuantity = styled.div`
-  padding: 0;
+Select.propTypes = {
+  label: PropTypes.string.isRequired,
+  value: PropTypes.oneOfType([
+    PropTypes.string,
+    PropTypes.number,
+  ]),
+  options: PropTypes.arrayOf(PropTypes.oneOfType([
+    PropTypes.string,
+    PropTypes.number,
+  ])),
+  defaultSelection: PropTypes.string,
+  disabled: PropTypes.bool,
+  onChange: PropTypes.func.isRequired,
+};
 
-  && * {
-    margin-bottom: 0
-  }
-
-  & :first-child {
-    margin-right: var(--space-1);
-  }
-`;
+Select.defaultProps = {
+  options: [],
+  disabled: false,
+};
 
 function AddToCart({ skus }) {
-  const [selectedSize, setSelectedSize] = useState('default');
+  const [selectedSize, setSelectedSize] = useState();
   // TODO: should quantities be state?
   // It's computed from selectedSize and I only added it to state so
   // updates to it would trigger a rerender and update
   // the <Select /> for quantity selection
   const [quantities, setQuantities] = useState([1]);
   const [selectedQuantity, setSelectedQuantity] = useState();
-  const [shouldPromptForSize, setShouldPromptForSize] = useState(false);
+  const [promptForSize, setPromptForSize] = useState(false);
 
   const availableSkus = Object.values(skus).filter((sku) => sku.quantity > 0);
   const isInStock = availableSkus.length > 0;
-  let sizes;
+  let sizes = [];
 
   if (isInStock) {
     sizes = availableSkus.map((sku) => sku.size);
@@ -44,19 +61,13 @@ function AddToCart({ skus }) {
 
   useEffect(() => {
     if (isInStock) {
-      setSelectedSize('default');
-    } else {
-      setSelectedSize('OUT OF STOCK');
+      // TODO: change to 'Select Size'
+      setSelectedSize(Object.values(availableSkus)[0].size);
     }
   }, [skus]);
 
   useEffect(() => {
-    if (selectedSize === 'default' || !isInStock) {
-      const mdash = String.fromCharCode(8212);
-      setQuantities([mdash]);
-      setSelectedQuantity(mdash);
-    }
-    if (selectedSize !== 'default') {
+    if (selectedSize) {
       const maxQuantity = Object.values(skus)
         .find((sku) => sku.size === selectedSize)
         .quantity;
@@ -69,18 +80,19 @@ function AddToCart({ skus }) {
 
   const handleSizeChange = (event) => {
     setSelectedSize(event.target.value);
-    setShouldPromptForSize(false);
   };
 
   const handleQuantityChange = (event) => {
     setSelectedQuantity(event.target.value);
+    setPromptForSize(false);
   };
 
   const handleAddToCartClick = (event) => {
     event.preventDefault();
 
-    if (selectedSize === 'default') {
-      setShouldPromptForSize(true);
+    // TODO: account for default selection
+    if (!selectedSize) {
+      setPromptForSize(true);
     } else {
       // TODO: actually add the purchase to cart
       const selectedSku = Object.keys(skus)
@@ -93,36 +105,30 @@ function AddToCart({ skus }) {
   };
 
   return (
-    <StyledAddToCart>
-      <StyledSizeQuantity>
-        <Select
-          label="Select Size"
-          value={selectedSize}
-          options={sizes}
-          selectionPrompt="Select Size"
-          onChange={handleSizeChange}
-          disabled={!isInStock}
-          width="var(--size-9)"
-        />
-        <Select
-          label="Select quantity"
-          value={selectedQuantity}
-          options={quantities}
-          onChange={handleQuantityChange}
-          disabled={selectedSize === 'default' || !isInStock}
-          width="var(--size-7)"
-        />
-      </StyledSizeQuantity>
-      <Button
+    <form>
+      <Select
+        label="Select size"
+        value={selectedSize}
+        options={sizes}
+        onChange={handleSizeChange}
+        disabled={!isInStock}
+      />
+      <Select
+        label="Select quantity"
+        value={selectedQuantity}
+        options={quantities}
+        onChange={handleQuantityChange}
+        // TODO: might need to adjust this for !isInStock
+        disabled={!selectedSize}
+      />
+      <button
         type="submit"
-        variant="primary"
         onClick={handleAddToCartClick}
         hidden={!isInStock}
-        width="var(--size-11)"
       >
         Add to Cart
-      </Button>
-    </StyledAddToCart>
+      </button>
+    </form>
   );
 }
 
