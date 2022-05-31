@@ -6,7 +6,7 @@ const Svg = styled(Icon)`
   path,
   polygon,
   rect {
-   // fill: var(--color-main);
+    fill: var(--color-main);
   }
 
   circle {

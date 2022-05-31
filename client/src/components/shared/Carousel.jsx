@@ -4,18 +4,16 @@ import styled from 'styled-components';
 import Button from 'shared/Button.jsx';
 import ArrowIcon from 'assets/ArrowIcon.jsx';
 
-// TODO: update docs
 /**
  * Displays a set of items with buttons to scroll through them
- * @param {Array}  items The items to be displayed
- * @param {Number} size  How many items to display at once
  */
 function Carousel({
   items,
   size,
+  label,
   scrollIndex,
-  handleScroll = () => {},
-  direction = 'row',
+  onScroll,
+  direction,
   arrowWidth,
   arrowHeight,
   margin,
@@ -34,7 +32,8 @@ function Carousel({
 
       <CarouselButton
         type="button"
-        onClick={() => { handleScroll(placeInRange(adjustedScrollIndex - size), size); }}
+        aria-label={`Back button for ${label} carousel`}
+        onClick={() => { onScroll(placeInRange(adjustedScrollIndex - size), size); }}
         visible={adjustedScrollIndex !== 0}
         marginIndex={direction === 'row' ? 1 : 2}
         margin={margin}
@@ -47,7 +46,6 @@ function Carousel({
           iconHeight={arrowHeight}
           rotation={2 + Number(direction === 'column')}
         />
-
       </CarouselButton>
 
       {items.map((item, i) => (
@@ -61,7 +59,8 @@ function Carousel({
 
       <CarouselButton
         type="button"
-        onClick={() => { handleScroll(placeInRange(adjustedScrollIndex + size), size); }}
+        aria-label={`Forward button for ${label} carousel`}
+        onClick={() => { onScroll(placeInRange(adjustedScrollIndex + size), size); }}
         visible={adjustedScrollIndex < items.length - size}
         marginIndex={Number(direction === 'row')}
         margin={margin}
@@ -69,13 +68,11 @@ function Carousel({
         buttonWidth={buttonWidth}
         hover={hover}
       >
-
         <ArrowIcon
           iconWidth={arrowWidth}
           iconHeight={arrowHeight}
           rotation={Number(direction === 'column')}
         />
-
       </CarouselButton>
 
     </StyledCarousel>
@@ -83,9 +80,51 @@ function Carousel({
 }
 
 Carousel.propTypes = {
+  /** The items to be displayed in the carousel */
   items: PropTypes.arrayOf(PropTypes.element).isRequired,
+  /** How many items to display at once */
   size: PropTypes.number.isRequired,
+  /**
+   * Accessibility label for carousel. Used to interpolate aria-labels
+   * for the forward and back buttons
+   */
+  label: PropTypes.string.isRequired,
+  /** The index in items of the first item that should appear in the
+   * carousel. This prop should be used to make Carousel behave as a
+   * controlled component.
+   */
+  scrollIndex: PropTypes.number.isRequired,
+  /**
+   * Function to be called when one of the carousel buttons is
+   * clicked and the carousel should scroll. When this occurs
+   * onScroll is called with two arguments: index and size. Index
+   * is the value that scrollIndex should take to reflect the button
+   * click and size is the value of size, provided for convenience.
+   * Passing hand(eScroll the following function suffices to provide
+   * the basic carousel behavior: (index) => { setScrollIndex(index); },
+   * where setScrollIndex is the setter for the state variable passed
+   * to scrollIndex.
+   */
+  onScroll: PropTypes.func.isRequired,
+  /**
+   * Carousel direction. Use 'row' for horizontal and 'column' for
+   * vertical.
+   */
   direction: PropTypes.string,
+  /**
+   * Width to be used for the arrow icon, e.g. "100px" or "var(--size-3)"
+   */
+  arrowWidth: PropTypes.string,
+  /**
+   * Height to be used for the arrow icon, e.g. "100px" or "var(--size-3)"
+   */
+  arrowHeight: PropTypes.string,
+};
+
+Carousel.defaultProps = {
+  direction: 'row',
+  arrowWidth: 'var(--size-2)',
+  arrowHeight: 'var(--size-2)',
 };
 
 const StyledCarousel = styled.div`
@@ -116,6 +155,5 @@ const CarouselButton = styled(Button)`
     background-color: ${({ hover }) => hover && "rgb(0 0 0 / .1)"};
   }
 `;
-
 
 export default Carousel;
