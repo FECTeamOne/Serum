@@ -4,36 +4,6 @@ import styled from 'styled-components';
 import Button from 'shared/Button.jsx';
 import ArrowIcon from 'assets/ArrowIcon.jsx';
 
-const StyledCarousel = styled.div`
-  display: flex;
-  flex-direction: ${({ direction }) => direction};
-  gap: ${({ gap }) => gap};
-`;
-
-const CarouselItem = styled.div`
-  display: ${({ visible }) => (visible ? null : 'none')};
-`;
-
-const CarouselButton = styled(Button)`
-  visibility: ${({ visible }) => (visible ? 'visible' : 'hidden')};
-  margin: ${({ marginIndex, margin }) => {
-    const margins = [0, 0, 0, 0];
-    margins[marginIndex] = margin;
-    console.log(margins);
-    return margin ? margins.join(' ') : null;
-  }};
-
-  &:hover {
-    //background-color: red;
-  }
-  svg {
-    filter: drop-shadow(.5px .5px 0px rgb(255 255 255 / 1))
-    drop-shadow(.5px -.5px 0px rgb(255 255 255 / 1))
-    drop-shadow(-.5px .5px 0px rgb(255 255 255 / 1))
-    drop-shadow(-.5px -.5px 0px rgb(255 255 255 / 1))
-  }
-`;
-
 // TODO: update docs
 /**
  * Displays a set of items with buttons to scroll through them
@@ -49,6 +19,8 @@ function Carousel({
   arrowWidth,
   arrowHeight,
   margin,
+  buttonWidth,
+  hover,
 }) {
   const placeInRange = (index) => {
     const adjustedIndex = Math.min(index, items.length - size + 1);
@@ -66,6 +38,8 @@ function Carousel({
         visible={adjustedScrollIndex !== 0}
         marginIndex={direction === 'row' ? 1 : 2}
         margin={margin}
+        buttonWidth={buttonWidth}
+        hover={hover}
       >
 
         <ArrowIcon
@@ -92,6 +66,8 @@ function Carousel({
         marginIndex={Number(direction === 'row')}
         margin={margin}
         marginIndex={direction === 'row' ? 3 : 0}
+        buttonWidth={buttonWidth}
+        hover={hover}
       >
 
         <ArrowIcon
@@ -111,5 +87,35 @@ Carousel.propTypes = {
   size: PropTypes.number.isRequired,
   direction: PropTypes.string,
 };
+
+const StyledCarousel = styled.div`
+  display: flex;
+  flex-direction: ${({ direction }) => direction};
+  gap: ${({ gap }) => gap};
+`;
+
+const CarouselItem = styled.div`
+  display: ${({ visible }) => (visible ? null : 'none')};
+`;
+
+const CarouselButton = styled(Button)`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1;
+
+  visibility: ${({ visible }) => (visible ? 'visible' : 'hidden')};
+  width: ${({ buttonWidth }) => buttonWidth};
+  margin: ${({ marginIndex, margin }) => {
+    const margins = [0, 0, 0, 0];
+    margins[marginIndex] = margin;
+    return margin ? margins.join(' ') : null;
+  }};
+  
+  &:hover {
+    background-color: ${({ hover }) => hover && "rgb(0 0 0 / .1)"};
+  }
+`;
+
 
 export default Carousel;

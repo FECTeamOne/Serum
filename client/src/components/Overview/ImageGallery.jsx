@@ -86,7 +86,9 @@ function ImageGallery({ photos }) {
         handleScroll={handleMainImageScroll}
         arrowHeight="var(--size-4)"
         arrowWidth="var(--size-4)"
-        margin="calc(-1 * var(--size-4))"
+        margin="calc(-1 * var(--size-7))"
+        buttonWidth="var(--size-7)"
+        hover
       />
     </StyledImageGallery>
   );
