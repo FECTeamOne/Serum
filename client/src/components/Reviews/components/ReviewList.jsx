@@ -39,6 +39,9 @@ function ReviewList({reviewsMetadata, currentFilter }) {
       .catch((err) => console.log(err));
   }, [currentSort]);
   useEffect(() => {
+    if (reviews.results.length % 2 !== 0) {
+      return;
+    }
     axios.get(`/reviews?product_id=${productId}&sort=${currentSort}&count=${count}`)
       .then((res) => {
         const filter = currentFilter.map((current) => Number(current));

@@ -81,11 +81,12 @@ function AddReview({ handleModalToggle, allCharacteristics, productId }) {
     const submittedData = {
       ...reviewText,
       product_id: Number(productId),
-      rating,
+      rating: Number(rating),
       recommend: isRecommended,
       characteristics: characteristicSubmit,
       photos: [],
     };
+    console.log(submittedData);
     if (submittedData.email.search(/^\S+@\S+\.\S+$/) === -1) {
       setSubmissonErr(true);
     } else {
