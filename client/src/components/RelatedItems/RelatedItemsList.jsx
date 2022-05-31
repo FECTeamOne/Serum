@@ -6,7 +6,6 @@ import Carousel from 'App/Carousel.jsx'
 import axios from 'axios';
 import Modal from 'RelatedItems/Modal.jsx';
 
-// need to pass {currentItemId} into the props
 function RelatedItemsList({ currentItemId }) {
   const [modalIsVisible, setModalIsVisible] = useState(false);
   const [relatedProducts, setRelatedProducts] = useState([]);

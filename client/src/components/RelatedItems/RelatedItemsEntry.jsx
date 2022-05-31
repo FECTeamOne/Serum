@@ -2,29 +2,6 @@ import React from 'react';
 import styled from 'styled-components';
 import PropTypes from 'prop-types';
 
-// const Container = styled.div`
-//   text-align: center;
-// `;
-
-const Container = styled.div`
-  position: relative
-`;
-
-const Action = styled.button`
-  position: absolute;
-  top: 5px;
-  right: 45%;
-  width: 80px;
-  height: 35px;
-  background-color: #555;
-  color: white;
-  font-size: 15px;
-  padding: 5px 5px;
-  border: none;
-  cursor: pointer;
-  border-radius: 5px;
-`;
-
 function RelatedItemsEntry({ img, item, handleCompare }) {
   // console.log(img);
 
@@ -56,5 +33,28 @@ RelatedItemsEntry.propTypes = {
   img: PropTypes.object.isRequired,
   // size: PropTypes.number.isRequired,
 };
+
+// const Container = styled.div`
+//   text-align: center;
+// `;
+
+const Container = styled.div`
+  position: relative
+`;
+
+const Action = styled.button`
+  position: absolute;
+  top: 5px;
+  right: 45%;
+  width: 80px;
+  height: 35px;
+  background-color: #555;
+  color: white;
+  font-size: 15px;
+  padding: 5px 5px;
+  border: none;
+  cursor: pointer;
+  border-radius: 5px;
+`;
 
 export default RelatedItemsEntry;
