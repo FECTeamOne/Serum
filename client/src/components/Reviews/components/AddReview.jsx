@@ -124,7 +124,7 @@ function AddReview({ handleModalToggle, allCharacteristics, productId }) {
         <Stars
           value={Number(rating)}
           interactive
-          onClick={(e) => setRating(e.currentTarget.value)}
+          onClick={(i) => setRating(i)}
         />
         {starsMeaning[rating - 1]}
       </StyledStars>
