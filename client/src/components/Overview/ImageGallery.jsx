@@ -59,6 +59,7 @@ function ImageGallery({ photos }) {
       <Carousel
         items={thumbnails}
         size={thumbnailGallerySize}
+        label="thumbnail gallery"
         scrollIndex={thumbnailScrollIndex}
         onScroll={handleThumbnailScroll}
         direction="column"
@@ -71,6 +72,7 @@ function ImageGallery({ photos }) {
       <Carousel
         items={images}
         size={1}
+        label="main image"
         scrollIndex={mainImageIndex}
         onScroll={handleMainImageScroll}
         arrowWidth="var(--size-2)"

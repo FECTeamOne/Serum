@@ -84,14 +84,16 @@ function Carousel({
         height={buttonHeight}
         buttonMargin={buttonMargin}
         marginIndex={determineMarginIndex('back')}
-        buttonsAfterCarousel= {buttonsAfterCarousel}
+        buttonsAfterCarousel={buttonsAfterCarousel}
         hover={hover}
       >
 
         <ArrowIcon
           iconWidth={arrowWidth}
           iconHeight={arrowHeight}
-          fillColor={buttonsAfterCarousel && adjustedScrollIndex === 0 && 'var(--color-disabled)'}
+          fillColor={buttonsAfterCarousel && adjustedScrollIndex === 0
+            ? 'var(--color-disabled)'
+            : undefined}
           rotation={2 + Number(direction === 'column')}
         />
       </CarouselButton>
@@ -113,7 +115,9 @@ function Carousel({
         <ArrowIcon
           iconWidth={arrowWidth}
           iconHeight={arrowHeight}
-          fillColor={buttonsAfterCarousel && (adjustedScrollIndex >= items.length - size) && 'var(--color-disabled)'}
+          fillColor={buttonsAfterCarousel && (adjustedScrollIndex >= items.length - size)
+            ? 'var(--color-disabled)'
+            : undefined}
           rotation={Number(direction === 'column')}
         />
       </CarouselButton>
@@ -166,6 +170,8 @@ Carousel.propTypes = {
    * Height to be used for the arrow icons, e.g. "100px" or "var(--size-3)"
    */
   arrowHeight: PropTypes.string,
+  /** Height for the carousel buttons, e.g. "100px" or "var(--size-3)" */
+  buttonHeight: PropTypes.string,
   /** Width for the carousel buttons, e.g. "100px" or "var(--size-3)" */
   buttonWidth: PropTypes.string,
   /**
@@ -193,6 +199,7 @@ Carousel.defaultProps = {
   arrowWidth: undefined,
   arrowHeight: undefined,
   buttonWidth: undefined,
+  buttonHeight: undefined,
   buttonMargin: undefined,
   buttonsAfterCarousel: false,
   hover: false,
