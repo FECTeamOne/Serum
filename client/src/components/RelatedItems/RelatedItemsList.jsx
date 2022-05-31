@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 // import styled from 'styled-components';
 import PropTypes from 'prop-types';
 import RelatedItemsEntry from 'RelatedItems/RelatedItemsEntry.jsx';
-import Carousel from 'shared/Carousel.jsx'
+import Carousel from 'App/Carousel.jsx'
 import axios from 'axios';
 import Modal from 'RelatedItems/Modal.jsx';
 
@@ -113,7 +113,7 @@ function RelatedItemsList({ currentItemId }) {
   return (
     <div>
       <div>RELATED PRODUCTS</div>
-      <Carousel items={relatedItemsEntries} size={4} scrollIndex={0}/>
+      <Carousel items={relatedItemsEntries} size={4} />
       { currentProductChars && allProductChars && relatedProductChars
         && (
         <Modal
