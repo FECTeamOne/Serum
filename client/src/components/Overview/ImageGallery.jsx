@@ -4,11 +4,6 @@ import styled from 'styled-components';
 import Carousel from 'shared/Carousel.jsx';
 import ImageButton from 'shared/ImageButton.jsx';
 
-const StyledImageGallery = styled.section`
-  display:flex;
-  gap: var(--space-1);
-`;
-
 function ImageGallery({ photos }) {
   // for use as key
   photos.forEach((photo, i) => {
@@ -18,31 +13,22 @@ function ImageGallery({ photos }) {
   const [mainImageIndex, setMainImageIndex] = useState(0);
   const [thumbnailScrollIndex, setThumbnailScrollIndex] = useState(0);
 
-  const thumbnailGallerySize = 4;
-
-  // could this cause problems with the augmentation of photos with ids?
-  // if so augment in overview before passing (should make a copy to be augmented first)
-  useEffect(() => {
-    setMainImageIndex(Math.min(mainImageIndex, photos.length));
-    setThumbnailScrollIndex(
-      Math.min(thumbnailScrollIndex, photos.length - thumbnailGallerySize + 1)
-    );
-  }, [photos]);
+  const thumbnailGallerySize = 6;
 
   const handleThumbnailClick = (photo_id) => {
     const index = photos.findIndex((photo) => photo.photo_id === photo_id);
     setMainImageIndex(index);
   };
 
-  const handleThumbnailScroll = (scrollTo) => {
-    setThumbnailScrollIndex(scrollTo);
+  const handleThumbnailScroll = (scrollIndex) => {
+    setThumbnailScrollIndex(scrollIndex);
   };
-  const handleMainImageScroll = (scrollTo) => {
-    setMainImageIndex(scrollTo);
+  const handleMainImageScroll = (scrollIndex) => {
+    setMainImageIndex(scrollIndex);
 
-    if (scrollTo < thumbnailScrollIndex
+    if (scrollIndex < thumbnailScrollIndex
       || thumbnailScrollIndex + thumbnailGallerySize - 1 < scrollTo) {
-      setThumbnailScrollIndex(scrollTo);
+      setThumbnailScrollIndex(scrollIndex);
     }
   };
 
@@ -74,20 +60,23 @@ function ImageGallery({ photos }) {
         items={thumbnails}
         size={thumbnailGallerySize}
         scrollIndex={thumbnailScrollIndex}
-        handleScroll={handleThumbnailScroll}
+        onScroll={handleThumbnailScroll}
         direction="column"
-        arrowHeight="var(--size-4)"
-        arrowWidth="var(--size-4)"
+        gap="var(--size-1)"
+        buttonMargin="var(--size-4)"
+        buttonHeight="var(--size-5)"
+        buttonsAfterCarousel
+        arrowWidth="var(--size-1)"
       />
       <Carousel
         items={images}
         size={1}
         scrollIndex={mainImageIndex}
-        handleScroll={handleMainImageScroll}
-        arrowHeight="var(--size-4)"
-        arrowWidth="var(--size-4)"
-        margin="calc(-1 * var(--size-7))"
+        onScroll={handleMainImageScroll}
+        arrowWidth="var(--size-2)"
+        arrowOutline
         buttonWidth="var(--size-7)"
+        buttonMargin="calc(-1 * var(--size-7))"
         hover
       />
     </StyledImageGallery>
@@ -101,5 +90,10 @@ ImageGallery.propTypes = {
     ),
   ).isRequired,
 };
+
+const StyledImageGallery = styled.section`
+  display:flex;
+  gap: var(--space-1);
+`;
 
 export default ImageGallery;
