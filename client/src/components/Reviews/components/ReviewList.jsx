@@ -4,33 +4,6 @@ import AddReview from 'Reviews/components/AddReview.jsx';
 import styled from 'styled-components';
 import axios from 'axios';
 
-const AddReviewButton = styled.button`
-  background: none!important;
-  border: none;
-  padding: 0!important;
-  position: absolute;
-  right:  30%;
-  bottom:  3px;
-  cursor: pointer;
-`;
-const MoreReviewsButton = styled.button`
-  background: none!important;
-  border: none;
-  padding: 0!important;
-  position: absolute;
-  left:  30%;
-  bottom:  3px;
-  cursor: pointer;
-`;
-const StyledSelect = styled.select`
-  border: none;
-`;
-const AllReviews = styled.div`
-  overflow: scroll;
-  height: 386px;
-  width: 500px;
-`;
-
 function ReviewList({reviewsMetadata, currentFilter }) {
   const productId = reviewsMetadata.product_id;
   const [currentSort, setCurrentSort] = useState('relevant');
@@ -84,7 +57,7 @@ function ReviewList({reviewsMetadata, currentFilter }) {
   return (
     <>
       <form>
-        {`there are ${reviews.results.length} reviews that are sorted by`}
+        {`${reviews.results.length} reviews sorted by`}
         <StyledSelect value={currentSort} onChange={handleSort}>
           <option value="relevant">Relevant</option>
           <option value="newest">Newest</option>
@@ -101,5 +74,34 @@ function ReviewList({reviewsMetadata, currentFilter }) {
     </>
   );
 }
+
+const AddReviewButton = styled.button`
+  background: none!important;
+  border: none;
+  padding: 0!important;
+  position: absolute;
+  right:  25%;
+  bottom:  3px;
+  cursor: pointer;
+  font-size: var(--text-4)
+`;
+const MoreReviewsButton = styled.button`
+  background: none!important;
+  border: none;
+  padding: 0!important;
+  position: absolute;
+  left:  25%;
+  bottom:  3px;
+  cursor: pointer;
+  font-size: var(--text-4)
+`;
+const StyledSelect = styled.select`
+  border: none;
+`;
+const AllReviews = styled.div`
+  overflow: scroll;
+  height: 400px;
+  width: 500px;
+`;
 
 export default ReviewList;
