@@ -16,7 +16,7 @@ function StarIconFills() {
   const fillOffsets = [0, 0.46, 0.5, 0.565, 1];
 
   return (
-    <InvisibleIcon viewBox="0 0 20 19">
+    <InvisibleIcon aria-hidden="true" focusable="false" viewBox="0 0 20 19">
       <defs>
         {fillOffsets.map((fillOffset, i) => (
           <linearGradient key={fillOffset} id={`star-icon-gradient-${i}`}>
@@ -56,7 +56,7 @@ StarIcon.propTypes = {
 };
 
 StarIcon.defaultProps = {
-  value: 1,
+  value: 0,
 };
 
 const InvisibleIcon = styled(Icon)`
