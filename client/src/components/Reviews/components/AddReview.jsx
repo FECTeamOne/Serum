@@ -14,7 +14,7 @@ const CloseButton = styled.button`
   cursor: pointer;
   text-align: right;
   font-size: 36px;
-  width: 90%;
+  margin-left: 90%;
   `;
 const Image = styled.img`
   height: 50px;
