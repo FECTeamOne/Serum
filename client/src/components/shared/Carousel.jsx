@@ -16,9 +16,12 @@ function Carousel({
   direction,
   arrowWidth,
   arrowHeight,
+  arrowOutline,
   buttonWidth,
+  buttonHeight,
   buttonMargin,
   hover,
+  animateButtonHide,
 }) {
   const placeInRange = (index) => {
     const adjustedIndex = Math.min(index, items.length - size + 1);
@@ -35,7 +38,8 @@ function Carousel({
         aria-label={`Back button for ${label} carousel`}
         onClick={() => { onScroll(placeInRange(adjustedScrollIndex - size), size); }}
         visible={adjustedScrollIndex !== 0}
-        buttonWidth={buttonWidth}
+        width={buttonWidth}
+        height={buttonHeight}
         buttonMargin={buttonMargin}
         marginIndex={direction === 'row' ? 1 : 2}
         hover={hover}
@@ -44,6 +48,7 @@ function Carousel({
         <ArrowIcon
           iconWidth={arrowWidth}
           iconHeight={arrowHeight}
+          outline={arrowOutline}
           rotation={2 + Number(direction === 'column')}
         />
       </CarouselButton>
@@ -62,7 +67,8 @@ function Carousel({
         aria-label={`Forward button for ${label} carousel`}
         onClick={() => { onScroll(placeInRange(adjustedScrollIndex + size), size); }}
         visible={adjustedScrollIndex < items.length - size}
-        buttonWidth={buttonWidth}
+        width={buttonWidth}
+        height={buttonHeight}
         buttonMargin={buttonMargin}
         marginIndex={direction === 'row' ? 3 : 0}
         hover={hover}
@@ -70,6 +76,7 @@ function Carousel({
         <ArrowIcon
           iconWidth={arrowWidth}
           iconHeight={arrowHeight}
+          outline={arrowOutline}
           rotation={Number(direction === 'column')}
         />
       </CarouselButton>
@@ -118,6 +125,10 @@ Carousel.propTypes = {
    * Height to be used for the arrow icons, e.g. "100px" or "var(--size-3)"
    */
   arrowHeight: PropTypes.string,
+  /** Whether the arrow icons should have an outline. Useful
+   * when the buttons are overlayed on an image for increased visibility.
+   */
+  arrowOutline: PropTypes.bool,
   /** Width for the carousel buttons, e.g. "100px" or "var(--size-3)" */
   buttonWidth: PropTypes.string,
   /**
@@ -126,17 +137,18 @@ Carousel.propTypes = {
    */
   buttonMargin: PropTypes.string,
   /**
-   * Whether or not the buttons should show a transparent background
-   * when hovered. Useful when the button is overlapped onto an image
-   * to improve visibilit/discoverability of the carousel scrolling.
+   * Whether the buttons should show a transparent background when hovered.
+   * Useful when the button is overlapped onto an image to improve
+   * visibility/discoverability of the carousel scrolling.
    */
   hover: PropTypes.bool,
 };
 
 Carousel.defaultProps = {
   direction: 'row',
-  arrowWidth: 'var(--size-2)',
-  arrowHeight: 'var(--size-2)',
+  arrowWidth: undefined,
+  arrowHeight: undefined,
+  arrowOutline: false,
   buttonWidth: undefined,
   buttonMargin: undefined,
   hover: false,
@@ -159,7 +171,6 @@ const CarouselButton = styled(Button)`
   z-index: 1;
 
   visibility: ${({ visible }) => (visible ? 'visible' : 'hidden')};
-  width: ${({ buttonWidth }) => buttonWidth};
   margin: ${({ marginIndex, buttonMargin }) => {
     const margins = [0, 0, 0, 0];
     margins[marginIndex] = buttonMargin;
