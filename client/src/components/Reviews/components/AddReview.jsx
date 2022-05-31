@@ -86,7 +86,6 @@ function AddReview({ handleModalToggle, allCharacteristics, productId }) {
       characteristics: characteristicSubmit,
       photos: [],
     };
-    console.log(submittedData);
     if (submittedData.email.search(/^\S+@\S+\.\S+$/) === -1) {
       setSubmissonErr(true);
     } else {
