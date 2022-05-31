@@ -52,6 +52,7 @@ const GlobalStyle = styled.createGlobalStyle`
 
     --color-main: black;
     --color-bg: white;
+    --color-transparent: rgb(0 0 0 / .1);
     --space-0: 4px;
     --space-1: 8px;
     --space-2: 12px;
