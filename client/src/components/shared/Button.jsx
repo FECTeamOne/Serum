@@ -12,14 +12,13 @@ const Button = styled.button.attrs((props) => ({
   height: ${({ height }) => height};
   width: ${({ width }) => width};
   margin: 0;
+  background-color: transparent;
   cursor: pointer;
   ${({ variant }) => {
     switch (variant) {
       case 'primary':
         return css`
-          color: var(--color-bg);
-          background-color: var(--color-main);
-          border: 1px solid var(--color-main);
+          border: 1px solid;
           padding-top: var(--space-2);
           padding-bottom: var(--space-2);
           padding-left: var(--space-4);
@@ -27,7 +26,6 @@ const Button = styled.button.attrs((props) => ({
         `;
       default:
         return css`
-          background-color: transparent;
           border: 0;
           padding: 0;
         `;

@@ -9,14 +9,11 @@ import styled from 'styled-components';
 const StyledSelect = styled.select`
   margin: 0;
   border-radius: 0;
-  border: 1px solid;
   text-align-last: left;
   padding-left: var(--space-2);
   padding-top: var(--space-2);
   padding-bottom: var(--space-2);
-  width: ${({ width }) => width};
-  border-color: ${({ disabled }) => (disabled ? 'var(--color-disabled)' : 'var(--color-main)')};
-  color: ${({ disabled }) => (disabled ? 'var(--color-disabled)' : 'var(--color-main)')};
+  width: ${(props) => props.width};
 `;
 
 function Select({
