@@ -29,9 +29,9 @@ function ZoomView({ imageUrl, imageDimensions, initialCoords, onZoomClose }) {
       });
     };
 
-    window.addEventListener('mousemove', handleMouseMove);
+    window.addEventListener('pointermove', handleMouseMove);
     return () => {
-      window.removeEventListener('mousemove', handleMouseMove);
+      window.removeEventListener('pointermove', handleMouseMove);
     };
   }, []);
 
@@ -44,7 +44,6 @@ function ZoomView({ imageUrl, imageDimensions, initialCoords, onZoomClose }) {
     x: (mouseCoords.x / windowWidth),
     y: (mouseCoords.y / windowHeight),
   };
-  console.log(maxImageCoords, relativeCoords);
 
   // TODO: add check for whether window dimensions are larger than image
   // TODO: use event data from click that opened ZoomView to set initial position
@@ -63,6 +62,5 @@ function ZoomView({ imageUrl, imageDimensions, initialCoords, onZoomClose }) {
     </div>
   )
 }
-
 
 export default ZoomView;

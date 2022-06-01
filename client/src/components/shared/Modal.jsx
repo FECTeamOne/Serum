@@ -18,7 +18,7 @@ const StyledModal = styled.div`
   z-index: 10;
   width: 100vw;
   height: 100vh;
-  background-color: red;
+  background-color: var(--color-bg);
   position: fixed;
   top: 0;
   left: 0;
