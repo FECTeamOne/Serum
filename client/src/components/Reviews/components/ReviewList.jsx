@@ -25,6 +25,11 @@ const MoreReviewsButton = styled.button`
 const StyledSelect = styled.select`
   border: none;
 `;
+const AllReviews = styled.div`
+  overflow: scroll;
+  height: 386px;
+  width: 500px;
+`;
 
 function ReviewList({reviewsMetadata, currentFilter }) {
   const productId = reviewsMetadata.product_id;
@@ -32,6 +37,7 @@ function ReviewList({reviewsMetadata, currentFilter }) {
   const [toggleModal, setToggleModal] = useState(false);
   const [reviews, setReviews] = useState({});
   const [count, setCount] = useState(2);
+  const [isMoreReviews, setIsMoreReviews] = useState(true);
   useEffect(() => {
     setCount(2);
     axios.get(`/reviews?product_id=${productId}&sort=${currentSort}&count=2`)
@@ -39,6 +45,9 @@ function ReviewList({reviewsMetadata, currentFilter }) {
       .catch((err) => console.log(err));
   }, [currentSort]);
   useEffect(() => {
+    if (!isMoreReviews) {
+      return;
+    }
     axios.get(`/reviews?product_id=${productId}&sort=${currentSort}&count=${count}`)
       .then((res) => {
         const filter = currentFilter.map((current) => Number(current));
@@ -47,7 +56,7 @@ function ReviewList({reviewsMetadata, currentFilter }) {
         }
         setReviews(res.data);
       })
-      .catch((err) => console.log(err));
+      .catch(() => setIsMoreReviews(false));
   }, [count, currentFilter]);
   const handleSort = (e) => {
     setCurrentSort(e.target.value);
@@ -81,10 +90,13 @@ function ReviewList({reviewsMetadata, currentFilter }) {
         </StyledSelect>
         {currentFilter.length > 0 ? `Filtered by ${currentFilter.join(', ')} stars` : ''}
       </form>
-      {reviews.results.map((review) => <Review review={review} key={review.review_id} />)}
+      <AllReviews>
+        {reviews.results.map((review) => <Review review={review} key={review.review_id} />)}
+      </AllReviews>
       <br />
       <AddReviewButton onClick={handleModalToggle}> Add review</AddReviewButton>
-      <MoreReviewsButton onClick={handleMoreReviews}>More reviews</MoreReviewsButton>
+      {isMoreReviews
+      && <MoreReviewsButton onClick={handleMoreReviews}>More reviews</MoreReviewsButton>}
     </>
   );
 }

@@ -87,7 +87,7 @@ Stars.propTypes = {
    * Accesibility label for when Stars is interactive. This value is used to
    * interpolate the accesibility labels for the star buttons.
    */
-  label: PropTypes.string,
+  label: PropTypes.string.isRequired,
   /**
    * Click handler to be supplied when Stars are being used interactively.
    * Stars will pass the click handler the value that Stars should now

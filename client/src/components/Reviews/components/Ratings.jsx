@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
-import Stars from 'App/Stars.jsx';
+import Stars from 'shared/Stars.jsx';
 
 const Container = styled.div`
   border: 2px solid black;
@@ -39,7 +39,7 @@ function Ratings({ reviewsMetadata, name, setCurrentFilter, currentFilter }) {
   return (
     <Container>
       {name}
-      <Stars rating={avgStars} />
+      <Stars value={avgStars} />
       {[...Array(5)].map((val, i) => {
         const currentStar = i + 1;
         let currentNumber = reviewsMetadata.ratings[currentStar];
