@@ -2,6 +2,36 @@ import React from 'react';
 import styled from 'styled-components';
 import PropTypes from 'prop-types';
 
+function OutfitItemsEntry({ img, item, handleRemove }) {
+  return (
+    <Container>
+      <img
+        src={img}
+        width="200"
+        height="300"
+        alt={`Thumbnail for Outfit item ${item.name}`}
+      />
+      <Action onClick={() => { handleRemove(); }}>
+        Remove
+      </Action>
+      <div>
+        {item.category}
+      </div>
+      <div>
+        {item.default_price}
+      </div>
+    </Container>
+  );
+}
+
+OutfitItemsEntry.propTypes = {
+  // item: PropTypes.arrayOf(PropTypes.element).isRequired,
+  item: PropTypes.object.isRequired,
+  img: PropTypes.object.isRequired,
+  handleRemove: PropTypes.object.isRequired,
+  // size: PropTypes.number.isRequired,
+};
+
 // const Container = styled.div`
 //   text-align: center;
 // `;
@@ -23,33 +53,5 @@ const Action = styled.button`
   cursor: pointer;
   border-radius: 5px;
 `;
-
-function OutfitItemsEntry({ item }) {
-  return (
-    <Container>
-      <img
-        src="https://images.unsplash.com/photo-1501088430049-71c79fa3283e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=668&q=80"
-        width="200"
-        height="300"
-        alt={`Thumbnail for Outfit item ${item.name}`}
-      />
-      <Action onClick={() => {}}>
-        Remove
-      </Action>
-      <div>
-        {item.category}
-      </div>
-      <div>
-        {item.default_price}
-      </div>
-    </Container>
-  );
-}
-
-OutfitItemsEntry.propTypes = {
-  // item: PropTypes.arrayOf(PropTypes.element).isRequired,
-  item: PropTypes.object.isRequired,
-  // size: PropTypes.number.isRequired,
-};
 
 export default OutfitItemsEntry;

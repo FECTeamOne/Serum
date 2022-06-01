@@ -52,15 +52,6 @@ const Left = styled.div`
   margin-top: 1em;
   height: 450px;
 `;
-const Right = styled.div`
-  position: relative;
-  color: black;
-  width: calc(60% - (.5em + 6px));
-  float: right;
-  min-height: 400px;
-  margin-top: 1em;
-  height: 450px;
-`;
 const Title = styled.h2`
   font-size: var(--text-5);
   font-weight: 600;
