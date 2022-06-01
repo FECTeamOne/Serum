@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 // import styled from 'styled-components';
 import PropTypes from 'prop-types';
 import RelatedItemsEntry from 'RelatedItems/RelatedItemsEntry.jsx';
-import Carousel from 'App/Carousel.jsx'
+import Carousel from 'shared/Carousel.jsx'
 import axios from 'axios';
 import Modal from 'RelatedItems/Modal.jsx';
 
@@ -12,11 +12,14 @@ function RelatedItemsList({ currentItemId }) {
   const [allProductChars, setAllProductChars] = useState('');
   const [relatedProductChars, setRelatedProductChars] = useState('');
   const [currentProductChars, setCurrentProductChars] = useState('');
+  const [scrollIndex, setScrollIndex] = useState(0);
 
   useEffect(() => {
     const fetchData = async () => {
       try {
         const [relatedItemsIds, allProducts] = await Promise.all([axios.get('/products/40346/related'), axios.get('/products')]);
+        const indexRemove = relatedItemsIds.data.findIndex((id) => id === currentItemId);
+        relatedItemsIds.data.splice(indexRemove, 1);
         const filteredProducts = allProducts.data.filter((item) => (
           relatedItemsIds.data.includes(item.id)));
 
@@ -32,6 +35,25 @@ function RelatedItemsList({ currentItemId }) {
             }
           }),
         );
+
+        await Promise.all(
+          relatedItemsIds.data.map(async (itemId) => {
+            const rating = await axios.get(`/reviews/meta?product_id=${itemId}`);
+            // add ratings to item
+            let totalStars = 0;
+            const values = Object.values(rating.data.ratings);
+            const total = values.reduce((num, totals) => Number(num) + Number(totals), 0);
+            Object.entries(rating.data.ratings).forEach((item) => {
+              totalStars += item[0] * item[1];
+            });
+            const avgStars = totalStars / total;
+            const itemWithItemId = filteredProducts.find((item) => (item.id === itemId));
+            // add rating to item
+            if (itemWithItemId) {
+              itemWithItemId.rating = avgStars;
+            }
+          }),
+        );
         setRelatedProducts(filteredProducts);
       } catch (error) {
         console.log(error);
@@ -40,7 +62,7 @@ function RelatedItemsList({ currentItemId }) {
 
     fetchData();
   }, [currentItemId]);
-  // Defining fetchData outside of our useEffect hook is worse because it reinitializes fetchData on every rerender
+  // Defining fetchData outside useEffect is worse because it reinitializes fetchData every rerender
   // useEffect(() => {fetchData();}, [currentItemId]);
 
   const fetchFeatures = async (relatedId) => {
@@ -102,6 +124,7 @@ function RelatedItemsList({ currentItemId }) {
       key={item.id}
       img={item.img}
       item={item}
+      rating={item.rating}
       handleCompare={() => {
         setModalIsVisible(true);
         fetchFeatures(item.id);
@@ -112,7 +135,17 @@ function RelatedItemsList({ currentItemId }) {
   return (
     <div>
       <div>RELATED PRODUCTS</div>
-      <Carousel items={relatedItemsEntries} size={4} />
+      <Carousel
+        items={relatedItemsEntries}
+        size={4}
+        direction="row"
+        scrollIndex={scrollIndex}
+        onScroll={(index) => { setScrollIndex(index); }}
+        arrowWidth="var(--size-3)"
+        arrowHeight="var(--size-3)"
+        gap="var(--size-3)"
+        buttonWidth="var(--size-3)"
+      />
       { currentProductChars && allProductChars && relatedProductChars
         && (
         <Modal

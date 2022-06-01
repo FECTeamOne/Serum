@@ -13,23 +13,23 @@ function Modal({
     <Overlay onClick={handleClose}>
       <Content>
         <BodyWrapper>
-          {currentItemVals.map((item) => (
-            <Body key={item.id}>
-              {item}
+          {currentItemVals.map((val) => (
+            <Body key={val}>
+              {val}
             </Body>
           ))}
         </BodyWrapper>
         <BodyWrapper>
-          {allChars.map((item) => (
-            <Body key={item.id}>
-              {item}
+          {allChars.map((char) => (
+            <Body key={char}>
+              {char}
             </Body>
           ))}
         </BodyWrapper>
         <BodyWrapper>
-          {currentRelatedVals.map((item) => (
-            <Body key={item.id}>
-              {item}
+          {currentRelatedVals.map((val) => (
+            <Body key={val}>
+              {val}
             </Body>
           ))}
         </BodyWrapper>
