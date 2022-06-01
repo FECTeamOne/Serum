@@ -3,41 +3,6 @@ import styled from 'styled-components';
 import Stars from 'shared/Stars.jsx'
 import axios from 'axios';
 
-// TODO Change this to be the modal styles to make it a popup window
-const Modal = styled.div`
-  position: absolute;
-  margin: auto;
-  width: 800px;
-  height: 600px;
-  box-shadow: 0 5px 16px rgba(0, 0, 0, 0.2);
-  background: #fff;
-  color: #000;
-  z-index: 10;
-`;
-const CloseButton = styled.button`
-  background: none!important;
-  border: none;
-  padding: 0!important;
-  cursor: pointer;
-  text-align: right;
-  font-size: 36px;
-  margin-left: 90%;
-  `;
-const Image = styled.img`
-  height: 50px;
-  width: 35px;
-`;
-const StyledStars = styled.div`
-  margin: auto;
-  width: 60px;
-`;
-const Characteristics = styled.div`
-  margin: var(--space-2);
-`;
-const Characteristic = styled.div`
-  margin: var(--space-2);
-`;
-
 const data = {
   Size: ['A size too small', '1/2 a size too small', 'Perfect', '1/2 a size too big', 'A size too big'],
   Width: ['Too narrow', 'Slightly narrow', 'Perfect', 'Slightly wide', 'Too wide'],
@@ -183,10 +148,9 @@ function AddReview({ handleModalToggle, allCharacteristics, productId }) {
       </Characteristics>
       <div>
         <form onSubmit={handleReviewSubmit}>
+          Summary
           <div>
-            Summary
-            <input
-              type="textarea"
+            <Summary
               onChange={(e) => {
                 const temp = { ...reviewText };
                 temp.summary = e.target.value;
@@ -195,10 +159,9 @@ function AddReview({ handleModalToggle, allCharacteristics, productId }) {
               placeholder="Example: Best purchase ever!"
             />
           </div>
+          Review
           <div>
-            Review
-            <input
-              type="textarea"
+            <Body
               placeholder="Why did you like the product or not?"
               onChange={(e) => {
                 const temp = { ...reviewText };
@@ -208,12 +171,12 @@ function AddReview({ handleModalToggle, allCharacteristics, productId }) {
             />
           </div>
           {reviewText.body.length <= 50 ? `Minimum required characters left ${50 - reviewText.body.length}` : 'Minimum reached'}
-          <div>
+          <div style={{ margin: '10px' }}>
             <input type="file" onChange={handleFile} />
             {img.map((current) => <Image src={current} alt="img upload" />)}
           </div>
-          <div>
-            name
+          <div style={{ margin: '10px' }}>
+            Name
             <input
               type="textarea"
               placeholder="Example: jackson11!"
@@ -225,7 +188,7 @@ function AddReview({ handleModalToggle, allCharacteristics, productId }) {
             />
           </div>
           For privacy reasons, do not use your full name or email address
-          <div>
+          <div style={{ margin: '10px' }}>
             Email
             <input
               type="textarea"
@@ -244,5 +207,49 @@ function AddReview({ handleModalToggle, allCharacteristics, productId }) {
     </Modal>
   );
 }
+
+const Modal = styled.div`
+  position: absolute;
+  margin: auto;
+  width: 800px;
+  height: 700px;
+  box-shadow: 0 5px 16px rgba(0, 0, 0, 0.2);
+  background: #fff;
+  color: #000;
+  z-index: 10;
+`;
+const CloseButton = styled.button`
+  background: none!important;
+  border: none;
+  padding: 0!important;
+  cursor: pointer;
+  text-align: right;
+  font-size: 36px;
+  margin-left: 90%;
+  `;
+const Image = styled.img`
+  height: 50px;
+  width: 35px;
+`;
+const StyledStars = styled.div`
+  margin: auto;
+  width: 60px;
+`;
+const Characteristics = styled.div`
+  margin: var(--space-2);
+`;
+const Characteristic = styled.div`
+  margin: var(--space-2);
+`;
+const Summary = styled.textarea`
+  height: 40px;
+  width: 400px;
+  resize: none;
+`;
+const Body = styled.textarea`
+  height: 60px;
+  width: 400px;
+  resize: none;
+`;
 
 export default AddReview;
