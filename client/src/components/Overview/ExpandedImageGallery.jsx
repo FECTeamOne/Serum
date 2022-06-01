@@ -5,6 +5,7 @@ import Button from 'shared/Button.jsx';
 import ImageButton from 'shared/ImageButton.jsx';
 import Modal from 'shared/Modal.jsx';
 import ZoomView from 'Overview/ZoomView.jsx';
+import XIcon from 'assets/XIcon.jsx';
 
 function ExpandedImageGallery({ photos, mainImageIndex, onExpandedGalleryIconClick, onExpandedGalleryClose }) {
   // TODO: is this the correct initialization?
@@ -72,7 +73,10 @@ function ExpandedImageGallery({ photos, mainImageIndex, onExpandedGalleryIconCli
         />
       </Modal>
       <ExitButton onClick={onExpandedGalleryClose}>
-        X
+        <XIcon
+          iconWidth="var(--size-5)"
+          iconHeight="var(--size-5)"
+        />
       </ExitButton>
     </Styled>
   );
@@ -83,7 +87,7 @@ const Styled = styled.div`
 
 const StyledIconGallery = styled.div`
   position:fixed;
-  left: var(--space-4);
+  left: var(--space-6);
   top: 50%;
   transform: translateY(-50%);
   display: flex;
@@ -99,10 +103,9 @@ const Img = styled.img`
 `;
 
 const ExitButton = styled(Button)`
-  background-color: white;
   position: fixed;
-  top: 0;
-  right: 0;
+  top: var(--space-4);
+  right: var(--space-6);
 `;
 
 export default ExpandedImageGallery;
