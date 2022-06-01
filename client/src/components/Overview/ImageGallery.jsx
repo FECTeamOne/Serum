@@ -9,7 +9,7 @@ import ExpandedImageGallery from 'Overview/ExpandedImageGallery.jsx';
 function ImageGallery({ photos }) {
   // for use as key
   photos.forEach((photo, i) => {
-    photo.photo_id = i.toString();
+    photo.photo_id = i;
   });
 
   const [mainImageIndex, setMainImageIndex] = useState(0);

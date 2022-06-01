@@ -5,14 +5,18 @@ import Button from 'shared/Button.jsx';
 import ImageButton from 'shared/ImageButton.jsx';
 
 function ZoomView({ imageUrl, imageDimensions, initialCoords, onZoomClose }) {
-  const [windowWidth, setWindowWidth] = useState(window.innerWidth);
-  const [windowHeight, setWindowHeight] = useState(window.innerHeight);
   const [mouseCoords, setMouseCoords] = useState(initialCoords);
+  const [windowDimensions, setWindowDimensions] = useState({
+    x: window.innerWidth,
+    y: window.innerHeight
+  });
 
   useEffect(() => {
     const handleResize = () => {
-      setWindowWidth(window.innerWidth);
-      setWindowHeight(window.innerHeight);
+      setWindowDimensions({
+        x: window.innerWidth,
+        y: window.innerHeight
+      });
     };
 
     window.addEventListener('resize', handleResize);
@@ -35,17 +39,17 @@ function ZoomView({ imageUrl, imageDimensions, initialCoords, onZoomClose }) {
     };
   }, []);
 
-  const maxImageCoords = {
-    x: imageDimensions.x - windowWidth,
-    y: imageDimensions.y - windowHeight,
+  const calculateImageTranslation = (dimension) => {
+    if (windowDimensions[dimension] > imageDimensions[dimension]) {
+      return '50%';
+    }
+
+    const maxImageCoordinate = imageDimensions[dimension] - windowDimensions[dimension];
+    const relativeCoordinate = mouseCoords[dimension] / windowDimensions[dimension];
+    const imageCoordinate = relativeCoordinate * maxImageCoordinate;
+    return `-${imageCoordinate}px`;
   };
 
-  const relativeCoords = {
-    x: (mouseCoords.x / windowWidth),
-    y: (mouseCoords.y / windowHeight),
-  };
-
-  // TODO: add check for whether window dimensions are larger than image
   // TODO: use event data from click that opened ZoomView to set initial position
   return (
     <div>
@@ -55,7 +59,7 @@ function ZoomView({ imageUrl, imageDimensions, initialCoords, onZoomClose }) {
         aria-label={`Current style zoomed view`}
         style={{
           width: `${imageDimensions.x}px`,
-          transform: `translate(-${relativeCoords.x * maxImageCoords.x}px, -${relativeCoords.y * maxImageCoords.y}px)`,
+          transform: `translate(${calculateImageTranslation('x')}, ${calculateImageTranslation('y')})`,
           transformOrigin: 'top left'
         }}
       />
