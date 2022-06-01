@@ -41,7 +41,8 @@ function ZoomView({ imageUrl, imageDimensions, initialCoords, onZoomClose }) {
 
   const calculateImageTranslation = (dimension) => {
     if (windowDimensions[dimension] > imageDimensions[dimension]) {
-      return '50%';
+      const imageCoordinte = (windowDimensions[dimension] - imageDimensions[dimension]) / 2;
+      return `${imageCoordinte}px`;
     }
 
     const maxImageCoordinate = imageDimensions[dimension] - windowDimensions[dimension];
