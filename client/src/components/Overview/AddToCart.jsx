@@ -11,7 +11,7 @@ function AddToCart({ skus }) {
   // updates to it would trigger a rerender and update
   // the <Select /> for quantity selection
   const [quantities, setQuantities] = useState([1]);
-  const [selectedQuantity, setSelectedQuantity] = useState();
+  const [selectedQuantity, setSelectedQuantity] = useState(String.fromCharCode(8212));
   const [shouldPromptForSize, setShouldPromptForSize] = useState(false);
 
   const availableSkus = Object.values(skus).filter((sku) => sku.quantity > 0);

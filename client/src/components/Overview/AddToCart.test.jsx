@@ -21,12 +21,14 @@ describe('AddToCart', () => {
 
       render(<AddToCart skus={skus} />);
 
-      const sizeSelector = screen.getByLabelText('Select size');
-      expect(getAllByRole(sizeSelector, 'option').length).toBe(2);
+      const sizeSelector = screen.getByRole('combobox', { name: /Select Size/i });
 
-      expect(screen.getByRole('option', { name : 'XS' })).toBeInTheDocument();
-      expect(screen.queryByRole('option', { name : 'S' })).not.toBeInTheDocument();
-      expect(screen.getByRole('option', { name : 'M' })).toBeInTheDocument();
+      // 2 options (XS, M) plus 'Select Size' default options
+      expect(getAllByRole(sizeSelector, 'option').length).toBe(3);
+
+      expect(screen.getByRole('option', { name: 'XS' })).toBeInTheDocument();
+      expect(screen.queryByRole('option', { name: 'S' })).not.toBeInTheDocument();
+      expect(screen.getByRole('option', { name: 'M' })).toBeInTheDocument();
     });
 
     it.todo('should show "Select Size" by default');
