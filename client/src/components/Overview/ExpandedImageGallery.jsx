@@ -1,4 +1,4 @@
-import React, { useState, useCallback } from 'react';
+import React, { useState, useRef } from 'react';
 import PropTypes from 'prop-types';
 import styled, { css } from 'styled-components';
 import Button from 'shared/Button.jsx';
@@ -8,18 +8,20 @@ import ZoomView from 'Overview/ZoomView.jsx';
 
 function ExpandedImageGallery({ photos, mainImageIndex, onExpandedGalleryIconClick, onExpandedGalleryClose }) {
   // TODO: is this the correct initialization?
-  const [imageDimensions, setImageDimensions] = useState({ x: 0, y: 0 });
   const [imageIsZoomed, setImageIsZoomed] = useState(false);
   const [initialZoomCoords, setInitialZoomCoords] = useState({ x: 0, y: 0 });
 
-  const getImageDimensions = useCallback((image) => {
-    if (image !== null) {
-      setImageDimensions({
-        x: 2.5 * image?.naturalWidth,
-        y: 2.5 * image?.naturalHeight,
-      });
+  const mainImageRef = useRef(null);
+
+  const getImageDimensions = () => {
+    if (mainImageRef.current !== null) {
+      const dimensions = mainImageRef.current.getBoundingClientRect();
+      return {
+        x: 2.5 * dimensions.width,
+        y: 2.5 * dimensions.height,
+      };
     }
-  }, []);
+  };
 
   const handleZoomToggle = (event) => {
     if (!imageIsZoomed) {
@@ -28,6 +30,7 @@ function ExpandedImageGallery({ photos, mainImageIndex, onExpandedGalleryIconCli
         y: event.clientY,
       });
     }
+
     setImageIsZoomed(!imageIsZoomed);
   };
 
@@ -45,7 +48,7 @@ function ExpandedImageGallery({ photos, mainImageIndex, onExpandedGalleryIconCli
   ));
 
   // TODO: add carousel
-  // TODO: add icons
+  // TODO: make icons stay on top of image
   // TODO: add exit button icon
   // TODO: make images not draggable, non clickable
   // TODO: make navbar visible
@@ -55,7 +58,7 @@ function ExpandedImageGallery({ photos, mainImageIndex, onExpandedGalleryIconCli
         {icons}
       </StyledIconGallery>
       <Img
-        ref={getImageDimensions}
+        ref={mainImageRef}
         src={photos[mainImageIndex].url}
         aria-label={`Current style ${mainImageIndex} expanded view`}
         onClick={handleZoomToggle}
@@ -63,7 +66,7 @@ function ExpandedImageGallery({ photos, mainImageIndex, onExpandedGalleryIconCli
       <Modal modalIsActive={imageIsZoomed}>
         <ZoomView
           imageUrl={photos[mainImageIndex].url}
-          imageDimensions={imageDimensions}
+          imageDimensions={getImageDimensions()}
           initialCoords={initialZoomCoords}
           onZoomClose={handleZoomToggle}
         />
