@@ -69,7 +69,7 @@ function AddReview({ handleModalToggle, allCharacteristics, productId }) {
     } else {
       axios.post('/reviews', submittedData)
         .then(() => handleModalToggle())
-        .catch((err) => console.log(err));
+        .catch(() => setSubmissonErr(true));
     }
   }
   const handleFile = async (e) => {
@@ -98,6 +98,7 @@ function AddReview({ handleModalToggle, allCharacteristics, productId }) {
     <Modal>
       <CloseButton type="button" onClick={handleModalToggle}>X</CloseButton>
       <StyledStars>
+        Stars:
         <Stars
           value={Number(rating)}
           interactive
@@ -209,14 +210,15 @@ function AddReview({ handleModalToggle, allCharacteristics, productId }) {
 }
 
 const Modal = styled.div`
-  position: absolute;
-  margin: auto;
+  position: fixed;
   width: 800px;
   height: 700px;
   box-shadow: 0 5px 16px rgba(0, 0, 0, 0.2);
   background: #fff;
   color: #000;
   z-index: 10;
+  top: 5%;
+  right: 20%;
 `;
 const CloseButton = styled.button`
   background: none!important;

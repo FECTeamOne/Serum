@@ -4,7 +4,7 @@ import AddReview from 'Reviews/components/AddReview.jsx';
 import styled from 'styled-components';
 import axios from 'axios';
 
-function ReviewList({reviewsMetadata, currentFilter }) {
+function ReviewList({ reviewsMetadata, currentFilter }) {
   const productId = reviewsMetadata.product_id;
   const [currentSort, setCurrentSort] = useState('relevant');
   const [toggleModal, setToggleModal] = useState(false);
@@ -40,37 +40,39 @@ function ReviewList({reviewsMetadata, currentFilter }) {
   const handleMoreReviews = () => {
     setCount(count + 2);
   };
-  if (toggleModal) {
-    return (
+
+  if (!reviews.results) {
+    return '';
+  }
+  return (
+    <>
+      { toggleModal
+      && (
       <AddReview
         handleModalToggle={handleModalToggle}
         allCharacteristics={reviewsMetadata.characteristics}
         productId={Number(productId)}
       />
-    );
-  }
-  if (!reviews.results) {
-    return '';
-  }
-  return (
-    <Right>
-      <form>
-        {`${reviews.results.length} reviews sorted by`}
-        <StyledSelect value={currentSort} onChange={handleSort}>
-          <option value="relevant">Relevant</option>
-          <option value="newest">Newest</option>
-          <option value="helpful">Helpful</option>
-        </StyledSelect>
-        {currentFilter.length > 0 ? `Filtered by ${currentFilter.join(', ')} stars` : ''}
-      </form>
-      <AllReviews>
-        {reviews.results.map((review) => <Review review={review} key={review.review_id} />)}
-      </AllReviews>
-      <br />
-      <AddReviewButton onClick={handleModalToggle}> Add review</AddReviewButton>
-      {isMoreReviews
-      && <MoreReviewsButton onClick={handleMoreReviews}>More reviews</MoreReviewsButton>}
-    </Right>
+      )}
+      <Right>
+        <form>
+          {`${reviews.results.length} reviews sorted by`}
+          <StyledSelect value={currentSort} onChange={handleSort}>
+            <option value="relevant">Relevant</option>
+            <option value="newest">Newest</option>
+            <option value="helpful">Helpful</option>
+          </StyledSelect>
+          {currentFilter.length > 0 ? `Filtered by ${currentFilter.join(', ')} stars` : ''}
+        </form>
+        <AllReviews>
+          {reviews.results.map((review) => <Review review={review} key={review.review_id} />)}
+        </AllReviews>
+        <br />
+        <AddReviewButton onClick={handleModalToggle}> Add review</AddReviewButton>
+        {isMoreReviews
+        && <MoreReviewsButton onClick={handleMoreReviews}>More reviews</MoreReviewsButton>}
+      </Right>
+    </>
   );
 }
 
