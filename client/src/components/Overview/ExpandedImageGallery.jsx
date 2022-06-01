@@ -3,42 +3,54 @@ import PropTypes from 'prop-types';
 import styled, { css } from 'styled-components';
 import Button from 'shared/Button.jsx';
 import ImageButton from 'shared/ImageButton.jsx';
+import Modal from 'shared/Modal.jsx';
 import ZoomView from 'Overview/ZoomView.jsx';
 
 function ExpandedImageGallery({ photos, mainImageIndex, onExpandedGalleryClose }) {
-  // TODO: is this the correct initialization
+  // TODO: is this the correct initialization?
   const [imageDimensions, setImageDimensions] = useState({ x: 0, y: 0 });
   const [imageIsZoomed, setImageIsZoomed] = useState(false);
-  const [expandedImageIndex, setExpandedImageIndex] = useState(mainImageIndex);
+  const [initialZoomCoords, setInitialZoomCoords] = useState({ x: 0, y: 0 });
 
   const getImageDimensions = useCallback((image) => {
     if (image !== null) {
       setImageDimensions({
-        x: 2.5 * image.current?.naturalWidth,
-        y: 2.5 * image.current?.naturalHeight,
+        x: 2.5 * image?.naturalWidth,
+        y: 2.5 * image?.naturalHeight,
       });
     }
   }, []);
-    //x: 2.5 * image.current?.naturalWidth - windowWidth,
-    //y: 2.5 * image.current?.naturalHeight - windowHeight,
 
-  const handleZoomToggle = () => {
+  const handleZoomToggle = (event) => {
+    if (!imageIsZoomed) {
+      setInitialZoomCoords({
+        x: event.clientX,
+        y: event.clientY,
+      });
+    }
     setImageIsZoomed(!imageIsZoomed);
-  }
+  };
 
+  // TODO: add carousel
+  // TODO: add icons
+  // TODO: add exit button icon
+  // TODO: make images not draggable, non clickable
   return (
     <Styled>
       <Img
-        callbackRef={getImageDimensions}
+        ref={getImageDimensions}
         src={photos[mainImageIndex].url}
         aria-label={`Current style ${mainImageIndex} expanded view`}
-        onClick={() => { setImageIsZoomed(!imageIsZoomed); }}
+        onClick={handleZoomToggle}
       />
-      <ZoomView
-        imageUrl={photos[mainImageIndex].url}
-        imageDimensions={imageDimensions}
-        onClick={() => { setImageIsZoomed(!imageIsZoomed); }}
-      />
+      <Modal modalIsActive={imageIsZoomed}>
+        <ZoomView
+          imageUrl={photos[mainImageIndex].url}
+          imageDimensions={imageDimensions}
+          initialCoords={initialZoomCoords}
+          onZoomClose={handleZoomToggle}
+        />
+      </Modal>
       <ExitButton onClick={onExpandedGalleryClose}>
         X
       </ExitButton>

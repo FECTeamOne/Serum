@@ -3,12 +3,11 @@ import PropTypes from 'prop-types';
 import styled, { css } from 'styled-components';
 import Button from 'shared/Button.jsx';
 import ImageButton from 'shared/ImageButton.jsx';
-import Modal from 'shared/Modal.jsx';
 
-function ZoomView({ imageUrl, imageDimensions }) {
+function ZoomView({ imageUrl, imageDimensions, initialCoords, onZoomClose }) {
   const [windowWidth, setWindowWidth] = useState(window.innerWidth);
   const [windowHeight, setWindowHeight] = useState(window.innerHeight);
-  const [mouseCoords, setMouseCoords] = useState({ x: 0, y: 0 });
+  const [mouseCoords, setMouseCoords] = useState(initialCoords);
 
   useEffect(() => {
     const handleResize = () => {
@@ -37,18 +36,22 @@ function ZoomView({ imageUrl, imageDimensions }) {
   }, []);
 
   const maxImageCoords = {
-    x: 2.5 * imageDimensions.x - windowWidth,
-    y: 2.5 * imageDimensions.y - windowHeight,
+    x: imageDimensions.x - windowWidth,
+    y: imageDimensions.y - windowHeight,
   };
+
   const relativeCoords = {
     x: (mouseCoords.x / windowWidth),
     y: (mouseCoords.y / windowHeight),
   };
+  console.log(maxImageCoords, relativeCoords);
 
   // TODO: add check for whether window dimensions are larger than image
+  // TODO: use event data from click that opened ZoomView to set initial position
   return (
     <div>
       <img
+        onClick={onZoomClose}
         src={imageUrl}
         aria-label={`Current style zoomed view`}
         style={{
