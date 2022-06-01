@@ -31,17 +31,9 @@ const SelectedStyle = styled.h3`
 function ProductInformation({ product, selectedStyle}) {
   return (
     <>
-      {/*TODO: add rating stars*/}
-      <StarIconFills />
-      <StarIcon iconWidth="var(--size-2)" value={.1}/>
-      <StarIcon iconWidth="var(--size-2)" value={.3}/>
-      <StarIcon iconWidth="var(--size-2)" value={.4}/>
-      <StarIcon iconWidth="var(--size-2)" value={.7}/>
-      <StarIcon iconWidth="var(--size-2)" value={.9}/>
+      {/*TODO: get actual rating, show total number of reviews, and link to reviews*/}
       <Stars
-        interactive={true}
-        value={0}
-        onClick={(e) => console.log(e.currentTarget.value)}
+        value={4.7}
       />
       <br />
       <ProductCategory>{product.category}</ProductCategory>

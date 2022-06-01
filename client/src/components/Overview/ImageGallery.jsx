@@ -88,7 +88,7 @@ function ImageGallery({ photos }) {
         <ExpandedImageGallery
           photos={photos}
           mainImageIndex={mainImageIndex}
-          onClose={() => { setExpandedViewIsActive(false); }}
+          onExpandedGalleryClose={() => { setExpandedViewIsActive(false); }}
         />
       </Modal>
     </StyledImageGallery>
