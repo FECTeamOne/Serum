@@ -34,9 +34,7 @@ function Reviews({ productId }) {
         />
         <Fit reviewsMetadata={reviewsMetadata} />
       </Left>
-      <Right>
-        <ReviewList reviewsMetadata={reviewsMetadata} currentFilter={currentFilter} />
-      </Right>
+      <ReviewList reviewsMetadata={reviewsMetadata} currentFilter={currentFilter} />
     </Container>
   );
 }
@@ -44,9 +42,7 @@ function Reviews({ productId }) {
 const Container = styled.div`
   margin: var(--space-2);
   text-align: center;
-  postiton: relative;
   width: 100%;
-  overflow: scroll;
   height: 500px;
 `;
 const Left = styled.div`

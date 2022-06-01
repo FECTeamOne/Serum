@@ -5,7 +5,14 @@ import axios from 'axios';
 
 // TODO Change this to be the modal styles to make it a popup window
 const Modal = styled.div`
-  min-height: 400px;
+  position: absolute;
+  margin: auto;
+  width: 800px;
+  height: 600px;
+  box-shadow: 0 5px 16px rgba(0, 0, 0, 0.2);
+  background: #fff;
+  color: #000;
+  z-index: 10;
 `;
 const CloseButton = styled.button`
   background: none!important;
@@ -23,6 +30,12 @@ const Image = styled.img`
 const StyledStars = styled.div`
   margin: auto;
   width: 60px;
+`;
+const Characteristics = styled.div`
+  margin: var(--space-2);
+`;
+const Characteristic = styled.div`
+  margin: var(--space-2);
 `;
 
 const data = {
@@ -138,9 +151,9 @@ function AddReview({ handleModalToggle, allCharacteristics, productId }) {
           no
         </label>
       </div>
-      <div className="Characteristics">
+      <Characteristics>
         {productCharacteristics.map((characteristic) => (
-          <>
+          <Characteristic>
             {characteristic}
             <div>
               <div>
@@ -165,9 +178,9 @@ function AddReview({ handleModalToggle, allCharacteristics, productId }) {
                 );
               })}
             </div>
-          </>
+          </Characteristic>
         ))}
-      </div>
+      </Characteristics>
       <div>
         <form onSubmit={handleReviewSubmit}>
           <div>

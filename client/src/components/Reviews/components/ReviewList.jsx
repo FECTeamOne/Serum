@@ -53,7 +53,7 @@ function ReviewList({reviewsMetadata, currentFilter }) {
     return '';
   }
   return (
-    <>
+    <Right>
       <form>
         {`${reviews.results.length} reviews sorted by`}
         <StyledSelect value={currentSort} onChange={handleSort}>
@@ -70,7 +70,7 @@ function ReviewList({reviewsMetadata, currentFilter }) {
       <AddReviewButton onClick={handleModalToggle}> Add review</AddReviewButton>
       {isMoreReviews
       && <MoreReviewsButton onClick={handleMoreReviews}>More reviews</MoreReviewsButton>}
-    </>
+    </Right>
   );
 }
 
@@ -101,6 +101,15 @@ const AllReviews = styled.div`
   overflow: scroll;
   height: 400px;
   width: 500px;
+`;
+const Right = styled.div`
+  position: relative;
+  color: black;
+  width: calc(60% - (.5em + 6px));
+  float: right;
+  min-height: 400px;
+  margin-top: 1em;
+  height: 450px;
 `;
 
 export default ReviewList;
