@@ -218,8 +218,10 @@ const Modal = styled.div`
   background: #fff;
   color: #000;
   z-index: 10;
-  top: 5%;
-  right: 20%;
+  top: 50%;
+  left: 50%;
+  margin-top: -350px;
+  margin-left: -400px;
 `;
 const CloseButton = styled.button`
   background: none!important;
