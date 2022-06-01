@@ -40,6 +40,7 @@ function Stars({
         if (!interactive) {
           return (
             <StarIcon
+              key={starValue}
               value={determineStarFillFromStarsValue(starValue, value)}
               iconWidth="var(--size-2)"
             />
