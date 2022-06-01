@@ -2,26 +2,23 @@ import React from 'react';
 import styled from 'styled-components';
 import PropTypes from 'prop-types';
 import Stars from 'shared/Stars.jsx'
+import { StarIcon } from 'assets/StarIcon.jsx'
 
 function RelatedItemsEntry({ img, item, rating, handleCompare }) {
   return (
     <Container>
-      <img
-        src={img}
-        width="200"
-        height="300"
-        alt={`Thumbnail for related item ${item.name}`}
-      />
-      <Action onClick={() => { handleCompare(); }}>
-        Compare
-      </Action>
+      <ImageCard img={img}>
+        <StarButton type="button" onClick={() => { handleCompare(); }}>
+          ⭐
+        </StarButton>
+      </ImageCard>
       <div>
         {item.category}
       </div>
-      <Stars value={rating} />
       <div>
         {item.default_price}
       </div>
+      <Stars value={rating} />
     </Container>
   );
 }
@@ -56,6 +53,24 @@ const Action = styled.button`
   border: none;
   cursor: pointer;
   border-radius: 5px;
+`;
+
+const ImageCard = styled.div`
+  background-image: url(${(props) => props.img});
+  background-size:200px 300px;
+  background-repeat: no-repeat;
+  width: 200px;
+  height: 300px;
+  display: flex;
+  flex-direction: column;
+  align-items: end;
+`;
+
+const StarButton = styled.div`
+  background: none!important;
+  border: none;
+  padding: 0!important;
+  cursor: pointer;
 `;
 
 export default RelatedItemsEntry;
