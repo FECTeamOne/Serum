@@ -2,7 +2,7 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
 import { formatDistanceToNow, parseISO } from 'date-fns';
-import Stars from 'App/Stars.jsx'
+import Stars from 'shared/Stars.jsx'
 import axios from 'axios';
 
 const StyledReview = styled.div`
@@ -49,7 +49,7 @@ function Review({ review }) {
   return (
     <StyledReview>
       <Star>
-        <Stars rating={review.rating} />
+        <Stars value={review.rating} />
       </Star>
       <User>
         {`${rec} ${review.reviewer_name}, ${date} ago`}
