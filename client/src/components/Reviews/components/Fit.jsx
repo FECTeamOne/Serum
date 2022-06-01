@@ -56,7 +56,7 @@ const Pointer = styled.label`
   position: absolute;
   z-index: 2;
   left: ${props => props.data}%;
-  top: 75%;
+  top: 83%;
   font-weight: bold;
 `;
 const Bar = styled.div`

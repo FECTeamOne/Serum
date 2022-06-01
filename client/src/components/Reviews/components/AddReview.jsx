@@ -173,6 +173,7 @@ function AddReview({ handleModalToggle, allCharacteristics, productId }) {
           </div>
           {reviewText.body.length <= 50 ? `Minimum required characters left ${50 - reviewText.body.length}` : 'Minimum reached'}
           <div style={{ margin: '10px' }}>
+            Upload photos&nbsp;
             <input type="file" onChange={handleFile} />
             {img.map((current) => <Image src={current} alt="img upload" />)}
           </div>
