@@ -12,6 +12,8 @@ function RelatedItemsList({ currentItemId }) {
   const [allProductChars, setAllProductChars] = useState('');
   const [relatedProductChars, setRelatedProductChars] = useState('');
   const [currentProductChars, setCurrentProductChars] = useState('');
+  const [currentProductName, setCurrentProductName] = useState('');
+  const [currentRelatedName, setCurrentRelatedName] = useState('');
   const [scrollIndex, setScrollIndex] = useState(0);
 
   useEffect(() => {
@@ -68,15 +70,14 @@ function RelatedItemsList({ currentItemId }) {
   const fetchFeatures = async (relatedId) => {
     const relatedFeaturesResponse = await (
       axios.get(`/products/${relatedId}`)
-      // [{f1: value}, {f2: value}...]
     );
     const relatedFeatures = relatedFeaturesResponse.data.features;
-
+    setCurrentRelatedName(relatedFeaturesResponse.data.name);
     const currentFeaturesResponse = await (
       axios.get(`/products/${currentItemId}`)
     );
     const currentFeatures = currentFeaturesResponse.data.features;
-
+    setCurrentProductName(currentFeaturesResponse.data.name);
     // create allKeys(array), push object1.keys and object2.keys without duplicate
     const relatedKeys = relatedFeatures.map((item) => (item.feature));
     const currentKeys = currentFeatures.map((item) => (item.feature));
@@ -95,7 +96,7 @@ function RelatedItemsList({ currentItemId }) {
           relatedChars.push(relatedFeatures[i].value);
           break;
         } else if (i === relatedFeatures.length - 1) {
-          relatedChars.push('NA');
+          relatedChars.push('');
         }
       }
     });
@@ -107,7 +108,7 @@ function RelatedItemsList({ currentItemId }) {
           currentChars.push(currentFeatures[i].value);
           break;
         } else if (i === currentFeatures.length - 1) {
-          currentChars.push('NA');
+          currentChars.push('');
         }
       }
     });
@@ -146,7 +147,8 @@ function RelatedItemsList({ currentItemId }) {
         gap="var(--size-3)"
         buttonWidth="var(--size-3)"
       />
-      { currentProductChars && allProductChars && relatedProductChars
+      { currentProductChars && allProductChars && relatedProductChars && currentRelatedName
+        && currentProductName
         && (
         <Modal
           modalIsVisible={modalIsVisible}
@@ -156,6 +158,8 @@ function RelatedItemsList({ currentItemId }) {
             setCurrentProductChars('');
             setRelatedProductChars('');
           }}
+          currentProductName={currentProductName}
+          currentRelatedName={currentRelatedName}
           allChars={allProductChars}
           currentItemVals={currentProductChars}
           currentRelatedVals={relatedProductChars}

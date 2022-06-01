@@ -69,7 +69,7 @@ const ImageCard = styled.div`
 const StarButton = styled.div`
   background: none!important;
   border: none;
-  padding: 0!important;
+  padding: 5px;
   cursor: pointer;
 `;
 
