@@ -4,24 +4,6 @@ import styled from 'styled-components';
 import Select from 'shared/Select.jsx';
 import Button from 'shared/Button.jsx';
 
-const StyledAddToCart = styled.form`
-  * {
-    margin-bottom: var(--space-1);
-  }
-`;
-
-const StyledSizeQuantity = styled.div`
-  padding: 0;
-
-  && * {
-    margin-bottom: 0
-  }
-
-  & :first-child {
-    margin-right: var(--space-1);
-  }
-`;
-
 function AddToCart({ skus }) {
   const [selectedSize, setSelectedSize] = useState('default');
   // TODO: should quantities be state?
@@ -83,6 +65,7 @@ function AddToCart({ skus }) {
       setShouldPromptForSize(true);
     } else {
       // TODO: actually add the purchase to cart
+      // and send PUT request
       const selectedSku = Object.keys(skus)
         .find((sku) => skus[sku].size === selectedSize);
       const purchase = {
@@ -129,5 +112,23 @@ function AddToCart({ skus }) {
 AddToCart.propTypes = {
   skus: PropTypes.object.isRequired,
 };
+
+const StyledAddToCart = styled.form`
+  * {
+    margin-bottom: var(--space-1);
+  }
+`;
+
+const StyledSizeQuantity = styled.div`
+  padding: 0;
+
+  && * {
+    margin-bottom: 0
+  }
+
+  & :first-child {
+    margin-right: var(--space-1);
+  }
+`;
 
 export default AddToCart;

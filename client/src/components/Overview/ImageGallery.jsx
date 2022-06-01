@@ -27,7 +27,7 @@ function ImageGallery({ photos }) {
     setMainImageIndex(scrollIndex);
 
     if (scrollIndex < thumbnailScrollIndex
-      || thumbnailScrollIndex + thumbnailGallerySize - 1 < scrollTo) {
+      || thumbnailScrollIndex + thumbnailGallerySize - 1 < scrollIndex) {
       setThumbnailScrollIndex(scrollIndex);
     }
   };
@@ -50,6 +50,7 @@ function ImageGallery({ photos }) {
       onClick={() => { handleThumbnailClick(photo.photo_id); }}
       height="var(--size-8)"
       width="var(--size-7)"
+      // TODO: handle selected
       // selected={i === mainImageIndex}
     />
   ));
@@ -57,9 +58,9 @@ function ImageGallery({ photos }) {
   return (
     <StyledImageGallery>
       <Carousel
+        label="thumbnail gallery"
         items={thumbnails}
         size={thumbnailGallerySize}
-        label="thumbnail gallery"
         scrollIndex={thumbnailScrollIndex}
         onScroll={handleThumbnailScroll}
         direction="column"
@@ -70,9 +71,9 @@ function ImageGallery({ photos }) {
         arrowWidth="var(--size-1)"
       />
       <Carousel
+        label="main image"
         items={images}
         size={1}
-        label="main image"
         scrollIndex={mainImageIndex}
         onScroll={handleMainImageScroll}
         arrowWidth="var(--size-2)"
@@ -88,7 +89,7 @@ function ImageGallery({ photos }) {
 ImageGallery.propTypes = {
   photos: PropTypes.arrayOf(
     PropTypes.objectOf(
-      PropTypes.string
+      PropTypes.string,
     ),
   ).isRequired,
 };
