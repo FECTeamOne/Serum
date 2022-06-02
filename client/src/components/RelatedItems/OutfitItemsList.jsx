@@ -23,25 +23,15 @@ function OutfitItemsList({ currentItemId }) {
   }, [currentItemId]);
 
   const handleAddOutfitClick = (itemId) => {
-    const outfitItemsCopy = [...outfitItems];
     // check if current item is already in outfit
-    let currentItemInOutfit = false;
-    outfitItemsCopy.forEach((item) => {
-      if (item.id === itemId) {
-        currentItemInOutfit = true;
-      }
-    });
-    if (!currentItemInOutfit) { outfitItemsCopy.push(currentItem); }
-    setOutfitItems(outfitItemsCopy);
+    const currentItemInOutfit = outfitItems.some((item) => item.id === itemId);
+    if (!currentItemInOutfit) { setOutfitItems([...outfitItems, currentItem]); }
   };
 
   const handleRemove = (itemId) => {
     const outfitItemsCopy = [...outfitItems];
-    outfitItemsCopy.forEach((item, index) => {
-      if (item.id === itemId) {
-        outfitItemsCopy.splice(index, index + 1);
-      }
-    });
+    const indexRemove = outfitItemsCopy.findIndex((item) => item.id === itemId);
+    outfitItemsCopy.splice(indexRemove, 1);
     setOutfitItems(outfitItemsCopy);
   };
 
@@ -54,14 +44,14 @@ function OutfitItemsList({ currentItemId }) {
     />
   ));
 
-  const addOutfitCard = (
+  const AddOutfitCard = (
     <div>
       <button type="button" onClick={() => { handleAddOutfitClick(currentItemId); }}>
         add Outfit
       </button>
     </div>
   );
-  OutfitItemsEntries.unshift(addOutfitCard);
+  OutfitItemsEntries.unshift(AddOutfitCard);
 
   return (
     <div>
