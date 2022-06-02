@@ -42,7 +42,7 @@ function Stars({
             <StarIcon
               key={starValue}
               value={determineStarFillFromStarsValue(starValue, value)}
-              iconWidth="var(--size-2)"
+              iconWidth="var(--size-3)"
             />
           );
         }
@@ -67,7 +67,7 @@ function Stars({
               value={value === 0
                 ? determineStarFillFromStarsValue(starValue, hoverValue)
                 : determineStarFillFromStarsValue(starValue, value)}
-              iconWidth="var(--size-2)"
+              iconWidth="var(--size-3)"
             />
           </Button>
         );
@@ -107,6 +107,7 @@ Stars.defaultProps = {
 
 const StyledStars = styled.div`
   display: flex;
+  gap: var(--space-00);
 `;
 
 export default Stars;

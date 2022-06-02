@@ -5,30 +5,6 @@ import { formatDistanceToNow, parseISO } from 'date-fns';
 import Stars from 'shared/Stars.jsx'
 import axios from 'axios';
 
-const StyledReview = styled.div`
-  border: 2px solid black;
-  margin: 10px;
-`;
-const Star = styled.div`
-  padding-top: 10px;
-  float: left;
-  padding-left: 10px;
-`;
-const User = styled.p`
-  padding-top: 10px;
-  float: right;
-  padding-right: 10px;
-`;
-const Title = styled.h2`
-  padding-top: 15px;
-  font-size: 150%;
-`;
-const Buttons = styled.button`
-  background: none!important;
-  border: none;
-  cursor: pointer;
-`;
-
 function Review({ review }) {
   const [isDisabled, setIsDisabled] = useState(false);
   let date;
@@ -65,5 +41,28 @@ function Review({ review }) {
     </StyledReview>
   );
 }
+
+const StyledReview = styled.div`
+  margin: var(--space-3) var(--space-1);
+`;
+const Star = styled.div`
+  padding-top: 10px;
+  float: left;
+  padding-left: 10px;
+`;
+const User = styled.p`
+  padding-top: 10px;
+  float: right;
+  padding-right: 10px;
+`;
+const Title = styled.h2`
+  padding-top: 15px;
+  font-size: 150%;
+`;
+const Buttons = styled.button`
+  background: none!important;
+  border: none;
+  cursor: pointer;
+`;
 
 export default Review;

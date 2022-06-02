@@ -10,6 +10,7 @@ import GlobalStyle from '../../globalStyles.js';
 function App() {
   return (
     <>
+      <StarIconFills />
       <GlobalStyle />
       <StarIconFills />
       <Wrapper>
