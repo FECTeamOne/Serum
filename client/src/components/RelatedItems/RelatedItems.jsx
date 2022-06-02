@@ -7,6 +7,8 @@ function RelatedItems({ productId }) {
   return (
     <div>
       <RelatedItemsList currentItemId={productId} />
+      <br />
+      <br />
       <OutfitItemsList currentItemId={productId} />
     </div>
   );
