@@ -1,20 +1,45 @@
-import React from 'react';
+import React, { useState} from 'react';
 import styled from 'styled-components';
 import PropTypes from 'prop-types';
 import Stars from 'shared/Stars.jsx'
 import { StarIcon } from 'assets/StarIcon.jsx'
 import Button from 'shared/Button.jsx';
+import Carousel from 'shared/Carousel.jsx';
 
 function RelatedItemsEntry({ img, item, rating, handleCompare }) {
+  const [thumbnailIsVisible, setThumbnailIsVisible] = useState(false);
+  const [scrollIndex, setScrollIndex] = useState(0);
+
+  const thumbnailImgs = img.slice(1).map((thumbnail) => (thumbnail.thumbnail_url));
+  const thubnailImgsDiv = thumbnailImgs.map((thumbnailImg) => (
+    <ThumbnailImg src={thumbnailImg} alt={thumbnailImg} />
+  ));
   return (
     <Container>
-      <ImageCard img={img}>
+      <ImageCard
+        img={img[0].url}
+        onMouseEnter={() => setThumbnailIsVisible(true)}
+        onMouseLeave={() => setThumbnailIsVisible(false)}
+      >
         <StarButton onClick={() => { handleCompare(); }}>
           <StarIcon
             value={0}
             iconWidth="var(--size-4)"
           />
         </StarButton>
+        { thumbnailIsVisible
+          ? (
+            <Carousel
+                items={thubnailImgsDiv}
+                size={4}
+                direction="row"
+                scrollIndex={scrollIndex}
+                onScroll={(index) => { setScrollIndex(index); }}
+                arrowHeight="var(--size-4)"
+                gap="var(--size-1)"
+                buttonWidth="var(--size-3)"
+            />) : '' }
+
       </ImageCard>
       <div>
         {item.category}
@@ -74,6 +99,11 @@ const ImageCard = styled.div`
 const StarButton = styled(Button)`
   margin-top: var(--space-2);
   margin-right: var(--space-2);
+`;
+
+const ThumbnailImg = styled.img`
+  width:50px;
+  height:50px;
 `;
 //const StarButton = styled.div`
 //  background: none!important;

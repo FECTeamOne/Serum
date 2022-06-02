@@ -45,7 +45,7 @@ function RelatedItemsList({ currentItemId }) {
             const itemWithItemId = filteredProducts.find((item) => (item.id === itemId));
             // add image from styles to item
             if (itemWithItemId) {
-              itemWithItemId.img = styles.data.results[0].photos[0].url;
+              itemWithItemId.img = styles.data.results[0].photos;
             }
           }),
         );
