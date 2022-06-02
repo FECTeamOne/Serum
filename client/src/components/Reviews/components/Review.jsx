@@ -6,7 +6,6 @@ import Stars from 'shared/Stars.jsx'
 import axios from 'axios';
 
 function Review({ review }) {
-  console.log(review)
   const [isDisabled, setIsDisabled] = useState(false);
   let date;
   let rec = '';
