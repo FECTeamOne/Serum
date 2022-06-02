@@ -1,4 +1,4 @@
-import React, { useState} from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components';
 import PropTypes from 'prop-types';
 import Stars from 'shared/Stars.jsx'
@@ -22,7 +22,7 @@ function RelatedItemsEntry({ imgs, item, rating, handleCompare }) {
     setSelectedThumbnailIndex(index);
   };
 
-  const thubnailImgsDiv = thumbnailImgsURLsFiltered.map((thumbnailImgUrl) => (
+  const thumbnailImgsDiv = thumbnailImgsURLsFiltered.map((thumbnailImgUrl) => (
     <ThumbnailImg
       key={thumbnailImgUrl}
       src={thumbnailImgUrl}
@@ -48,7 +48,7 @@ function RelatedItemsEntry({ imgs, item, rating, handleCompare }) {
         </StarButton>
         { thumbnailIsVisible ? (
           <CarouselThumbnail
-            items={thubnailImgsDiv}
+            items={thumbnailImgsDiv}
             size={4}
             direction="row"
             scrollIndex={scrollIndex}
@@ -91,20 +91,20 @@ const Container = styled.div`
   position: relative
 `;
 
-const Action = styled.button`
-  position: absolute;
-  top: 5px;
-  right: 45%;
-  width: 80px;
-  height: 35px;
-  background-color: #555;
-  color: white;
-  font-size: 15px;
-  padding: 5px 5px;
-  border: none;
-  cursor: pointer;
-  border-radius: 5px;
-`;
+// const Action = styled.button`
+//   position: absolute;
+//   top: 5px;
+//   right: 45%;
+//   width: 80px;
+//   height: 35px;
+//   background-color: #555;
+//   color: white;
+//   font-size: 15px;
+//   padding: 5px 5px;
+//   border: none;
+//   cursor: pointer;
+//   border-radius: 5px;
+// `;
 
 const ImageCard = styled.div`
   background-image: url(${(props) => props.img});
@@ -131,12 +131,13 @@ const ThumbnailImg = styled.img`
 const CarouselThumbnail = styled(Carousel)`
   margin-top: var(--space-9);
 `;
-//const StarButton = styled.div`
+
+// const StarButton = styled.div`
 //  background: none!important;
 //  border: none;
 //  padding: 5px;
 //  cursor: pointer;
-//`;
+// `;
 
 // const Container = styled.div`
 //   text-align: center;

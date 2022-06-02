@@ -147,7 +147,7 @@ function RelatedItemsList({ currentItemId }) {
 
   return (
     <div>
-      <div>RELATED PRODUCTS</div>
+      <div>RELATED PRODUCTS!</div>
       <Carousel
         items={relatedItemsEntries}
         size={3}
