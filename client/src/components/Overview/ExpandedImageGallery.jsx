@@ -28,9 +28,14 @@ function ExpandedImageGallery({
   const getImageDimensions = () => {
     if (imageRefs[mainImageIndex].current !== null) {
       const dimensions = imageRefs[mainImageIndex].current.getBoundingClientRect();
+      const naturalDimensions = {
+        width: imageRefs[mainImageIndex].current.naturalWidth,
+        height: imageRefs[mainImageIndex].current.naturalHeight,
+      };
+
       return {
-        x: 2.5 * dimensions.width,
-        y: 2.5 * dimensions.height,
+        x: Math.max(2.5 * dimensions.width, naturalDimensions.width),
+        y: Math.max(2.5 * dimensions.height, naturalDimensions.height),
       };
     }
   };
@@ -60,23 +65,20 @@ function ExpandedImageGallery({
 
   const images = photos.map((photo, i) => (
     <Button
-      ref={imageRefs[i]}
       key={`expanded image gallery main photo ${photo.photo_id}`}
       aria-label={`Current style ${i} expanded view`}
       height="100vh"
       cursor={cursorString}
       onClick={handleZoomToggle}
     >
-      <img
+      <ExpandedImage
+        ref={imageRefs[i]}
         src={photo.url}
-        height="100%"
         alt={`expanded gallery main ${photo.photo_id}`}
       />
     </Button>
   ));
 
-  // TODO: make carousel handle small windows
-  // TODO: make images not draggable, non clickable
   // TODO: make navbar visible
   return (
     <StyledExpandedImageGallery>
@@ -87,13 +89,14 @@ function ExpandedImageGallery({
         label="expanded image gallery"
         items={images}
         size={1}
-        width="100%"
+        width="100vw"
+        height="100vh"
         scrollIndex={mainImageIndex}
         onScroll={handleExpandedGalleryScroll}
         arrowWidth="var(--size-3)"
         arrowOutline
-        buttonWidth="var(--size-7)"
         buttonMargin="auto"
+        buttonWidth="var(--size-7)"
       />
       <Modal modalIsActive={imageIsZoomed}>
         <ZoomView
@@ -128,6 +131,13 @@ ExpandedImageGallery.propTypes = {
   photos: PropTypes.array,
 };
 
+const ExpandedImage = styled.img`
+  max-height: 100%;
+  max-width: calc(100vw - 2 * var(--size-7));
+  user-select: none;
+  user-drag: none;
+`;
+
 const StyledExpandedImageGallery = styled.div`
   display: flex;
   justify-content: center;
@@ -148,7 +158,7 @@ const StyledIconGallery = styled.div`
   }
 `;
 
-const ExitButton = styled(Button)`
+const ExitButton = styled.div`
   z-index: 1;
   position: fixed;
   top: 0;

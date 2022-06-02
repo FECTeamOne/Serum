@@ -205,6 +205,7 @@ const CarouselItem = styled.div`
 `;
 
 const CarouselButton = styled(Button)`
+  flex: 0 0 main-size;
   display: flex;
   align-items: center;
   justify-content: center;

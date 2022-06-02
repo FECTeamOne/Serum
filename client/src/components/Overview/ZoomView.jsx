@@ -58,7 +58,7 @@ function ZoomView({ imageUrl, imageDimensions, initialCoords, onZoomClose }) {
       cursor={cursorString}
       onClick={onZoomClose}
     >
-      <img
+      <ZoomViewImage
         src={imageUrl}
         aria-label={`Current style zoomed view`}
         style={{
@@ -71,4 +71,8 @@ function ZoomView({ imageUrl, imageDimensions, initialCoords, onZoomClose }) {
   )
 }
 
+const ZoomViewImage = styled.img`
+  user-select: none;
+  user-drag: none;
+`;
 export default ZoomView;
