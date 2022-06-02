@@ -4,6 +4,7 @@ import styled from 'styled-components';
 
 function Modal({
   modalIsVisible, handleClose, allChars, currentItemVals, currentRelatedVals,
+  currentProductName, currentRelatedName,
 }) {
   if (!modalIsVisible) {
     return null;
@@ -12,27 +13,30 @@ function Modal({
   return (
     <Overlay onClick={handleClose}>
       <Content>
-        <BodyWrapper>
-          {currentItemVals.map((item) => (
-            <Body key={item.id}>
-              {item}
-            </Body>
+        <FeatureWrapper>
+          <FeatureTitle>{currentProductName}</FeatureTitle>
+          {currentItemVals.map((val) => (
+            <Feature key={val}>
+              {val}
+            </Feature>
           ))}
-        </BodyWrapper>
-        <BodyWrapper>
-          {allChars.map((item) => (
-            <Body key={item.id}>
-              {item}
-            </Body>
+        </FeatureWrapper>
+        <FeatureWrapper>
+          <FeatureTitle>Features</FeatureTitle>
+          {allChars.map((char) => (
+            <Feature key={char}>
+              {char}
+            </Feature>
           ))}
-        </BodyWrapper>
-        <BodyWrapper>
-          {currentRelatedVals.map((item) => (
-            <Body key={item.id}>
-              {item}
-            </Body>
+        </FeatureWrapper>
+        <FeatureWrapper>
+          <FeatureTitle>{currentRelatedName}</FeatureTitle>
+          {currentRelatedVals.map((val) => (
+            <Feature key={val}>
+              {val}
+            </Feature>
           ))}
-        </BodyWrapper>
+        </FeatureWrapper>
       </Content>
     </Overlay>
   );
@@ -45,6 +49,8 @@ Modal.propTypes = {
   currentItemVals: PropTypes.arrayOf(PropTypes.object).isRequired,
   currentRelatedVals: PropTypes.arrayOf(PropTypes.object).isRequired,
   allChars: PropTypes.arrayOf(PropTypes.object).isRequired,
+  currentRelatedName: PropTypes.string.isRequired,
+  currentProductName: PropTypes.string.isRequired,
   // size: PropTypes.number.isRequired,
 };
 
@@ -54,7 +60,7 @@ const Overlay = styled.div`
   top:0;
   right:0;
   bottom:0;
-  background-color: rgba(0, 0, 0, 0.2);
+  background-color: rgba(0, 0, 0, 0.4);
   display: flex;
   align-items:center;
   justify-content: center;
@@ -63,34 +69,43 @@ const Overlay = styled.div`
 
 const Content = styled.div`
   position: fixed;
-  left:400px;
-  top:200px;
-  right:400px;
-  bottom:200px;
-  background-color: rgba(0, 0, 0, 0.2);
-  display: flex;
-  flex-direction: row;
-  align-items:center;
-  justify-content:center;
+  left:350px;
+  top:150px;
+  right:350px;
+  bottom:150px;
+  background-color: rgba(0, 0, 0, 0.3);
+  display: grid;
+  grid-template-columns: 33% 33% 33%;
+
 `;
 
-const BodyWrapper = styled.div`
+const FeatureWrapper = styled.div`
   padding: 10px;
   color: #eee;
-  border-top: 1px solid #eee;
-  border-bottom: 1px solid #eee;
-  display: flex;
-  flex-direction: column;
+  // border-top: 1px solid #eee;
+  // border-bottom: 1px solid #eee;
+  grid-row-start: 2;
+  // grid-column-start: 2;
+  display: grid;
+  grid-template-rows: 10% 10% 10% 10% 10% 10% 10% 10% 10% 10%;
 `;
 
-const Body = styled.div`
-  width: 200px;
-  height: 300px
+const FeatureTitle = styled.h1`
   margin: 10px;
   padding: 10px;
   color: #eee;
-  border-top: 1px solid #eee;
-  border-bottom: 1px solid #eee;
+  // border-top: 1px solid #eee;
+  // border-bottom: 1px solid #eee;
+  grid-column-start: 2;
+`;
+
+const Feature = styled.div`
+  margin: 10px;
+  padding: 10px;
+  color: #eee;
+  // border-top: 1px solid #eee;
+  // border-bottom: 1px solid #eee;
+  grid-column-start: 2;
 `;
 
 export default Modal;
