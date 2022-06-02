@@ -6,7 +6,6 @@ import Overview from 'Overview/Overview.jsx';
 import RelatedItems from 'RelatedItems/RelatedItems.jsx';
 import { StarIconFills } from 'assets/StarIcon.jsx'
 import GlobalStyle from '../../globalStyles.js';
-import { StarIconFills } from 'assets/StarIcon.jsx';
 
 function App() {
   return (
