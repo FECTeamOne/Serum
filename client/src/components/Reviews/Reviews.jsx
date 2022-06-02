@@ -5,29 +5,6 @@ import ReviewList from 'Reviews/components/ReviewList.jsx';
 import Ratings from 'Reviews/components/Ratings.jsx';
 import Fit from 'Reviews/components/Fit.jsx';
 
-const Container = styled.div`
-  text-align: center;
-  postiton: relative;
-  width: 100%;
-  overflow: scroll;
-`;
-const Left = styled.div`
-  border: 2px solid black;
-  width: calc(40% - (.5em + 6px));
-  float: left;
-  min-height: 400px;
-  margin-top: 1em;
-`;
-const Right = styled.div`
-  position: relative;
-  border: 2px solid black;
-  color: black;
-  width: calc(60% - (.5em + 6px));
-  float: right;
-  min-height: 400px;
-  margin-top: 1em;
-`;
-// TODO meta data req will happen here
 function Reviews({ productId }) {
   const [reviewsMetadata, setReviewsMetaData] = useState('');
   const [productName, setProductName] = useState('');
@@ -45,6 +22,9 @@ function Reviews({ productId }) {
   }
   return (
     <Container>
+      <Title>
+        Ratings & Reviews
+      </Title>
       <Left>
         <Ratings
           reviewsMetadata={reviewsMetadata}
@@ -54,11 +34,27 @@ function Reviews({ productId }) {
         />
         <Fit reviewsMetadata={reviewsMetadata} />
       </Left>
-      <Right>
-        <ReviewList reviewsMetadata={reviewsMetadata} currentFilter={currentFilter} />
-      </Right>
+      <ReviewList reviewsMetadata={reviewsMetadata} currentFilter={currentFilter} />
     </Container>
   );
 }
+
+const Container = styled.div`
+  margin: var(--space-2);
+  text-align: center;
+  width: 100%;
+  height: 500px;
+`;
+const Left = styled.div`
+  width: calc(40% - (.5em + 6px));
+  float: left;
+  min-height: 400px;
+  margin-top: 1em;
+  height: 450px;
+`;
+const Title = styled.h2`
+  font-size: var(--text-5);
+  font-weight: 600;
+`;
 
 export default Reviews;
