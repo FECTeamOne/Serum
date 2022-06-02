@@ -69,10 +69,10 @@ const Overlay = styled.div`
 
 const Content = styled.div`
   position: fixed;
-  left:400px;
-  top:200px;
-  right:400px;
-  bottom:200px;
+  left:350px;
+  top:150px;
+  right:350px;
+  bottom:150px;
   background-color: rgba(0, 0, 0, 0.3);
   display: grid;
   grid-template-columns: 33% 33% 33%;

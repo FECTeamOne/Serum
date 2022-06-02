@@ -19,11 +19,23 @@ function RelatedItemsList({ currentItemId }) {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const [relatedItemsIds, allProducts] = await Promise.all([axios.get('/products/40346/related'), axios.get('/products')]);
-        const indexRemove = relatedItemsIds.data.findIndex((id) => id === currentItemId);
-        relatedItemsIds.data.splice(indexRemove, 1);
-        const filteredProducts = allProducts.data.filter((item) => (
-          relatedItemsIds.data.includes(item.id)));
+        const relatedItemsIds = await axios.get(`/products/${currentItemId}/related`);
+        // const [relatedItemsIds, allProducts] = await Promise.all([axios.get(`/products/${currentItemId}/related`), axios.get('/products')]);
+
+        // const indexRemove = relatedItemsIds.data.findIndex((id) => id === currentItemId);
+        // console.log('indexRemove', indexRemove);
+        // console.log('allProduct', allProducts.data);
+        // if (indexRemove !== -1) { relatedItemsIds.data.splice(indexRemove, 1); }
+        // const filteredProducts = allProducts.data.filter((item) => (
+        //   relatedItemsIds.data.includes(item.id)));
+
+        const filteredProducts = [];
+        await Promise.all(
+          relatedItemsIds.data.map(async (itemId) => {
+            const relatedItem = await axios.get(`/products/${itemId}`);
+            filteredProducts.push(relatedItem.data);
+          }),
+        );
 
         await Promise.all(
           relatedItemsIds.data.map(async (itemId) => {
@@ -138,12 +150,11 @@ function RelatedItemsList({ currentItemId }) {
       <div>RELATED PRODUCTS</div>
       <Carousel
         items={relatedItemsEntries}
-        size={4}
+        size={3}
         direction="row"
         scrollIndex={scrollIndex}
         onScroll={(index) => { setScrollIndex(index); }}
-        arrowWidth="var(--size-3)"
-        arrowHeight="var(--size-3)"
+        arrowHeight="var(--size-4)"
         gap="var(--size-3)"
         buttonWidth="var(--size-3)"
       />

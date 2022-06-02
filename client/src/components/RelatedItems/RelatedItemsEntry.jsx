@@ -3,13 +3,17 @@ import styled from 'styled-components';
 import PropTypes from 'prop-types';
 import Stars from 'shared/Stars.jsx'
 import { StarIcon } from 'assets/StarIcon.jsx'
+import Button from 'shared/Button.jsx';
 
 function RelatedItemsEntry({ img, item, rating, handleCompare }) {
   return (
     <Container>
       <ImageCard img={img}>
-        <StarButton type="button" onClick={() => { handleCompare(); }}>
-          ⭐
+        <StarButton onClick={() => { handleCompare(); }}>
+          <StarIcon
+            value={0}
+            iconWidth="var(--size-4)"
+          />
         </StarButton>
       </ImageCard>
       <div>
@@ -57,7 +61,8 @@ const Action = styled.button`
 
 const ImageCard = styled.div`
   background-image: url(${(props) => props.img});
-  background-size:200px 300px;
+  background-size: cover;
+  background-position: center;
   background-repeat: no-repeat;
   width: 200px;
   height: 300px;
@@ -66,11 +71,15 @@ const ImageCard = styled.div`
   align-items: end;
 `;
 
-const StarButton = styled.div`
-  background: none!important;
-  border: none;
-  padding: 5px;
-  cursor: pointer;
+const StarButton = styled(Button)`
+  margin-top: var(--space-2);
+  margin-right: var(--space-2);
 `;
+//const StarButton = styled.div`
+//  background: none!important;
+//  border: none;
+//  padding: 5px;
+//  cursor: pointer;
+//`;
 
 export default RelatedItemsEntry;
