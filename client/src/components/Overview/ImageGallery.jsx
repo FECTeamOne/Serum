@@ -1,59 +1,102 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
-import Carousel from 'App/Carousel.jsx';
+import styled from 'styled-components';
+import Carousel from 'shared/Carousel.jsx';
+import ImageButton from 'shared/ImageButton.jsx';
 
 function ImageGallery({ photos }) {
-  // TODO: create photo_ids for photos
-  const [mainImageIndex, setMainImageIndex] = useState(0);
+  // for use as key
   photos.forEach((photo, i) => {
-    photo.photo_id = i;
+    photo.photo_id = i.toString();
   });
 
-  const handleThumbnailClick = (index) => {
+  const [mainImageIndex, setMainImageIndex] = useState(0);
+  const [thumbnailScrollIndex, setThumbnailScrollIndex] = useState(0);
+
+  const thumbnailGallerySize = 6;
+
+  const handleThumbnailClick = (photo_id) => {
+    const index = photos.findIndex((photo) => photo.photo_id === photo_id);
     setMainImageIndex(index);
   };
 
+  const handleThumbnailScroll = (scrollIndex) => {
+    setThumbnailScrollIndex(scrollIndex);
+  };
+  const handleMainImageScroll = (scrollIndex) => {
+    setMainImageIndex(scrollIndex);
+
+    if (scrollIndex < thumbnailScrollIndex
+      || thumbnailScrollIndex + thumbnailGallerySize - 1 < scrollIndex) {
+      setThumbnailScrollIndex(scrollIndex);
+    }
+  };
+
   const images = photos.map((photo, i) => (
-    <img
-      key={`image gallery main phtoo ${photo.photo_id}`}
-      src={photo.url}
-      alt={`Current style ${i}`}
-      width="500"
+    <ImageButton
+      url={photo.url}
+      key={`image gallery main photo ${photo.photo_id}`}
+      aria-label={`Current style ${i}`}
+      width="var(--size-13)"
+      height="var(--size-15)"
     />
   ));
 
-  const thumbnails = photos.map((photo, i) => (
-    <button
+  const thumbnails = photos.map((photo) => (
+    <ImageButton
+      url={photo.url}
       key={`image gallery thumbnail ${photo.photo_id}`}
-      type="button"
-      onClick={() => { handleThumbnailClick(i); }}
-    >
-      <img
-        src={photo.url}
-        alt={`Current style thumnail ${i}`}
-        width="50"
-      />
-    </button>
+      aria-label={`Current style thumbnail ${photo.photo_id}`}
+      onClick={() => { handleThumbnailClick(photo.photo_id); }}
+      height="var(--size-8)"
+      width="var(--size-7)"
+      // TODO: handle selected
+      // selected={i === mainImageIndex}
+    />
   ));
 
   return (
-    <>
+    <StyledImageGallery>
       <Carousel
+        label="thumbnail gallery"
         items={thumbnails}
-        size={7}
+        size={thumbnailGallerySize}
+        scrollIndex={thumbnailScrollIndex}
+        onScroll={handleThumbnailScroll}
         direction="column"
+        gap="var(--size-1)"
+        buttonMargin="var(--size-4)"
+        buttonHeight="var(--size-5)"
+        buttonsAfterCarousel
+        arrowWidth="var(--size-1)"
       />
-      <Carousel items={images} size={1} />
-    </>
+      <Carousel
+        label="main image"
+        items={images}
+        size={1}
+        scrollIndex={mainImageIndex}
+        onScroll={handleMainImageScroll}
+        arrowWidth="var(--size-2)"
+        arrowOutline
+        buttonWidth="var(--size-7)"
+        buttonMargin="calc(-1 * var(--size-7))"
+        hover
+      />
+    </StyledImageGallery>
   );
 }
 
 ImageGallery.propTypes = {
   photos: PropTypes.arrayOf(
     PropTypes.objectOf(
-      PropTypes.string
+      PropTypes.string,
     ),
   ).isRequired,
 };
+
+const StyledImageGallery = styled.section`
+  display:flex;
+  gap: var(--space-1);
+`;
 
 export default ImageGallery;

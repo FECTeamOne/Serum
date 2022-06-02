@@ -10,16 +10,16 @@ describe('ProductInformation', () => {
       selectedStyle={styles.find((style) => style.style_id === 1)}
     />);
 
-    let node = screen.getByText(/(?<=Style > )(.+?)$/);
-    expect(node).toHaveTextContent('Forest Green & Black');
+    expect(screen.getByText('Forest Green & Black')).toBeInTheDocument();
+    expect(screen.queryByText('Desert Brown & Tan')).not.toBeInTheDocument();
 
     rerender(<ProductInformation
       product={testData.product}
       selectedStyle={styles.find((style) => style.style_id === 2)}
     />);
 
-    node = screen.getByText(/(?<=Style > )(.+?)$/);
-    expect(node).toHaveTextContent('Desert Brown & Tan');
+    expect(screen.queryByText('Forest Green & Black')).not.toBeInTheDocument();
+    expect(screen.getByText('Desert Brown & Tan')).toBeInTheDocument();
   });
 
   it.todo('should not the sale price if the item is not on sale');
