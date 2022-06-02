@@ -36,7 +36,6 @@ RelatedItemsEntry.propTypes = {
   // size: PropTypes.number.isRequired,
 };
 
-<<<<<<< HEAD
 // const Container = styled.div`
 //   text-align: center;
 // `;
@@ -71,31 +70,6 @@ const ImageCard = styled.div`
   flex-direction: column;
   align-items: end;
 `;
-=======
-function RelatedItemsEntry({ img, item, handleCompare }) {
-  // console.log(img);
-
-  return (
-    <Container>
-      <img
-        src={img}
-        width="200"
-        height="300"
-        alt={`Thumbnail for related item ${item.name}`}
-      />
-      <Action onClick={() => { handleCompare(); }}>
-        Compare
-      </Action>
-      <div>
-        {item.category}
-      </div>
-      <div>
-        {item.default_price}
-      </div>
-    </Container>
-  );
-}
->>>>>>> main
 
 const StarButton = styled(Button)`
   margin-top: var(--space-2);
@@ -111,24 +85,5 @@ const StarButton = styled(Button)`
 // const Container = styled.div`
 //   text-align: center;
 // `;
-
-const Container = styled.div`
-  position: relative
-`;
-
-const Action = styled.button`
-  position: absolute;
-  top: 5px;
-  right: 45%;
-  width: 80px;
-  height: 35px;
-  background-color: #555;
-  color: white;
-  font-size: 15px;
-  padding: 5px 5px;
-  border: none;
-  cursor: pointer;
-  border-radius: 5px;
-`;
 
 export default RelatedItemsEntry;
