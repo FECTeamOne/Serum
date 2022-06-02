@@ -5,15 +5,13 @@ import PropTypes from 'prop-types';
 function OutfitItemsEntry({ img, item, handleRemove }) {
   return (
     <Container>
-      <img
-        src={img}
-        width="200"
-        height="300"
-        alt={`Thumbnail for Outfit item ${item.name}`}
-      />
-      <Action onClick={() => { handleRemove(); }}>
-        X
-      </Action>
+      <ImageCard
+        img={img}
+      >
+        <Action onClick={() => { handleRemove(item.id); }}>
+          X
+        </Action>
+      </ImageCard>
       <div>
         {item.category}
       </div>
@@ -40,18 +38,25 @@ const Container = styled.div`
 `;
 
 const Action = styled.button`
-  position: absolute;
-  top: 5px;
-  right: 800;
-  width: 80px;
-  height: 35px;
-  background-color: #555;
-  color: white;
-  font-size: 15px;
-  padding: 5px 5px;
+  background: none!important;
   border: none;
+  padding: 10px;
   cursor: pointer;
-  border-radius: 5px;
+  text-align: right;
+  font-size: 27px;
+  margin-left: 80%;
+`;
+
+const ImageCard = styled.div`
+  background-image: url(${(props) => props.img});
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  width: 250px;
+  height: 350px;
+  display: flex;
+  flex-direction: column;
+  align-items: end;
 `;
 
 export default OutfitItemsEntry;
