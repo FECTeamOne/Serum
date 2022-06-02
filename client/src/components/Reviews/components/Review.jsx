@@ -6,6 +6,7 @@ import Stars from 'shared/Stars.jsx'
 import axios from 'axios';
 
 function Review({ review }) {
+  console.log(review)
   const [isDisabled, setIsDisabled] = useState(false);
   let date;
   let rec = '';
@@ -34,6 +35,7 @@ function Review({ review }) {
       <Title>{review.summary}</Title>
       <br />
       <p>{review.body}</p>
+      {review.photos.map((photo) => <Photo src={photo.url} key={photo} alt="" />)}
       <Buttons disabled={isDisabled} onClick={(e) => handleReviewClick(e, 'helpful')}>
         {`Helpful? ${review.helpfulness}`}
       </Buttons>
@@ -64,5 +66,9 @@ const Buttons = styled.button`
   border: none;
   cursor: pointer;
 `;
-
+const Photo = styled.img`
+  margin-right: 10px;
+  height: 60px;
+  witdh: 60px;
+`;
 export default Review;
