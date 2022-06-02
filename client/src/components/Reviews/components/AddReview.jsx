@@ -1,20 +1,11 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components';
-import { FaRegStar, FaStar } from 'react-icons/fa';
+import Stars from 'shared/Stars.jsx'
 import axios from 'axios';
 
 // TODO Change this to be the modal styles to make it a popup window
 const Modal = styled.div`
   min-height: 400px;
-`;
-const HiddenRadioButton = styled.input.attrs({
-  type: 'radio',
-})`
-  height: 25px;
-  width: 25px;
-  cursor: pointer;
-  position: absolute;
-  opacity: 0;
 `;
 const CloseButton = styled.button`
   background: none!important;
@@ -23,11 +14,15 @@ const CloseButton = styled.button`
   cursor: pointer;
   text-align: right;
   font-size: 36px;
-  width: 90%;
+  margin-left: 90%;
   `;
 const Image = styled.img`
   height: 50px;
   width: 35px;
+`;
+const StyledStars = styled.div`
+  margin: auto;
+  width: 60px;
 `;
 
 const data = {
@@ -86,7 +81,7 @@ function AddReview({ handleModalToggle, allCharacteristics, productId }) {
     const submittedData = {
       ...reviewText,
       product_id: Number(productId),
-      rating,
+      rating: Number(rating),
       recommend: isRecommended,
       characteristics: characteristicSubmit,
       photos: [],
@@ -124,23 +119,14 @@ function AddReview({ handleModalToggle, allCharacteristics, productId }) {
   return (
     <Modal>
       <CloseButton type="button" onClick={handleModalToggle}>X</CloseButton>
-      <div>
-        {[...Array(5)].map((star, i) => {
-          const ratingVal = i + 1;
-          return (
-            <label>
-              <HiddenRadioButton
-                type="radio"
-                name="rating"
-                value={ratingVal}
-                onClick={() => setRating(ratingVal)}
-              />
-              {ratingVal <= rating ? <FaStar size={30} /> : <FaRegStar size={30} />}
-            </label>
-          );
-        })}
+      <StyledStars>
+        <Stars
+          value={Number(rating)}
+          interactive
+          onClick={(i) => setRating(i)}
+        />
         {starsMeaning[rating - 1]}
-      </div>
+      </StyledStars>
       <div>
         do you recommend this product?
         <label htmlFor="1">

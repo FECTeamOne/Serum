@@ -9,7 +9,7 @@ const Container = styled.div`
   text-align: center;
   postiton: relative;
   width: 100%;
-  overflow: auto;
+  overflow: scroll;
 `;
 const Left = styled.div`
   border: 2px solid black;

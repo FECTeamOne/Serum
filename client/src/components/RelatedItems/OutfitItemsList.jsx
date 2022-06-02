@@ -23,15 +23,36 @@ function OutfitItemsList({ currentItemId }) {
   }, [currentItemId]);
 
   const handleAddOutfitClick = (itemId) => {
+<<<<<<< HEAD
     // check if current item is already in outfit
     const currentItemInOutfit = outfitItems.some((item) => item.id === itemId);
     if (!currentItemInOutfit) { setOutfitItems([...outfitItems, currentItem]); }
+=======
+    const outfitItemsCopy = [...outfitItems];
+    // check if current item is already in outfit
+    let currentItemInOutfit = false;
+    outfitItemsCopy.forEach((item) => {
+      if (item.id === itemId) {
+        currentItemInOutfit = true;
+      }
+    });
+    if (!currentItemInOutfit) { outfitItemsCopy.push(currentItem); }
+    setOutfitItems(outfitItemsCopy);
+>>>>>>> main
   };
 
   const handleRemove = (itemId) => {
     const outfitItemsCopy = [...outfitItems];
+<<<<<<< HEAD
     const indexRemove = outfitItemsCopy.findIndex((item) => item.id === itemId);
     outfitItemsCopy.splice(indexRemove, 1);
+=======
+    outfitItemsCopy.forEach((item, index) => {
+      if (item.id === itemId) {
+        outfitItemsCopy.splice(index, index + 1);
+      }
+    });
+>>>>>>> main
     setOutfitItems(outfitItemsCopy);
   };
 
@@ -44,14 +65,22 @@ function OutfitItemsList({ currentItemId }) {
     />
   ));
 
+<<<<<<< HEAD
   const AddOutfitCard = (
+=======
+  const addOutfitCard = (
+>>>>>>> main
     <div>
       <button type="button" onClick={() => { handleAddOutfitClick(currentItemId); }}>
         add Outfit
       </button>
     </div>
   );
+<<<<<<< HEAD
   OutfitItemsEntries.unshift(AddOutfitCard);
+=======
+  OutfitItemsEntries.unshift(addOutfitCard);
+>>>>>>> main
 
   return (
     <div>

@@ -12,7 +12,11 @@ function OutfitItemsEntry({ img, item, handleRemove }) {
         alt={`Thumbnail for Outfit item ${item.name}`}
       />
       <Action onClick={() => { handleRemove(); }}>
+<<<<<<< HEAD
         X
+=======
+        Remove
+>>>>>>> main
       </Action>
       <div>
         {item.category}

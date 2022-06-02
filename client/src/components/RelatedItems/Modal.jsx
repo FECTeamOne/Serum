@@ -60,7 +60,11 @@ const Overlay = styled.div`
   top:0;
   right:0;
   bottom:0;
+<<<<<<< HEAD
   background-color: rgba(0, 0, 0, 0.4);
+=======
+  background-color: rgba(0, 0, 0, 0.2);
+>>>>>>> main
   display: flex;
   align-items:center;
   justify-content: center;
@@ -69,6 +73,7 @@ const Overlay = styled.div`
 
 const Content = styled.div`
   position: fixed;
+<<<<<<< HEAD
   left:350px;
   top:150px;
   right:350px;
@@ -106,6 +111,36 @@ const Feature = styled.div`
   // border-top: 1px solid #eee;
   // border-bottom: 1px solid #eee;
   grid-column-start: 2;
+=======
+  left:400px;
+  top:200px;
+  right:400px;
+  bottom:200px;
+  background-color: rgba(0, 0, 0, 0.2);
+  display: flex;
+  flex-direction: row;
+  align-items:center;
+  justify-content:center;
+`;
+
+const BodyWrapper = styled.div`
+  padding: 10px;
+  color: #eee;
+  border-top: 1px solid #eee;
+  border-bottom: 1px solid #eee;
+  display: flex;
+  flex-direction: column;
+`;
+
+const Body = styled.div`
+  width: 200px;
+  height: 300px
+  margin: 10px;
+  padding: 10px;
+  color: #eee;
+  border-top: 1px solid #eee;
+  border-bottom: 1px solid #eee;
+>>>>>>> main
 `;
 
 export default Modal;
