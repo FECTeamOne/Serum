@@ -9,19 +9,34 @@ import Carousel from 'shared/Carousel.jsx';
 function RelatedItemsEntry({ imgs, item, rating, handleCompare }) {
   const [thumbnailIsVisible, setThumbnailIsVisible] = useState(false);
   const [scrollIndex, setScrollIndex] = useState(0);
-  const [selectedImg, setSelectedImg] = useState('');
+  const [selectedThumbnailIndex, setSelectedThumbnailIndex] = useState(0);
+  // imgs = [{thumbnail_url: 1, url: 1}, {thumbnail_url: 2, url: 2}...]
+  // thumbnailImgsURLs = [url1, url2, url3...]
+  const thumbnailImgsURLs = imgs.map((urlObj) => (urlObj.thumbnail_url));
 
-  if (selectedImg === '') {
-    setSelectedImg(imgs[0]);
-  }
-  const thumbnailImgs = imgs.slice(1).map((thumbnail) => (thumbnail.thumbnail_url));
-  const thubnailImgsDiv = thumbnailImgs.map((thumbnailImg) => (
-    <ThumbnailImg src={thumbnailImg} alt={thumbnailImg} />
+  const thumbnailImgsURLsFiltered = thumbnailImgsURLs.filter((url) => (
+    url !== thumbnailImgsURLs[selectedThumbnailIndex]
   ));
+
+  const handleThumbnailClick = (index) => {
+    setSelectedThumbnailIndex(index);
+  };
+
+  const thubnailImgsDiv = thumbnailImgsURLsFiltered.map((thumbnailImgUrl) => (
+    <ThumbnailImg
+      key={thumbnailImgUrl}
+      src={thumbnailImgUrl}
+      alt={thumbnailImgUrl}
+      onClick={() => {
+        handleThumbnailClick(thumbnailImgsURLs.indexOf(thumbnailImgUrl));
+      }}
+    />
+  ));
+
   return (
     <Container>
       <ImageCard
-        img={imgs[0].url}
+        img={imgs[selectedThumbnailIndex].url}
         onMouseEnter={() => setThumbnailIsVisible(true)}
         onMouseLeave={() => setThumbnailIsVisible(false)}
       >
@@ -32,7 +47,7 @@ function RelatedItemsEntry({ imgs, item, rating, handleCompare }) {
           />
         </StarButton>
         { thumbnailIsVisible ? (
-          <Carousel
+          <CarouselThumbnail
             items={thubnailImgsDiv}
             size={4}
             direction="row"
@@ -41,7 +56,7 @@ function RelatedItemsEntry({ imgs, item, rating, handleCompare }) {
             arrowHeight="var(--size-4)"
             gap="var(--size-1)"
             buttonWidth="var(--size-3)"
-            buttonMargin="var(--size-1)"
+            buttonMargin="calc(-1 * var(--size-2))"
             buttonsAfterCarousel={false}
             hover={false}
           />
@@ -111,6 +126,10 @@ const StarButton = styled(Button)`
 const ThumbnailImg = styled.img`
   width:50px;
   height:50px;
+`;
+
+const CarouselThumbnail = styled(Carousel)`
+  margin-top: var(--space-9);
 `;
 //const StarButton = styled.div`
 //  background: none!important;
