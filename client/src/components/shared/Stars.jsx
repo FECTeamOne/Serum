@@ -45,6 +45,7 @@ function Stars({
         if (!interactive) {
           return (
             <StarIcon
+              key={starValue}
               value={value === 0
                 ? interactive && determineStarFillFromStarsValue(starValue, hoverValue)
                 : determineStarFillFromStarsValue(starValue, value)}

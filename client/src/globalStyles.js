@@ -54,6 +54,8 @@ const GlobalStyle = styled.createGlobalStyle`
     --color-bg: white;
     --color-disabled: hsl(208, 21%, 70%);
     --color-transparent: rgb(0 0 0 / .1);
+
+    --space-00: 2px;
     --space-0: 4px;
     --space-1: 8px;
     --space-2: 12px;
@@ -72,6 +74,7 @@ const GlobalStyle = styled.createGlobalStyle`
     --space-14: 640px;
     --space-15: 768px;
 
+    --size-00: 2px;
     --size-0: 4px;
     --size-1: 8px;
     --size-2: 12px;

@@ -89,7 +89,7 @@ function Carousel({
           iconWidth={arrowWidth}
           iconHeight={arrowHeight}
           outline={arrowOutline}
-          fillColor={buttonsAfterCarousel && adjustedScrollIndex === 0 && 'var(--color-disabled)'}
+          fillColor={buttonsAfterCarousel && adjustedScrollIndex === 0 ? 'var(--color-disabled)' : null}
           rotation={2 + Number(direction === 'column')}
         />
       </CarouselButton>
@@ -112,7 +112,7 @@ function Carousel({
           iconWidth={arrowWidth}
           iconHeight={arrowHeight}
           outline={arrowOutline}
-          fillColor={buttonsAfterCarousel && (adjustedScrollIndex >= items.length - size) && 'var(--color-disabled)'}
+          fillColor={buttonsAfterCarousel && (adjustedScrollIndex >= items.length - size) ? 'var(--color-disabled)' : null}
           rotation={Number(direction === 'column')}
         />
       </CarouselButton>

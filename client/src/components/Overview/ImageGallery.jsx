@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import Carousel from 'shared/Carousel.jsx';
-import ImageButton from 'shared/ImageButton.jsx';
+import { ImageButton, SelectableImageButton } from 'shared/ImageButton.jsx';
 import Modal from 'shared/Modal.jsx';
 import ExpandedImageGallery from 'Overview/ExpandedImageGallery.jsx';
 
@@ -36,15 +36,14 @@ function ImageGallery({ photos }) {
   };
 
   const thumbnails = photos.map((photo) => (
-    <ImageButton
+    <SelectableImageButton
+      selected={photo.photo_id === mainImageIndex}
       url={photo.url}
       key={`image gallery thumbnail ${photo.photo_id}`}
       aria-label={`Current style thumbnail ${photo.photo_id}`}
       onClick={() => { handleThumbnailClick(photo.photo_id); }}
       height="var(--size-8)"
       width="var(--size-7)"
-      // TODO: handle selected state
-      // selected={i === mainImageIndex}
     />
   ));
 
@@ -63,6 +62,7 @@ function ImageGallery({ photos }) {
   return (
     <StyledImageGallery>
       <Carousel
+        label="thumbnail gallery"
         items={thumbnails}
         size={thumbnailGallerySize}
         scrollIndex={thumbnailScrollIndex}
@@ -75,6 +75,7 @@ function ImageGallery({ photos }) {
         arrowWidth="var(--size-1)"
       />
       <Carousel
+        label="main image gallery"
         items={images}
         size={1}
         scrollIndex={mainImageIndex}

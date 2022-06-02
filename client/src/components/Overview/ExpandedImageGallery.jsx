@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import styled, { css } from 'styled-components';
 import XIcon from 'assets/XIcon.jsx';
 import Button from 'shared/Button.jsx';
-import ImageButton from 'shared/ImageButton.jsx';
+import { SelectableImageButton } from 'shared/ImageButton.jsx';
 import Modal from 'shared/Modal.jsx';
 import Carousel from 'shared/Carousel.jsx';
 import ZoomView from 'Overview/ZoomView.jsx';
@@ -47,15 +47,14 @@ function ExpandedImageGallery({
   };
 
   const icons = photos.map((photo) => (
-    <ImageButton
+    <SelectableImageButton
+      selected={photo.photo_id === mainImageIndex}
       url={photo.url}
       key={`expanded image gallery icon ${photo.photo_id}`}
       aria-label={`Current style icon ${photo.photo_id}`}
       onClick={() => { handleExpandedGalleryScroll(photo.photo_id); }}
       height="var(--size-6)"
       width="var(--size-6)"
-      // TODO: handle selected state
-      // selected={i === mainImageIndex}
     />
   ));
 
@@ -76,9 +75,7 @@ function ExpandedImageGallery({
     </Button>
   ));
 
-  // TODO: make carousel fixed width
-  // TODO: make icons stay on top of image
-  // TODO: add exit button icon
+  // TODO: make carousel handle small windows
   // TODO: make images not draggable, non clickable
   // TODO: make navbar visible
   return (
@@ -139,15 +136,15 @@ const StyledExpandedImageGallery = styled.div`
 const StyledIconGallery = styled.div`
   position:fixed;
   z-index: 1;
-  left: var(--space-6);
-  bottom: var(--space-4);
+  left: var(--space-7);
+  bottom: var(--space-6);
   display: flex;
   flex-direction: row;
-  gap: var(--space-0);
+  gap: var(--space-2);
 
   button {
     box-sizing: content-box;
-    border: 1px solid var(--color-bg);
+    outline: 1px solid var(--color-bg);
   }
 `;
 
