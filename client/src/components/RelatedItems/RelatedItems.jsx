@@ -7,7 +7,7 @@ function RelatedItems({ productId }) {
   return (
     <div>
       <RelatedItemsList currentItemId={productId} />
-      <OutfitItemsList />
+      <OutfitItemsList currentItemId={productId} />
     </div>
   );
 }

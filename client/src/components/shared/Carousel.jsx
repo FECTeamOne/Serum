@@ -34,34 +34,40 @@ function Carousel({
   const determineMarginIndex = (button) => {
     if (button === 'back') {
       if (direction === 'row') {
+        // right
         return 1;
       }
-
-      if (buttonsAfterCarousel) {
-        return 0;
+      if (direction === 'column') {
+        if (buttonsAfterCarousel) {
+          // top
+          return 0;
+        }
+        // bottom
+        return 2;
       }
-
-      return 2;
     }
     if (button === 'forward') {
       if (direction === 'row') {
+        // left
         return 3;
       }
-
-      if (buttonsAfterCarousel) {
-        return 2;
+      if (direction === 'column') {
+        if (buttonsAfterCarousel) {
+          // bottom
+          return 2;
+        }
+        // top
+        return 0;
       }
-
-      return 0;
     }
-  }
+  };
 
   const adjustedScrollIndex = placeInRange(scrollIndex);
 
   const carouselItems = items.map((item, i) => (
     <CarouselItem
-      visible={adjustedScrollIndex <= i && i < adjustedScrollIndex + size}
       key={item.key}
+      visible={adjustedScrollIndex <= i && i < adjustedScrollIndex + size}
     >
       {item}
     </CarouselItem>
@@ -81,7 +87,7 @@ function Carousel({
         height={buttonHeight}
         buttonMargin={buttonMargin}
         marginIndex={determineMarginIndex('back')}
-        buttonsAfterCarousel= {buttonsAfterCarousel}
+        buttonsAfterCarousel={buttonsAfterCarousel}
         hover={hover}
       >
 
@@ -89,7 +95,9 @@ function Carousel({
           iconWidth={arrowWidth}
           iconHeight={arrowHeight}
           outline={arrowOutline}
-          fillColor={buttonsAfterCarousel && adjustedScrollIndex === 0 ? 'var(--color-disabled)' : null}
+          fillColor={buttonsAfterCarousel && adjustedScrollIndex === 0
+            ? 'var(--color-disabled)'
+            : undefined}
           rotation={2 + Number(direction === 'column')}
         />
       </CarouselButton>
@@ -112,7 +120,9 @@ function Carousel({
           iconWidth={arrowWidth}
           iconHeight={arrowHeight}
           outline={arrowOutline}
-          fillColor={buttonsAfterCarousel && (adjustedScrollIndex >= items.length - size) ? 'var(--color-disabled)' : null}
+          fillColor={buttonsAfterCarousel && (adjustedScrollIndex >= items.length - size)
+            ? 'var(--color-disabled)'
+            : undefined}
           rotation={Number(direction === 'column')}
         />
       </CarouselButton>
@@ -154,6 +164,10 @@ Carousel.propTypes = {
    */
   direction: PropTypes.string,
   /**
+   * Space between carousel items. Also applies to the buttons.
+   */
+  gap: PropTypes.string,
+  /**
    * Width to be used for the arrow icons, e.g. "100px" or "var(--size-3)"
    */
   arrowWidth: PropTypes.string,
@@ -172,6 +186,11 @@ Carousel.propTypes = {
    * Can be negative to overlap the buttons onto the Carousel.
    */
   buttonMargin: PropTypes.string,
+  /**
+   * Whether buttons should appear together after the carousel.
+   * False means that the back button appears before the carousel items
+   * and the forward button appears after them.
+   */
   buttonsAfterCarousel: PropTypes.bool,
   /**
    * Whether the buttons should show a transparent background when hovered.
@@ -183,10 +202,12 @@ Carousel.propTypes = {
 
 Carousel.defaultProps = {
   direction: 'row',
+  gap: undefined,
   arrowWidth: undefined,
   arrowHeight: undefined,
   arrowOutline: false,
   buttonWidth: undefined,
+  buttonHeight: undefined,
   buttonMargin: undefined,
   buttonsAfterCarousel: false,
   hover: false,
@@ -213,7 +234,7 @@ const CarouselButton = styled(Button)`
 
   visibility: ${({ visible, buttonsAfterCarousel }) => {
     if (buttonsAfterCarousel) {
-      return 'buttonsAfterCarousel';
+      return 'visible';
     }
     return visible ? 'visible' : 'hidden';
   }};
@@ -225,7 +246,7 @@ const CarouselButton = styled(Button)`
   }};
   
   &:hover {
-    background-color: ${({ hover }) => hover && 'var(--color-transparent)'};
+    background-color: ${({ hover }) => hover && 'var(--color-transparent-grey)'};
   }
 `;
 

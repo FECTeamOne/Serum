@@ -8,29 +8,11 @@ import StyleSelector from 'Overview/StyleSelector.jsx';
 import AddToCart from 'Overview/AddToCart.jsx';
 import testData from 'tests/testData.js';
 
-
-const StyledOverview = styled.div`
-  margin: var(--space-6);
-  width: fit-content;
-  display: flex;
-  align-items:flex-start;
-  gap: var(--space-6);
-`;
-
-const OverviewMain = styled.main`
-  width: var(--size-12);
-  margin-top: var(--space-7);
-
-  * {
-    margin-bottom: var(--size-6);
-  }
-`;
-
 function Overview({ productId }) {
   // const [product, setProduct] = useState({});
   // const [styles, setStyles] = useState([]);
   // const [selectedStyleId, setSelectedStyleId] = useState();
-  //TODO: delete once data fetching is up
+  // TODO: delete once data fetching is up
   const [product, setProduct] = useState(testData.product);
   const [styles, setStyles] = useState(testData.styles.results);
   const [selectedStyleId, setSelectedStyleId] = useState(1);
@@ -89,5 +71,22 @@ function Overview({ productId }) {
 Overview.propTypes = {
   productId: PropTypes.number.isRequired,
 };
+
+const StyledOverview = styled.div`
+  margin: var(--space-6);
+  width: fit-content;
+  display: flex;
+  align-items:flex-start;
+  gap: var(--space-6);
+`;
+
+const OverviewMain = styled.main`
+  width: var(--size-12);
+  margin-top: var(--space-7);
+
+  * {
+    margin-bottom: var(--size-6);
+  }
+`;
 
 export default Overview;

@@ -1,34 +1,7 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components';
-import { FaRegStar, FaStar } from 'react-icons/fa';
+import Stars from 'shared/Stars.jsx'
 import axios from 'axios';
-
-// TODO Change this to be the modal styles to make it a popup window
-const Modal = styled.div`
-  min-height: 400px;
-`;
-const HiddenRadioButton = styled.input.attrs({
-  type: 'radio',
-})`
-  height: 25px;
-  width: 25px;
-  cursor: pointer;
-  position: absolute;
-  opacity: 0;
-`;
-const CloseButton = styled.button`
-  background: none!important;
-  border: none;
-  padding: 0!important;
-  cursor: pointer;
-  text-align: right;
-  font-size: 36px;
-  width: 90%;
-  `;
-const Image = styled.img`
-  height: 50px;
-  width: 35px;
-`;
 
 const data = {
   Size: ['A size too small', '1/2 a size too small', 'Perfect', '1/2 a size too big', 'A size too big'],
@@ -86,7 +59,7 @@ function AddReview({ handleModalToggle, allCharacteristics, productId }) {
     const submittedData = {
       ...reviewText,
       product_id: Number(productId),
-      rating,
+      rating: Number(rating),
       recommend: isRecommended,
       characteristics: characteristicSubmit,
       photos: [],
@@ -96,7 +69,7 @@ function AddReview({ handleModalToggle, allCharacteristics, productId }) {
     } else {
       axios.post('/reviews', submittedData)
         .then(() => handleModalToggle())
-        .catch((err) => console.log(err));
+        .catch(() => setSubmissonErr(true));
     }
   }
   const handleFile = async (e) => {
@@ -124,23 +97,15 @@ function AddReview({ handleModalToggle, allCharacteristics, productId }) {
   return (
     <Modal>
       <CloseButton type="button" onClick={handleModalToggle}>X</CloseButton>
-      <div>
-        {[...Array(5)].map((star, i) => {
-          const ratingVal = i + 1;
-          return (
-            <label>
-              <HiddenRadioButton
-                type="radio"
-                name="rating"
-                value={ratingVal}
-                onClick={() => setRating(ratingVal)}
-              />
-              {ratingVal <= rating ? <FaStar size={30} /> : <FaRegStar size={30} />}
-            </label>
-          );
-        })}
+      <StyledStars>
+        Stars:
+        <Stars
+          value={Number(rating)}
+          interactive
+          onClick={(i) => setRating(i)}
+        />
         {starsMeaning[rating - 1]}
-      </div>
+      </StyledStars>
       <div>
         do you recommend this product?
         <label htmlFor="1">
@@ -152,9 +117,9 @@ function AddReview({ handleModalToggle, allCharacteristics, productId }) {
           no
         </label>
       </div>
-      <div className="Characteristics">
+      <Characteristics>
         {productCharacteristics.map((characteristic) => (
-          <>
+          <Characteristic>
             {characteristic}
             <div>
               <div>
@@ -179,15 +144,14 @@ function AddReview({ handleModalToggle, allCharacteristics, productId }) {
                 );
               })}
             </div>
-          </>
+          </Characteristic>
         ))}
-      </div>
+      </Characteristics>
       <div>
         <form onSubmit={handleReviewSubmit}>
+          Summary
           <div>
-            Summary
-            <input
-              type="textarea"
+            <Summary
               onChange={(e) => {
                 const temp = { ...reviewText };
                 temp.summary = e.target.value;
@@ -196,10 +160,9 @@ function AddReview({ handleModalToggle, allCharacteristics, productId }) {
               placeholder="Example: Best purchase ever!"
             />
           </div>
+          Review
           <div>
-            Review
-            <input
-              type="textarea"
+            <Body
               placeholder="Why did you like the product or not?"
               onChange={(e) => {
                 const temp = { ...reviewText };
@@ -209,12 +172,13 @@ function AddReview({ handleModalToggle, allCharacteristics, productId }) {
             />
           </div>
           {reviewText.body.length <= 50 ? `Minimum required characters left ${50 - reviewText.body.length}` : 'Minimum reached'}
-          <div>
+          <div style={{ margin: '10px' }}>
+            Upload photos&nbsp;
             <input type="file" onChange={handleFile} />
             {img.map((current) => <Image src={current} alt="img upload" />)}
           </div>
-          <div>
-            name
+          <div style={{ margin: '10px' }}>
+            Name
             <input
               type="textarea"
               placeholder="Example: jackson11!"
@@ -226,7 +190,7 @@ function AddReview({ handleModalToggle, allCharacteristics, productId }) {
             />
           </div>
           For privacy reasons, do not use your full name or email address
-          <div>
+          <div style={{ margin: '10px' }}>
             Email
             <input
               type="textarea"
@@ -245,5 +209,52 @@ function AddReview({ handleModalToggle, allCharacteristics, productId }) {
     </Modal>
   );
 }
+
+const Modal = styled.div`
+  position: fixed;
+  width: 800px;
+  height: 700px;
+  box-shadow: 0 5px 16px rgba(0, 0, 0, 0.2);
+  background: #fff;
+  color: #000;
+  z-index: 10;
+  top: 50%;
+  left: 50%;
+  margin-top: -350px;
+  margin-left: -400px;
+`;
+const CloseButton = styled.button`
+  background: none!important;
+  border: none;
+  padding: 0!important;
+  cursor: pointer;
+  text-align: right;
+  font-size: 36px;
+  margin-left: 90%;
+  `;
+const Image = styled.img`
+  height: 50px;
+  width: 35px;
+`;
+const StyledStars = styled.div`
+  margin: auto;
+  width: 60px;
+`;
+const Characteristics = styled.div`
+  margin: var(--space-2);
+`;
+const Characteristic = styled.div`
+  margin: var(--space-2);
+`;
+const Summary = styled.textarea`
+  height: 40px;
+  width: 400px;
+  resize: none;
+`;
+const Body = styled.textarea`
+  height: 60px;
+  width: 400px;
+  resize: none;
+`;
 
 export default AddReview;

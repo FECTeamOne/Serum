@@ -1,24 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
-import Stars from 'App/Stars.jsx';
-
-const Container = styled.div`
-  border: 2px solid black;
-  margin: 10px;
-`;
-const Bar = styled.div`
-  background-color: #a6a6a6;
-  height: 5px;
-  margin: 2px;
-  border-radius: 20px;
-`;
-const StyledDiv = styled.div`
-  padding-right: ${(props) => props.stars}%;
-`;
-const AllRatings = styled.div`
-  cursor: pointer;
-  text-align: left;
-`;
+import Stars from 'shared/Stars.jsx';
 
 function Ratings({ reviewsMetadata, name, setCurrentFilter, currentFilter }) {
   let totalStars = 0;
@@ -39,7 +21,12 @@ function Ratings({ reviewsMetadata, name, setCurrentFilter, currentFilter }) {
   return (
     <Container>
       {name}
-      <Stars rating={avgStars} />
+      <StyledStars>
+        <Stars value={avgStars} />
+      </StyledStars>
+      <br />
+      <h3>Rating Breakdown</h3>
+      <br />
       {[...Array(5)].map((val, i) => {
         const currentStar = i + 1;
         let currentNumber = reviewsMetadata.ratings[currentStar];
@@ -58,5 +45,26 @@ function Ratings({ reviewsMetadata, name, setCurrentFilter, currentFilter }) {
     </Container>
   );
 }
+
+const Container = styled.div`
+  margin: 10px;
+  font-size: var(--text-4)
+`;
+const Bar = styled.div`
+  background-color: #a6a6a6;
+  height: 5px;
+  margin: 2px;
+`;
+const StyledDiv = styled.div`
+  padding-right: ${(props) => props.stars}%;
+`;
+const AllRatings = styled.div`
+  cursor: pointer;
+  text-align: left;
+`;
+const StyledStars = styled.div`
+  margin: auto;
+  width: 60px;
+`;
 
 export default Ratings;

@@ -30,7 +30,7 @@ function ImageGallery({ photos }) {
     setMainImageIndex(scrollIndex);
 
     if (scrollIndex < thumbnailScrollIndex
-      || thumbnailScrollIndex + thumbnailGallerySize - 1 < scrollTo) {
+      || thumbnailScrollIndex + thumbnailGallerySize - 1 < scrollIndex) {
       setThumbnailScrollIndex(scrollIndex);
     }
   };
@@ -101,7 +101,7 @@ function ImageGallery({ photos }) {
 ImageGallery.propTypes = {
   photos: PropTypes.arrayOf(
     PropTypes.objectOf(
-      PropTypes.string
+      PropTypes.string,
     ),
   ).isRequired,
 };

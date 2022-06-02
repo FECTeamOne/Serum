@@ -4,12 +4,15 @@ import Navbar from 'App/Navbar.jsx';
 import Reviews from 'Reviews/Reviews.jsx';
 import Overview from 'Overview/Overview.jsx';
 import RelatedItems from 'RelatedItems/RelatedItems.jsx';
+import { StarIconFills } from 'assets/StarIcon.jsx'
 import GlobalStyle from '../../globalStyles.js';
 
 function App() {
   return (
     <>
+      <StarIconFills />
       <GlobalStyle />
+      <StarIconFills />
       <Wrapper>
         <Navbar />
         <Overview productId={40344} />

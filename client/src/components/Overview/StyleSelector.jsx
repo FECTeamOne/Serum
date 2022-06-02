@@ -22,12 +22,6 @@ function Style({ style, handleStyleSelect, selected }) {
   );
 }
 
-Style.propTypes = {
-  style: PropTypes.object.isRequired,
-  handleStyleSelect: PropTypes.func.isRequired,
-  selected: PropTypes.bool.isRequired,
-};
-
 const StyledStyle = styled.div`
   button {
     padding: ${({ selected }) => selected || '1px'};
@@ -52,6 +46,12 @@ function StyleSelector({ styles, selectedStyleId, handleStyleSelect }) {
     </StyledStyleSelector>
   );
 }
+
+Style.propTypes = {
+  style: PropTypes.object.isRequired,
+  handleStyleSelect: PropTypes.func.isRequired,
+  selected: PropTypes.bool.isRequired,
+};
 
 StyleSelector.propTypes = {
   styles: PropTypes.array.isRequired,
