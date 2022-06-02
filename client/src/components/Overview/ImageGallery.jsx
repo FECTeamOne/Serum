@@ -56,6 +56,7 @@ function ImageGallery({ photos }) {
       width="var(--size-13)"
       height="var(--size-15)"
       onClick={() => { setExpandedViewIsActive(true); }}
+      cursor="zoom-in"
     />
   ));
 
