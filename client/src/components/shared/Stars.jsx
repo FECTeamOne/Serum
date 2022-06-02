@@ -1,4 +1,4 @@
-import React, { useState }  from 'react';
+import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import { StarIcon } from 'assets/StarIcon.jsx';
@@ -40,6 +40,7 @@ function Stars({
         if (!interactive) {
           return (
             <StarIcon
+              key={starValue}
               value={determineStarFillFromStarsValue(starValue, value)}
               iconWidth="var(--size-3)"
             />
@@ -100,6 +101,7 @@ Stars.propTypes = {
 
 Stars.defaultProps = {
   interactive: false,
+  label: undefined,
   onClick: () => {},
 };
 

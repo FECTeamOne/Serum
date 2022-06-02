@@ -15,8 +15,11 @@ function Carousel({
   onScroll,
   direction,
   gap,
+  width,
+  height,
   arrowWidth,
   arrowHeight,
+  arrowOutline,
   buttonWidth,
   buttonHeight,
   buttonMargin,
@@ -71,7 +74,7 @@ function Carousel({
   ));
 
   return (
-    <StyledCarousel direction={direction} gap={gap}>
+    <StyledCarousel direction={direction} gap={gap} height={height} width={width}>
 
       {buttonsAfterCarousel ? carouselItems : null}
 
@@ -84,14 +87,17 @@ function Carousel({
         height={buttonHeight}
         buttonMargin={buttonMargin}
         marginIndex={determineMarginIndex('back')}
-        buttonsAfterCarousel= {buttonsAfterCarousel}
+        buttonsAfterCarousel={buttonsAfterCarousel}
         hover={hover}
       >
 
         <ArrowIcon
           iconWidth={arrowWidth}
           iconHeight={arrowHeight}
-          fillColor={buttonsAfterCarousel && adjustedScrollIndex === 0 && 'var(--color-disabled)'}
+          outline={arrowOutline}
+          fillColor={buttonsAfterCarousel && adjustedScrollIndex === 0
+            ? 'var(--color-disabled)'
+            : undefined}
           rotation={2 + Number(direction === 'column')}
         />
       </CarouselButton>
@@ -113,7 +119,10 @@ function Carousel({
         <ArrowIcon
           iconWidth={arrowWidth}
           iconHeight={arrowHeight}
-          fillColor={buttonsAfterCarousel && (adjustedScrollIndex >= items.length - size) && 'var(--color-disabled)'}
+          outline={arrowOutline}
+          fillColor={buttonsAfterCarousel && (adjustedScrollIndex >= items.length - size)
+            ? 'var(--color-disabled)'
+            : undefined}
           rotation={Number(direction === 'column')}
         />
       </CarouselButton>
@@ -166,6 +175,10 @@ Carousel.propTypes = {
    * Height to be used for the arrow icons, e.g. "100px" or "var(--size-3)"
    */
   arrowHeight: PropTypes.string,
+  /** Whether the arrow icons should have an outline. Useful
+   * when the buttons are overlayed on an image for increased visibility.
+   */
+  arrowOutline: PropTypes.bool,
   /** Width for the carousel buttons, e.g. "100px" or "var(--size-3)" */
   buttonWidth: PropTypes.string,
   /**
@@ -192,7 +205,9 @@ Carousel.defaultProps = {
   gap: undefined,
   arrowWidth: undefined,
   arrowHeight: undefined,
+  arrowOutline: false,
   buttonWidth: undefined,
+  buttonHeight: undefined,
   buttonMargin: undefined,
   buttonsAfterCarousel: false,
   hover: false,
@@ -202,6 +217,8 @@ const StyledCarousel = styled.div`
   display: flex;
   flex-direction: ${({ direction }) => direction};
   gap: ${({ gap }) => gap};
+  width: ${({ width }) => width || null};
+  height: ${({ height }) => height || null};
 `;
 
 const CarouselItem = styled.div`
@@ -209,6 +226,7 @@ const CarouselItem = styled.div`
 `;
 
 const CarouselButton = styled(Button)`
+  flex: 0 0 main-size;
   display: flex;
   align-items: center;
   justify-content: center;

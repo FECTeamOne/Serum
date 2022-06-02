@@ -9,10 +9,10 @@ import styled, { css } from 'styled-components';
 const Button = styled.button.attrs((props) => ({
   type: props.type || 'button',
 }))`
-  height: ${({ height }) => height};
-  width: ${({ width }) => width};
+  height: ${({ height }) => height || null};
+  width: ${({ width }) => width || null};
   margin: 0;
-  cursor: pointer;
+  cursor: ${({ cursor }) => cursor || 'pointer'};
   ${({ variant }) => {
     switch (variant) {
       case 'primary':
