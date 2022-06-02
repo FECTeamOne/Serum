@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 // import styled from 'styled-components';
 import OutfitItemsEntry from 'RelatedItems/OutfitItemsEntry.jsx';
-import Carousel from 'App/Carousel.jsx'
+import Carousel from 'shared/Carousel.jsx'
 import axios from 'axios';
 
 function OutfitItemsList({ currentItemId }) {
