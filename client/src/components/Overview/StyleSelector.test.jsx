@@ -4,26 +4,21 @@ import StyleSelector from 'Overview/StyleSelector.jsx';
 describe('StyleSelector', () => {
   it('should change selected style when a thumbnail is clicked', async () => {
     const user = userEvent.setup();
-    const handleStyleSelect = (styleId) => {
-      selectedStyleId = styleId;
-    };
     let selectedStyleId = 1;
 
-    const {rerender} = render(<StyleSelector
+    render(<StyleSelector
       styles={testData.styles.results}
       selectedStyleId={selectedStyleId}
-      handleStyleSelect={handleStyleSelect}
+      handleStyleSelect={(styleId) => { selectedStyleId = styleId; }}
     />);
 
-    //TODO: might need to be more specific as thumbnails get added to imageGallery
-    const style = 'Desert Brown & Tan';
-    await user.click(screen.getByAltText(new RegExp(style)));
+    await user.click(screen.getByRole('button', { name: /Desert Brown & Tan/i }));
 
-    const selectedStyleObj = Object.values(testData.styles.results)
-      .find(styleObj => styleObj.style_id === selectedStyleId);
-    const selectedStyle = selectedStyleObj.name;
+    const selectedStyle = Object.values(testData.styles.results)
+      .find(styleObj => styleObj.style_id === selectedStyleId)
+      .name;
 
-    expect(selectedStyle).toBe(style);
+    expect(selectedStyle).toBe('Desert Brown & Tan');
   });
 
   it.todo('should show all styles for a product');

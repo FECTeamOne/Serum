@@ -6,8 +6,8 @@ describe('ImageGallery', () => {
     it('should show the first image in the set by default', () => {
       render(<ImageGallery photos={testData.styles.results[0].photos} />);
 
-      expect(screen.getByAltText('Current style 0')).toBeVisible();
-      expect(screen.queryByAltText('Current style 1')).not.toBeInTheDocument();
+      expect(screen.getByRole('button', { name: 'Current style 0' })).toBeVisible();
+      expect(screen.queryByRole('button', { name: 'Current style 1' })).not.toBeInTheDocument();
     });
 
     it.todo('should display up to 7 thumbnails');
@@ -21,9 +21,5 @@ describe('ImageGallery', () => {
   });
 
   describe('Expanded View', () => {
-    it.todo('should be disabled and display "-" if a size has not been selected');
-    it.todo('should default to 1 once a size has been selected');
-    it.todo('should have a maximum set by the quantity of the style + size in stock, up to 15');
-    it.todo('should show quantities ranging from 1 to the maximum');
   });
 });

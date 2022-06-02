@@ -8,16 +8,11 @@ import StyleSelector from 'Overview/StyleSelector.jsx';
 import AddToCart from 'Overview/AddToCart.jsx';
 import testData from 'tests/testData.js';
 
-
-const StyledOverview = styled.div`
-  display: flex;
-`;
-
 function Overview({ productId }) {
   // const [product, setProduct] = useState({});
   // const [styles, setStyles] = useState([]);
   // const [selectedStyleId, setSelectedStyleId] = useState();
-  //TODO: delete once data fetching is up
+  // TODO: delete once data fetching is up
   const [product, setProduct] = useState(testData.product);
   const [styles, setStyles] = useState(testData.styles.results);
   const [selectedStyleId, setSelectedStyleId] = useState(1);
@@ -45,8 +40,7 @@ function Overview({ productId }) {
       }
     }
 
-    // TODO: enable data fetching
-    // fetchData();
+    fetchData();
   }, []);
 
   const selectedStyle = styles.find((style) => style.style_id === selectedStyleId);
@@ -58,7 +52,7 @@ function Overview({ productId }) {
   return (
     <StyledOverview>
       <ImageGallery photos={selectedStyle.photos} />
-      <div>
+      <OverviewMain>
         <ProductInformation
           product={product}
           selectedStyle={selectedStyle}
@@ -69,7 +63,7 @@ function Overview({ productId }) {
           handleStyleSelect={handleStyleSelect}
         />
         <AddToCart skus={selectedStyle.skus} />
-      </div>
+      </OverviewMain>
     </StyledOverview>
   );
 }
@@ -77,5 +71,22 @@ function Overview({ productId }) {
 Overview.propTypes = {
   productId: PropTypes.number.isRequired,
 };
+
+const StyledOverview = styled.div`
+  margin: var(--space-6);
+  width: fit-content;
+  display: flex;
+  align-items:flex-start;
+  gap: var(--space-6);
+`;
+
+const OverviewMain = styled.main`
+  width: var(--size-12);
+  margin-top: var(--space-7);
+
+  * {
+    margin-bottom: var(--size-6);
+  }
+`;
 
 export default Overview;
