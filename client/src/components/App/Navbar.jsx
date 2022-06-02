@@ -6,7 +6,7 @@ const StyledNavbar = styled.nav`
   align-items: baseline;
   justify-content: space-between;
   margin-top: var(--space-6);
-  margin-bottom: var(--space-9);
+  margin-bottom: var(--space-8);
   margin-left: var(--space-6);
   margin-right: var(--space-6);
   text-transform: uppercase;

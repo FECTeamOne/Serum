@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from  'prop-types';
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 import Button from 'shared/Button.jsx';
 
 /**
@@ -10,6 +10,7 @@ const ImageButton = styled(Button)`
   background-image: ${({ url }) => `url('${url}')`};
   background-position: center;
   background-size: cover;
+  cursor: ${({ cursor }) => cursor || 'pointer'};
 `;
 
 ImageButton.propTypes = {
@@ -17,4 +18,22 @@ ImageButton.propTypes = {
   url: PropTypes.string.isRequired,
 };
 
-export default ImageButton;
+const SelectableImageButton = styled(ImageButton)`
+  box-sizing: content-box;
+
+  ${({ selected }) => {
+    if (selected) {
+      return css`
+        && {
+          outline: var(--size-00) solid var(--color-main);
+        }
+      `;
+    }
+
+    return css`
+      opacity: .85;
+    `;
+  }}
+`;
+
+export { ImageButton, SelectableImageButton };
