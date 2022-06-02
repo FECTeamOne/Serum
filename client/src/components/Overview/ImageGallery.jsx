@@ -88,8 +88,8 @@ function ImageGallery({ photos }) {
         <ExpandedImageGallery
           photos={photos}
           mainImageIndex={mainImageIndex}
+          handleExpandedGalleryScroll={handleMainImageScroll}
           onExpandedGalleryClose={() => { setExpandedViewIsActive(false); }}
-          onExpandedGalleryIconClick={handleMainImageScroll}
         />
       </Modal>
     </StyledImageGallery>

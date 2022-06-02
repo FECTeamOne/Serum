@@ -1,22 +1,31 @@
 import React, { useState, useRef } from 'react';
 import PropTypes from 'prop-types';
 import styled, { css } from 'styled-components';
+import XIcon from 'assets/XIcon.jsx';
 import Button from 'shared/Button.jsx';
 import ImageButton from 'shared/ImageButton.jsx';
 import Modal from 'shared/Modal.jsx';
+import Carousel from 'shared/Carousel.jsx';
 import ZoomView from 'Overview/ZoomView.jsx';
-import XIcon from 'assets/XIcon.jsx';
 
-function ExpandedImageGallery({ photos, mainImageIndex, onExpandedGalleryIconClick, onExpandedGalleryClose }) {
-  // TODO: is this the correct initialization?
+function ExpandedImageGallery({
+  photos,
+  mainImageIndex,
+  handleExpandedGalleryScroll,
+  onExpandedGalleryClose
+}) {
   const [imageIsZoomed, setImageIsZoomed] = useState(false);
+  // TODO: should this be in state or just a variable?
   const [initialZoomCoords, setInitialZoomCoords] = useState({ x: 0, y: 0 });
 
-  const mainImageRef = useRef(null);
+  const imageRefs = {};
+  photos.forEach((photo) => {
+    imageRefs[photo.photo_id] = useRef(null);
+  });
 
   const getImageDimensions = () => {
-    if (mainImageRef.current !== null) {
-      const dimensions = mainImageRef.current.getBoundingClientRect();
+    if (imageRefs[mainImageIndex].current !== null) {
+      const dimensions = imageRefs[mainImageIndex].current.getBoundingClientRect();
       return {
         x: 2.5 * dimensions.width,
         y: 2.5 * dimensions.height,
@@ -40,7 +49,7 @@ function ExpandedImageGallery({ photos, mainImageIndex, onExpandedGalleryIconCli
       url={photo.url}
       key={`expanded image gallery icon ${photo.photo_id}`}
       aria-label={`Current style icon ${photo.photo_id}`}
-      onClick={() => { onExpandedGalleryIconClick(photo.photo_id); }}
+      onClick={() => { handleExpandedGalleryScroll(photo.photo_id); }}
       height="var(--size-6)"
       width="var(--size-6)"
       // TODO: handle selected state
@@ -48,21 +57,42 @@ function ExpandedImageGallery({ photos, mainImageIndex, onExpandedGalleryIconCli
     />
   ));
 
-  // TODO: add carousel
+  const images = photos.map((photo, i) => (
+    <Button
+      ref={imageRefs[i]}
+      key={`expanded image gallery main photo ${photo.photo_id}`}
+      aria-label={`Current style ${i} expanded view`}
+      height="100vh"
+      onClick={handleZoomToggle}
+    >
+      <img
+        src={photo.url}
+        height="100%"
+        alt={`expanded gallery main ${photo.photo_id}`}
+      />
+    </Button>
+  ));
+
+  // TODO: make carousel fixed width
   // TODO: make icons stay on top of image
   // TODO: add exit button icon
   // TODO: make images not draggable, non clickable
   // TODO: make navbar visible
   return (
-    <Styled>
+    <StyledExpandedImageGallery>
       <StyledIconGallery>
         {icons}
       </StyledIconGallery>
-      <Img
-        ref={mainImageRef}
-        src={photos[mainImageIndex].url}
-        aria-label={`Current style ${mainImageIndex} expanded view`}
-        onClick={handleZoomToggle}
+      <Carousel
+        items={images}
+        size={1}
+        label="expanded image gallery"
+        scrollIndex={mainImageIndex}
+        onScroll={handleExpandedGalleryScroll}
+        arrowWidth="var(--size-3)"
+        arrowOutline
+        buttonWidth="var(--size-7)"
+        buttonMargin="var(--size-3)"
       />
       <Modal modalIsActive={imageIsZoomed}>
         <ZoomView
@@ -71,6 +101,12 @@ function ExpandedImageGallery({ photos, mainImageIndex, onExpandedGalleryIconCli
           initialCoords={initialZoomCoords}
           onZoomClose={handleZoomToggle}
         />
+        <ExitButton onClick={onExpandedGalleryClose}>
+          <XIcon
+            iconWidth="var(--size-5)"
+            iconHeight="var(--size-5)"
+          />
+        </ExitButton>
       </Modal>
       <ExitButton onClick={onExpandedGalleryClose}>
         <XIcon
@@ -78,28 +114,33 @@ function ExpandedImageGallery({ photos, mainImageIndex, onExpandedGalleryIconCli
           iconHeight="var(--size-5)"
         />
       </ExitButton>
-    </Styled>
+    </StyledExpandedImageGallery>
   );
 }
 
-const Styled = styled.div`
+ExpandedImageGallery.propTypes = {
+  photos: PropTypes.array,
+};
+
+const StyledExpandedImageGallery = styled.div`
+  display: flex;
+  justify-content: center;
 `;
 
 const StyledIconGallery = styled.div`
   position:fixed;
+  z-index: 2;
   left: var(--space-6);
   top: 50%;
   transform: translateY(-50%);
   display: flex;
   flex-direction: column;
   gap: var(--space-0);
-`;
 
-const Img = styled.img`
-  height: 100vh;
-  position: fixed;
-  left: 50%;
-  transform: translateX(-50%);
+  button {
+    box-sizing: content-box;
+    border: 1px solid var(--color-bg);
+  }
 `;
 
 const ExitButton = styled(Button)`
