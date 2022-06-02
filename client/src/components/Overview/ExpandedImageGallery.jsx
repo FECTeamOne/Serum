@@ -63,6 +63,7 @@ function ExpandedImageGallery({
       key={`expanded image gallery main photo ${photo.photo_id}`}
       aria-label={`Current style ${i} expanded view`}
       height="100vh"
+      cursor="zoom-in"
       onClick={handleZoomToggle}
     >
       <img
@@ -84,15 +85,16 @@ function ExpandedImageGallery({
         {icons}
       </StyledIconGallery>
       <Carousel
+        label="expanded image gallery"
         items={images}
         size={1}
-        label="expanded image gallery"
+        width="100%"
         scrollIndex={mainImageIndex}
         onScroll={handleExpandedGalleryScroll}
         arrowWidth="var(--size-3)"
         arrowOutline
         buttonWidth="var(--size-7)"
-        buttonMargin="var(--size-3)"
+        buttonMargin="auto"
       />
       <Modal modalIsActive={imageIsZoomed}>
         <ZoomView
@@ -108,11 +110,16 @@ function ExpandedImageGallery({
           />
         </ExitButton>
       </Modal>
-      <ExitButton onClick={onExpandedGalleryClose}>
-        <XIcon
-          iconWidth="var(--size-5)"
-          iconHeight="var(--size-5)"
-        />
+      <ExitButton>
+        <Button
+          aria-label="Exit expanded image gallery"
+          onClick={onExpandedGalleryClose}
+        >
+          <XIcon
+            iconWidth="var(--size-5)"
+            iconHeight="var(--size-5)"
+          />
+        </Button>
       </ExitButton>
     </StyledExpandedImageGallery>
   );
@@ -129,12 +136,11 @@ const StyledExpandedImageGallery = styled.div`
 
 const StyledIconGallery = styled.div`
   position:fixed;
-  z-index: 2;
+  z-index: 1;
   left: var(--space-6);
-  top: 50%;
-  transform: translateY(-50%);
+  bottom: var(--space-4);
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
   gap: var(--space-0);
 
   button {
@@ -144,9 +150,13 @@ const StyledIconGallery = styled.div`
 `;
 
 const ExitButton = styled(Button)`
+  z-index: 1;
   position: fixed;
-  top: var(--space-4);
-  right: var(--space-6);
+  top: 0;
+  right: 0;
+  padding-top: var(--space-5);
+  padding-right: var(--space-6);
+  cursor: default;
 `;
 
 export default ExpandedImageGallery;

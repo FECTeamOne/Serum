@@ -12,7 +12,7 @@ const Button = styled.button.attrs((props) => ({
   height: ${({ height }) => height || null};
   width: ${({ width }) => width || null};
   margin: 0;
-  cursor: pointer;
+  cursor: ${({ cursor }) => cursor || 'pointer'};
   ${({ variant }) => {
     switch (variant) {
       case 'primary':

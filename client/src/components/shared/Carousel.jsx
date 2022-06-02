@@ -15,6 +15,8 @@ function Carousel({
   onScroll,
   direction,
   gap,
+  width,
+  height,
   arrowWidth,
   arrowHeight,
   arrowOutline,
@@ -66,7 +68,7 @@ function Carousel({
   ));
 
   return (
-    <StyledCarousel direction={direction} gap={gap}>
+    <StyledCarousel direction={direction} gap={gap} height={height} width={width}>
 
       {buttonsAfterCarousel ? carouselItems : null}
 
@@ -194,6 +196,8 @@ const StyledCarousel = styled.div`
   display: flex;
   flex-direction: ${({ direction }) => direction};
   gap: ${({ gap }) => gap};
+  width: ${({ width }) => width || null};
+  height: ${({ height }) => height || null};
 `;
 
 const CarouselItem = styled.div`

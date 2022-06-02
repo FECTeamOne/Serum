@@ -2,7 +2,6 @@ import React, { useEffect, useState, useRef } from 'react';
 import PropTypes from 'prop-types';
 import styled, { css } from 'styled-components';
 import Button from 'shared/Button.jsx';
-import ImageButton from 'shared/ImageButton.jsx';
 
 function ZoomView({ imageUrl, imageDimensions, initialCoords, onZoomClose }) {
   const [mouseCoords, setMouseCoords] = useState(initialCoords);
@@ -53,9 +52,11 @@ function ZoomView({ imageUrl, imageDimensions, initialCoords, onZoomClose }) {
 
   // TODO: use event data from click that opened ZoomView to set initial position
   return (
-    <div>
+    <Button
+      cursor="zoom-out"
+      onClick={onZoomClose}
+    >
       <img
-        onClick={onZoomClose}
         src={imageUrl}
         aria-label={`Current style zoomed view`}
         style={{
@@ -64,7 +65,7 @@ function ZoomView({ imageUrl, imageDimensions, initialCoords, onZoomClose }) {
           transformOrigin: 'top left'
         }}
       />
-    </div>
+    </Button>
   )
 }
 

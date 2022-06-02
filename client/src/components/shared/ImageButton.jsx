@@ -10,6 +10,7 @@ const ImageButton = styled(Button)`
   background-image: ${({ url }) => `url('${url}')`};
   background-position: center;
   background-size: cover;
+  cursor: ${({ cursor }) => cursor || 'pointer'};
 `;
 
 ImageButton.propTypes = {
