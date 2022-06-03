@@ -2,13 +2,10 @@ import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import axios from 'axios';
 import { useParams } from "react-router-dom";
-import Navbar from 'App/Navbar.jsx';
 import Reviews from 'Reviews/Reviews.jsx';
 import Overview from 'Overview/Overview.jsx';
 import RelatedItems from 'RelatedItems/RelatedItems.jsx';
-import { StarIconFills } from 'assets/StarIcon.jsx'
 import { calculateAverageStars, calculateTotalReviews } from 'lib/reviewsMetadataFunctions.js';
-import GlobalStyle from '../../globalStyles.js';
 
 function App() {
   const { id } = useParams();
@@ -51,21 +48,16 @@ function App() {
   }, [productId]);
 
   return (
-    <>
-      <GlobalStyle />
-      <StarIconFills />
-      <Navbar />
-      <Wrapper>
-        <Overview
-          product={productData}
-          styles={productStyles}
-          rating={calculateAverageStars(reviewsMetadata)}
-          totalReviews={calculateTotalReviews(reviewsMetadata)}
-        />
-        <Reviews reviewsMetadata={reviewsMetadata} productData={productData} />
-        <RelatedItems productId={productId} />
-      </Wrapper>
-    </>
+    <Wrapper>
+      <Overview
+        product={productData}
+        styles={productStyles}
+        rating={calculateAverageStars(reviewsMetadata)}
+        totalReviews={calculateTotalReviews(reviewsMetadata)}
+      />
+      <Reviews reviewsMetadata={reviewsMetadata} productData={productData} />
+      <RelatedItems productId={productId} />
+    </Wrapper>
   );
 }
 

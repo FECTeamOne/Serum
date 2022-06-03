@@ -6,11 +6,13 @@ export default function Navbar() {
   return (
     <StyledNavbar>
       <NavbarContent>
-        <Link to="/">
+        <StyledLink to="/">
           <Logo>Serum</Logo>
-        </Link>
+        </StyledLink>
         <Links>
-          <div>Shop</div>
+          <StyledLink to="/shop">
+            <div>Shop</div>
+          </StyledLink>
           <div>Cart</div>
         </Links>
       </NavbarContent>
@@ -37,7 +39,15 @@ const NavbarContent = styled.div`
   display: flex;
   align-items: baseline;
   justify-content: space-between;
+`;
 
+const StyledLink = styled(Link)`
+  text-decoration: none;
+  color: var(--color-main);
+
+  &:active {
+    color: var(--color-main);
+  }
 `;
 
 const Logo = styled.span`
