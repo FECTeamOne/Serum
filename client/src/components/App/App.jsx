@@ -13,6 +13,7 @@ function App() {
   const [reviewsMetadata, setReviewsMetaData] = useState('');
   const [productData, setProductData] = useState('');
   const [productStyles, setProductStyles] = useState('');
+
   useEffect(() => {
     axios.get(`/reviews/meta?product_id=${productId}`)
       .then((res) => { setReviewsMetaData(res.data); })
@@ -21,9 +22,15 @@ function App() {
       .then((res) => { setProductData(res.data); })
       .catch((err) => console.log(err));
     axios.get(`/products/${productId}/styles`)
-      .then((res) => { setProductStyles(res.data); })
+      .then((stylesResponse) => {
+        const sortedStyles = stylesResponse.data.results.sort(
+          (style1, style2) => style1.styled_id - style2.styled_id
+        );
+        setProductStyles(sortedStyles);
+      })
       .catch((err) => console.log(err));
   }, []);
+
   return (
     <>
       <StarIconFills />
@@ -31,7 +38,12 @@ function App() {
       <StarIconFills />
       <Wrapper>
         <Navbar />
-        <Overview productId={40344} />
+        <Overview
+          product={productData}
+          styles={productStyles}
+          rating={3.3}
+          totalReviews={30}
+        />
         <Reviews reviewsMetadata={reviewsMetadata} productData={productData} />
         <RelatedItems productId={40344} />
       </Wrapper>
