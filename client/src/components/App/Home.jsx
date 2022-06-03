@@ -8,7 +8,7 @@ import { StarIconFills } from 'assets/StarIcon.jsx';
 import GlobalStyle from '../../globalStyles.js';
 
 const avrageStars = (reviewsMetadata) => {
-  let totalStars = 0;
+  let totalStars = 0; // TODO change with lib fn when merged
   const values = Object.values(reviewsMetadata.ratings);
   const total = values.reduce((num, totals) => Number(num) + Number(totals), 0);
   Object.entries(reviewsMetadata.ratings).forEach((item) => { totalStars += item[0] * item[1]; });
