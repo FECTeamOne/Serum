@@ -12,8 +12,8 @@ export default function parseStyle(styleName) {
     return matchingColors.find(color => color.length === maxLength);
   });
 
-  if (cssStyleColors.length === 1) {
-    cssStyleColors = cssStyleColors.concat(cssStyleColors);
+  if (cssStyleColors[0] === cssStyleColors.?[1]) {
+    cssStyleColors = cssStyleColors.slice(0, 1);
   }
 
   return cssStyleColors;
