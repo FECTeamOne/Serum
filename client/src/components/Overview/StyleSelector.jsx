@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
-import ImageButton from 'shared/ImageButton.jsx';
+import { ImageButton } from 'shared/ImageButton.jsx';
 
 /**
  * Displays thumbnails of the product styles and

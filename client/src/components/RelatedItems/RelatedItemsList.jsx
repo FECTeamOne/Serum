@@ -45,7 +45,7 @@ function RelatedItemsList({ currentItemId }) {
             const itemWithItemId = filteredProducts.find((item) => (item.id === itemId));
             // add image from styles to item
             if (itemWithItemId) {
-              itemWithItemId.img = styles.data.results[0].photos;
+              itemWithItemId.imgs = styles.data.results[0].photos;
             }
           }),
         );
@@ -135,7 +135,7 @@ function RelatedItemsList({ currentItemId }) {
   const relatedItemsEntries = relatedProducts.map((item) => (
     <RelatedItemsEntry
       key={item.id}
-      img={item.img}
+      imgs={item.imgs}
       item={item}
       rating={item.rating}
       handleCompare={() => {
@@ -147,7 +147,7 @@ function RelatedItemsList({ currentItemId }) {
 
   return (
     <div>
-      <div>RELATED PRODUCTS</div>
+      <div>RELATED PRODUCTS!</div>
       <Carousel
         items={relatedItemsEntries}
         size={3}

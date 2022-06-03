@@ -10,9 +10,9 @@ import Stars from 'shared/Stars.jsx';
 function ProductInformation({ product, selectedStyle}) {
   return (
     <>
-      {/*TODO: get actual rating*/}
+      {/*TODO: get actual rating, show total number of reviews, and link to reviews*/}
       <Stars
-        value={0}
+        value={4.7}
       />
       <br />
       <ProductCategory>{product.category}</ProductCategory>
