@@ -64,6 +64,10 @@ const Buttons = styled.button`
   background: none!important;
   border: none;
   cursor: pointer;
+  &:hover,
+  &:focus {
+    color: hsl(208, 21%, 70%);
+  }
 `;
 const Photo = styled.img`
   margin-right: 10px;
