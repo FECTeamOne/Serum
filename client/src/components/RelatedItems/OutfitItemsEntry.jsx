@@ -1,6 +1,9 @@
 import React from 'react';
 import styled from 'styled-components';
 import PropTypes from 'prop-types';
+import XIcon from 'assets/XIcon.jsx';
+import Text from 'shared/Text.jsx'
+import Header from 'shared/Header.jsx'
 
 function OutfitItemsEntry({ img, item, handleRemove }) {
   return (
@@ -8,16 +11,22 @@ function OutfitItemsEntry({ img, item, handleRemove }) {
       <ImageCard
         img={img}
       >
-        <Action onClick={() => { handleRemove(item.id); }}>
-          X
-        </Action>
+        <XIcon onClick={() => { handleRemove(item.id); }} />
       </ImageCard>
-      <div>
-        {item.category}
-      </div>
-      <div>
-        {item.default_price}
-      </div>
+      <CardText>
+        <Header variant="secondary">
+          {item.category}
+        </Header>
+        <ProductName>
+          <Header variant="primary">
+            {item.name}
+          </Header>
+        </ProductName>
+        <Text variant="primary">
+          $
+          {item.default_price}
+        </Text>
+      </CardText>
     </Container>
   );
 }
@@ -25,8 +34,8 @@ function OutfitItemsEntry({ img, item, handleRemove }) {
 OutfitItemsEntry.propTypes = {
   // item: PropTypes.arrayOf(PropTypes.element).isRequired,
   item: PropTypes.object.isRequired,
-  img: PropTypes.object.isRequired,
-  handleRemove: PropTypes.object.isRequired,
+  img: PropTypes.string.isRequired,
+  handleRemove: PropTypes.func.isRequired,
   // size: PropTypes.number.isRequired,
 };
 
@@ -58,5 +67,18 @@ const ImageCard = styled.div`
   flex-direction: column;
   align-items: end;
 `;
+
+const CardText = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: var(--size-1);
+  padding: var(--size-3);
+  height: var(--size-8);
+`;
+
+const ProductName = styled.span`
+  flex-grow: 1;
+`;
+
 
 export default OutfitItemsEntry;

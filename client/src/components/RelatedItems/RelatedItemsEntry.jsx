@@ -5,6 +5,8 @@ import Stars from 'shared/Stars.jsx'
 import { StarIcon } from 'assets/StarIcon.jsx'
 import Button from 'shared/Button.jsx';
 import Carousel from 'shared/Carousel.jsx';
+import Text from 'shared/Text.jsx'
+import Header from 'shared/Header.jsx'
 
 function RelatedItemsEntry({ imgs, item, rating, handleCompare }) {
   const [thumbnailIsVisible, setThumbnailIsVisible] = useState(false);
@@ -46,6 +48,21 @@ function RelatedItemsEntry({ imgs, item, rating, handleCompare }) {
             iconWidth="var(--size-4)"
           />
         </StarButton>
+        <br />
+        <br />
+        <br />
+        <br />
+        <br />
+        <br />
+        <br />
+        <br />
+        <br />
+        <br />
+        <br />
+        <br />
+        <br />
+        <br />
+        <br />
         { thumbnailIsVisible ? (
           <CarouselThumbnail
             items={thumbnailImgsDiv}
@@ -63,13 +80,21 @@ function RelatedItemsEntry({ imgs, item, rating, handleCompare }) {
         ) : '' }
 
       </ImageCard>
-      <div>
-        {item.category}
-      </div>
-      <div>
-        {item.default_price}
-      </div>
-      <Stars value={rating} />
+      <CardText>
+        <Header variant="secondary">
+          {item.category}
+        </Header>
+        <ProductName>
+          <Header variant="primary">
+            {item.name}
+          </Header>
+        </ProductName>
+        <Text variant="primary">
+          $
+          {item.default_price}
+        </Text>
+        <Stars value={rating} />
+      </CardText>
     </Container>
   );
 }
@@ -77,8 +102,8 @@ function RelatedItemsEntry({ imgs, item, rating, handleCompare }) {
 RelatedItemsEntry.propTypes = {
   // item: PropTypes.arrayOf(PropTypes.element).isRequired,
   item: PropTypes.object.isRequired,
-  handleCompare: PropTypes.object.isRequired,
-  imgs: PropTypes.object.isRequired,
+  handleCompare: PropTypes.func.isRequired,
+  imgs: PropTypes.arrayOf(PropTypes.object).isRequired,
   rating: PropTypes.number.isRequired,
   // size: PropTypes.number.isRequired,
 };
@@ -131,6 +156,19 @@ const ThumbnailImg = styled.img`
 const CarouselThumbnail = styled(Carousel)`
   margin-top: var(--space-9);
 `;
+
+const CardText = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: var(--size-1);
+  padding: var(--size-3);
+  height: var(--size-8);
+`;
+
+const ProductName = styled.span`
+  flex-grow: 1;
+`;
+
 
 // const StarButton = styled.div`
 //  background: none!important;
