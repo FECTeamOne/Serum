@@ -21,11 +21,12 @@ function ProductInformation({ product, selectedStyle}) {
       </RatingInformation>
       <Header variant="tertiary">{product.category}</Header>
       <Header variant="title">{product.name}</Header>
-      <ProductDetail>
+      <Slogan>
         <Text variant="primary">{product.slogan}</Text>
-        <br />
+      </Slogan>
+      <Description>
         <Text variant="secondary">{product.description}</Text>
-      </ProductDetail>
+      </Description>
       <div>
         <StylePrice isOnSale={selectedStyle?.sale_price}>
           <Text variant="primary">${selectedStyle?.original_price}</Text>
@@ -57,8 +58,15 @@ const RatingInformation = styled.span`
   }
 `;
 
-const ProductDetail = styled.div`
+const Slogan = styled.div`
+  margin-top: var(--space-6);
+  margin-bottom: var(--space-1);
+  font-style: italic;
+`;
+
+const Description = styled.div`
   flex-grow: 1;
+  line-height: 1.5;
 `;
 
 const StylePrice = styled.span`

@@ -85,7 +85,7 @@ const Loading = styled.div`
 `;
 
 const StyledOverview = styled.div`
-  margin: var(--space-7) var(--space-6);
+  margin: var(--space-8) var(--space-6);
   width: fit-content;
   height: var(--size-15);
   text-align: left;
@@ -104,8 +104,8 @@ const OverviewMain = styled.div`
   gap: var(--space-3);
   width: var(--size-12);
   height: 100%;
-  padding-top: var(--space-8);
-  padding-bottom: var(--space-8);
+  padding-top: var(--space-7);
+  padding-bottom: var(--space-7);
 `;
 
 export default Overview;

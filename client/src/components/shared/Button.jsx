@@ -20,10 +20,11 @@ const Button = styled.button.attrs((props) => ({
           color: var(--color-bg);
           background-color: var(--color-main);
           border: 1px solid var(--color-main);
-          padding-top: var(--space-2);
-          padding-bottom: var(--space-2);
+          padding-top: var(--space-3);
+          padding-bottom: var(--space-3);
           padding-left: var(--space-4);
           padding-right: var(--space-4);
+          font-size: var(--text-3);
         `;
       default:
         return css`
