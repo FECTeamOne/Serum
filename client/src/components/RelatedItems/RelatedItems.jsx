@@ -3,13 +3,18 @@ import PropTypes from 'prop-types';
 import RelatedItemsList from './RelatedItemsList.jsx';
 import OutfitItemsList from './OutfitItemsList.jsx';
 
-function RelatedItems({ productId }) {
+function RelatedItems({ productId, product, rating, styles }) {
   return (
     <div>
       <RelatedItemsList currentItemId={productId} />
       <br />
       <br />
-      <OutfitItemsList currentItemId={productId} />
+      <OutfitItemsList
+        currentItemId={productId}
+        product={product}
+        rating={rating}
+        styles={styles}
+      />
     </div>
   );
 }
