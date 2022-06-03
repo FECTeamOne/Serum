@@ -84,7 +84,11 @@ const AddReviewButton = styled.button`
   right:  25%;
   bottom:  3px;
   cursor: pointer;
-  font-size: var(--text-4)
+  font-size: var(--text-4);
+  &:hover,
+  &:focus {
+    text-shadow: 1px 1px;
+  }
 `;
 const MoreReviewsButton = styled.button`
   background: none!important;
@@ -94,10 +98,15 @@ const MoreReviewsButton = styled.button`
   left:  25%;
   bottom:  3px;
   cursor: pointer;
-  font-size: var(--text-4)
+  font-size: var(--text-4);
+  &:hover,
+  &:focus {
+    text-shadow: 1px 1px;
+  }
 `;
 const StyledSelect = styled.select`
   border: none;
+  cursor: pointer;
 `;
 const AllReviews = styled.div`
   overflow: scroll;
