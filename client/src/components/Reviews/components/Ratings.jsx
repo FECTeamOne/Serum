@@ -1,10 +1,10 @@
 import React from 'react';
 import styled from 'styled-components';
 import Stars from 'shared/Stars.jsx';
-import { avrageStars } from 'lib/metadata.js'
+import { calculateAverageStars } from 'lib/reviewsMetadataFunctions.js'
 
 function Ratings({ reviewsMetadata, name, setCurrentFilter, currentFilter }) {
-  const avgStars = avrageStars(reviewsMetadata);
+  const avgStars = calculateAverageStars(reviewsMetadata);
   const highest = Math.max(...Object.values(reviewsMetadata.ratings));
   const handleStarClick = (currentStar) => {
     if (currentFilter.includes(currentStar)) {

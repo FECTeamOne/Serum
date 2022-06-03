@@ -6,6 +6,7 @@ import Overview from 'Overview/Overview.jsx';
 import axios from 'axios';
 import RelatedItems from 'RelatedItems/RelatedItems.jsx';
 import { StarIconFills } from 'assets/StarIcon.jsx'
+import { calculateAverageStars, calculateTotalReviews } from 'lib/reviewsMetadataFunctions.js';
 import GlobalStyle from '../../globalStyles.js';
 
 function App() {
@@ -41,8 +42,8 @@ function App() {
         <Overview
           product={productData}
           styles={productStyles}
-          rating={3.3}
-          totalReviews={30}
+          rating={calculateAverageStars(reviewsMetadata)}
+          totalReviews={calculateTotalReviews(reviewsMetadata)}
         />
         <Reviews reviewsMetadata={reviewsMetadata} productData={productData} />
         <RelatedItems productId={40344} />
