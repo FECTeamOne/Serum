@@ -13,7 +13,7 @@ const StyledNavbar = styled.nav`
 `;
 
 const Logo = styled.span`
-  font-weight: 600;
+  font-weight: var(--text-strong);
   letter-spacing: .1rem;
   font-size: var(--text-8);
 `;
