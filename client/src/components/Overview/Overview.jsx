@@ -25,7 +25,7 @@ function Overview({
         styles.find((style) => style['default?']).style_id
       );
     }
-  }, [styles]);
+  }, [product, styles, rating, totalReviews]);
 
   if (dataIsLoading) {
     return (
@@ -77,7 +77,6 @@ const Loading = styled.div`
   align-items: flex-start;
   margin: auto;
   width: var(--size-15);
-  height: var(--size-15);
 
   img {
     width: var(--size-6);
@@ -86,8 +85,10 @@ const Loading = styled.div`
 `;
 
 const StyledOverview = styled.div`
-  margin: var(--space-6);
+  margin: var(--space-7) var(--space-6);
   width: fit-content;
+  height: var(--size-15);
+  text-align: left;
   display: flex;
   flex-wrap: wrap;
   align-items:flex-start;
@@ -95,13 +96,16 @@ const StyledOverview = styled.div`
   gap: var(--space-6);
 `;
 
-const OverviewMain = styled.main`
+const OverviewMain = styled.div`
+  display: flex;
+  box-sizing: border-box;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: var(--space-3);
   width: var(--size-12);
-  margin-top: var(--space-7);
-
-  * {
-    margin-bottom: var(--size-6);
-  }
+  height: 100%;
+  padding-top: var(--space-8);
+  padding-bottom: var(--space-8);
 `;
 
 export default Overview;

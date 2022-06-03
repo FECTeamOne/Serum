@@ -101,7 +101,7 @@ function AddToCart({ skus }) {
         variant="primary"
         onClick={handleAddToCartClick}
         hidden={!isInStock}
-        width="var(--size-11)"
+        width="var(--size-12)"
       >
         Add to Cart
       </Button>
@@ -113,22 +113,15 @@ AddToCart.propTypes = {
   skus: PropTypes.object.isRequired,
 };
 
-const StyledAddToCart = styled.form`
-  * {
-    margin-bottom: var(--space-1);
-  }
-`;
-
 const StyledSizeQuantity = styled.div`
   padding: 0;
-
-  && * {
-    margin-bottom: 0
-  }
 
   & :first-child {
     margin-right: var(--space-1);
   }
+`;
+
+const StyledAddToCart = styled.form`
 `;
 
 export default AddToCart;

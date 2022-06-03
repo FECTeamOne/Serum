@@ -52,8 +52,8 @@ function App() {
     <>
       <GlobalStyle />
       <StarIconFills />
+      <Navbar />
       <Wrapper>
-        <Navbar />
         <Overview
           product={productData}
           styles={productStyles}

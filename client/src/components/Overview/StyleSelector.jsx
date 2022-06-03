@@ -62,10 +62,6 @@ StyleSelector.propTypes = {
 const StyledStyleSelector = styled.section`
   display: grid;
   grid-template-columns: repeat(4, 1fr);
-
-  && * {
-    margin-bottom: 0;
-  }
 `;
 
 export default StyleSelector;
