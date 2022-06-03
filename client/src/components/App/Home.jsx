@@ -7,6 +7,14 @@ import { useNavigate } from 'react-router-dom';
 import { StarIconFills } from 'assets/StarIcon.jsx';
 import GlobalStyle from '../../globalStyles.js';
 
+const avrageStars = (reviewsMetadata) => {
+  let totalStars = 0;
+  const values = Object.values(reviewsMetadata.ratings);
+  const total = values.reduce((num, totals) => Number(num) + Number(totals), 0);
+  Object.entries(reviewsMetadata.ratings).forEach((item) => { totalStars += item[0] * item[1]; });
+  const avgStars = totalStars / total;
+  return avgStars;
+};
 function Home() {
   const [products, setProducts] = useState([]);
   const [productData, setProductData] = useState({});
@@ -65,7 +73,7 @@ function Home() {
             <Button onClick={() => { nagivate(`/item/${value.product.id}`); }}>
               <ProductCard
                 product={value.product}
-                rating={4}
+                rating={avrageStars(value.meta)}
                 imageUrl={value.photo}
               />
             </Button>
