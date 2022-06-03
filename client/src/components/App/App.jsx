@@ -50,7 +50,6 @@ function App() {
 
   return (
     <>
-      <StarIconFills />
       <GlobalStyle />
       <StarIconFills />
       <Wrapper>
@@ -69,7 +68,7 @@ function App() {
 }
 
 const Wrapper = styled.div`
-  margin:auto;
+  margin: auto;
   width: fit-content;
 `;
 
