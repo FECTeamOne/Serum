@@ -147,7 +147,9 @@ const GlobalStyle = styled.createGlobalStyle`
     @media (prefers-color-scheme: dark) {
         body {
             /*background-color: black;
-            color: white;*/
+            color: white;
+            --color-main: white;
+            --color-bg: black;*/
       }
     }
   }

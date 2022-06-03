@@ -107,7 +107,9 @@ ImageGallery.propTypes = {
 };
 
 const StyledImageGallery = styled.section`
-  display:flex;
+  display: flex;
+  align-items: flex-start;
+  flex: 0 0 main-size;
   gap: var(--space-1);
 `;
 

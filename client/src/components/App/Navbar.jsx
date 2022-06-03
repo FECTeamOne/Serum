@@ -20,9 +20,9 @@ const StyledNavbar = styled.nav`
   top: 0;
   z-index: 10;
   padding-top: var(--space-3);
-  padding-bottom: var(--space-4);
+  padding-bottom: var(--space-3);
   padding-left: var(--space-6);
-  padding-right: var(--space-6);
+  padding-right: var(--space-8);
   text-transform: uppercase;
   border-bottom: var(--size-00) solid var(--color-main);
   background-color: var(--color-bg);
@@ -40,12 +40,14 @@ const NavbarContent = styled.div`
 const Logo = styled.span`
   font-weight: var(--text-strong);
   letter-spacing: .1rem;
-  font-size: var(--text-8);
+  font-size: var(--text-7);
 `;
 
 const Links = styled.span`
+  font-size: var(--text-4);
+  font-weight: var(--text-strong);
   display: flex;
-  gap: var(--space-8);
+  gap: var(--space-7);
 `;
 
 
