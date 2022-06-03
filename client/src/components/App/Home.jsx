@@ -53,21 +53,42 @@ function Home() {
     <div>
       <GlobalStyle />
       <StarIconFills />
-      This is the home page
+      <Title>
+        This is the home page
+      </Title>
+      <More>
+        <Button onClick={() => setPage(page + 1)}>More Products</Button>
+      </More>
       <div>
         {Object.values(productData).map((value) => (
-          <Button onClick={() => { nagivate(`/item/${value.product.id}`); }}>
-            <ProductCard
-              product={value.product}
-              rating={4}
-              imageUrl={value.photo}
-            />
-          </Button>
+          <Items>
+            <Button onClick={() => { nagivate(`/item/${value.product.id}`); }}>
+              <ProductCard
+                product={value.product}
+                rating={4}
+                imageUrl={value.photo}
+              />
+            </Button>
+          </Items>
         ))}
-        <Button onClick={() => setPage(page + 1)}>More</Button>
       </div>
     </div>
   );
 }
+
+const Title = styled.h2`
+  font-size: var(--text-7);
+  text-align: center;
+  margin: var(--space-4)
+`;
+const More = styled.h4`
+  font-size: var(--text-5);
+  text-align: center;
+  margin: var(--space-4)
+`;
+const Items = styled.div`
+  display: inline-block;
+  margin: var(--space-3);
+`;
 
 export default Home;
