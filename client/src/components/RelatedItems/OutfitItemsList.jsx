@@ -2,22 +2,21 @@ import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
 import OutfitItemsEntry from 'RelatedItems/OutfitItemsEntry.jsx';
 import Carousel from 'shared/Carousel.jsx'
+import axios from 'axios';
 
-function OutfitItemsList({ currentItemId, product, rating, styles }) {
+function OutfitItemsList({ currentItemId }) {
   const [outfitItems, setOutfitItems] = useState([]);
   const [currentItem, setCurrentItem] = useState({});
   const [scrollIndex, setScrollIndex] = useState(0);
 
   useEffect(() => {
     // function fetchOutfit to get the current product information
-    const fetchOutfit = () => {
-      // const currentProductResponse = await axios.get(`products/${itemId}`);
-      const currentProduct = product;
-      // const styles = await axios.get(`/products/${itemId}/styles`);
-      // const currentImg = styles.data.results[0].photos[0].url;
-      const currentImg = styles[0].photos[0].url;
+    const fetchOutfit = async (itemId) => {
+      const currentProductResponse = await axios.get(`products/${itemId}`);
+      const currentProduct = currentProductResponse.data;
+      const styles = await axios.get(`/products/${itemId}/styles`);
+      const currentImg = styles.data.results[0].photos[0].url;
       currentProduct.img = currentImg;
-      currentProduct.rating = rating;
       setCurrentItem(currentProduct);
     };
 
@@ -42,7 +41,6 @@ function OutfitItemsList({ currentItemId, product, rating, styles }) {
       key={item.id}
       img={item.img}
       item={item}
-      rating={item.rating}
       handleRemove={() => { handleRemove(currentItemId); }}
     />
   ));
