@@ -45,7 +45,7 @@ const Logo = styled.span`
 
 const Links = styled.span`
   font-size: var(--text-4);
-  font-weight: var(--text-strong);
+  letter-spacing: .04rem;
   display: flex;
   gap: var(--space-7);
 `;

@@ -5,19 +5,24 @@ import {StarIconFills, StarIcon} from 'assets/StarIcon.jsx';
 import Stars from 'shared/Stars.jsx';
 import Text from 'shared/Text.jsx';
 import Header from 'shared/Header.jsx';
+import A from 'shared/A.jsx';
 
 /**
  * Shows general product information
  */
-function ProductInformation({ product, selectedStyle}) {
+function ProductInformation({
+  product,
+  selectedStyle,
+  rating,
+  totalReviews }) {
   return (
     <>
       {/*TODO: get actual rating, show total number of reviews, and link to reviews*/}
-      <RatingInformation>
+      <RatingInformation href="#ratings-and-reviews">
         <Stars
-          value={4.7}
+          value={rating}
         />
-        <Text variant="primary">(0)</Text>
+        <Text variant="primary">({totalReviews || 0})</Text>
       </RatingInformation>
       <Header variant="tertiary">{product.category}</Header>
       <Header variant="title">{product.name}</Header>
@@ -47,15 +52,11 @@ ProductInformation.propTypes = {
   selectedStyle: PropTypes.object.isRequired,
 };
 
-const RatingInformation = styled.span`
+const RatingInformation = styled(A)`
   margin-bottom: var(--space-4);
   display: flex;
   align-items: flex-start;
   gap: var(--space-0);
-
-  h1 {
-    color: red;
-  }
 `;
 
 const Slogan = styled.div`

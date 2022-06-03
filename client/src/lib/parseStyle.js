@@ -12,7 +12,7 @@ export default function parseStyle(styleName) {
     return matchingColors.find(color => color.length === maxLength);
   });
 
-  if (cssStyleColors[0] === cssStyleColors.?[1]) {
+  if (cssStyleColors[0] === cssStyleColors?.[1]) {
     cssStyleColors = cssStyleColors.slice(0, 1);
   }
 

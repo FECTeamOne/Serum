@@ -13,7 +13,7 @@ function Reviews({ reviewsMetadata, productData }) {
   return (
     <Container>
       <Title>
-        Ratings & Reviews
+        <a id="ratings-and-reviews">Ratings & Reviews</a>
       </Title>
       <Left>
         <Ratings
