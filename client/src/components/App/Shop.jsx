@@ -33,7 +33,7 @@ function Home() {
     const promises = [];
     const data = {};
 
-    for (let i = (page - 1) * 2; i < products.length; i++) {
+    for (let i = (page - 1) * 5; i < products.length; i++) {
       promises.push(axios.get(`/products/${products[i].id}/styles`)
         .then((res) => {
           if (!data[i]) {
@@ -93,6 +93,7 @@ const StyledShop = styled.div`
 const MoreButton = styled(Button)`
   font-weight: var(--text-strong);
   font-size: var(--text-3);
+  margin-bottom: var(--space-3);
 `;
 
 const Loading = styled.div`
