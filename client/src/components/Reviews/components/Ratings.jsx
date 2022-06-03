@@ -63,8 +63,7 @@ const AllRatings = styled.div`
   text-align: left;
 `;
 const StyledStars = styled.div`
-  margin: auto;
-  width: 60px;
+  margin-left: 40%;
 `;
 
 export default Ratings;

@@ -237,8 +237,8 @@ const Image = styled.img`
   width: 35px;
 `;
 const StyledStars = styled.div`
-  margin: auto;
-  width: 60px;
+  text-align: left;
+  margin-left: 45%;
 `;
 const Characteristics = styled.div`
   margin: var(--space-2);
