@@ -12,12 +12,16 @@ function OutfitItemsList({ currentItemId }) {
   useEffect(() => {
     // function fetchOutfit to get the current product information
     const fetchOutfit = async (itemId) => {
-      const currentProductResponse = await axios.get(`products/${itemId}`);
-      const currentProduct = currentProductResponse.data;
-      const styles = await axios.get(`/products/${itemId}/styles`);
-      const currentImg = styles.data.results[0].photos[0].url;
-      currentProduct.img = currentImg;
-      setCurrentItem(currentProduct);
+      try {
+        const currentProductResponse = await axios.get(`products/${itemId}`);
+        const currentProduct = currentProductResponse.data;
+        const styles = await axios.get(`/products/${itemId}/styles`);
+        const currentImg = styles.data.results[0].photos[0].url;
+        currentProduct.img = currentImg;
+        setCurrentItem(currentProduct);
+      } catch (err) {
+        console.log(err);
+      }
     };
 
     fetchOutfit(currentItemId);

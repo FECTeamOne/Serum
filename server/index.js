@@ -30,7 +30,7 @@ app.get('/*', (req, res) => {
     headers: { Authorization: process.env.API_TOKEN },
   })
     .then((data) => res.status(200).send(data.data))
-    .catch((err) => res.status(404).send(err));
+    .catch(() => res.sendFile(path.join(__dirname, '../client/dist/index.html')));
 });
 
 app.post('/*', (req, res) => {

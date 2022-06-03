@@ -3,11 +3,14 @@ import styled from 'styled-components';
 import Navbar from 'App/Navbar.jsx';
 import Reviews from 'Reviews/Reviews.jsx';
 import Overview from 'Overview/Overview.jsx';
+import { useParams } from "react-router-dom";
 import RelatedItems from 'RelatedItems/RelatedItems.jsx';
 import { StarIconFills } from 'assets/StarIcon.jsx'
 import GlobalStyle from '../../globalStyles.js';
 
 function App() {
+  const { id } = useParams();
+  console.log(id);
   return (
     <>
       <StarIconFills />
