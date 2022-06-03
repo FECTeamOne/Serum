@@ -1,16 +1,15 @@
 import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
-import Navbar from 'App/Navbar.jsx';
+import axios from 'axios';
+import { useParams } from "react-router-dom";
 import Reviews from 'Reviews/Reviews.jsx';
 import Overview from 'Overview/Overview.jsx';
-import axios from 'axios';
 import RelatedItems from 'RelatedItems/RelatedItems.jsx';
-import { StarIconFills } from 'assets/StarIcon.jsx'
 import { calculateAverageStars, calculateTotalReviews } from 'lib/reviewsMetadataFunctions.js';
-import GlobalStyle from '../../globalStyles.js';
 
 function App() {
-  const productId = 40344; // * temp till we use react router
+  const { id } = useParams();
+  const productId = id;
   const [reviewsMetadata, setReviewsMetaData] = useState('');
   const [productData, setProductData] = useState('');
   const [productStyles, setProductStyles] = useState('');
@@ -49,21 +48,16 @@ function App() {
   }, [productId]);
 
   return (
-    <>
-      <GlobalStyle />
-      <StarIconFills />
-      <Navbar />
-      <Wrapper>
-        <Overview
-          product={productData}
-          styles={productStyles}
-          rating={calculateAverageStars(reviewsMetadata)}
-          totalReviews={calculateTotalReviews(reviewsMetadata)}
-        />
-        <Reviews reviewsMetadata={reviewsMetadata} productData={productData} />
-        <RelatedItems productId={40344} />
-      </Wrapper>
-    </>
+    <Wrapper>
+      <Overview
+        product={productData}
+        styles={productStyles}
+        rating={calculateAverageStars(reviewsMetadata)}
+        totalReviews={calculateTotalReviews(reviewsMetadata)}
+      />
+      <Reviews reviewsMetadata={reviewsMetadata} productData={productData} />
+      <RelatedItems productId={productId} />
+    </Wrapper>
   );
 }
 

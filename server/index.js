@@ -23,6 +23,10 @@ app.use(express.json());
 app.use(morgan('dev'));
 app.use('/', express.static(path.join(__dirname, '../client/dist')));
 
+app.get('/item/*', (req, res) => {
+  res.sendFile(path.join(__dirname, '../client/dist/index.html'));
+});
+app.get('/favicon.ico', (req, res) => {});
 app.get('/*', (req, res) => {
   const { url } = req;
   axios({
@@ -30,7 +34,7 @@ app.get('/*', (req, res) => {
     headers: { Authorization: process.env.API_TOKEN },
   })
     .then((data) => res.status(200).send(data.data))
-    .catch((err) => res.status(404).send(err));
+    .catch((err) => console.log(err));
 });
 
 app.post('/*', (req, res) => {

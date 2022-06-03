@@ -1,13 +1,18 @@
 import React from 'react';
 import styled from 'styled-components';
+import { Link } from 'react-router-dom';
 
-function Navbar() {
+export default function Navbar() {
   return (
     <StyledNavbar>
       <NavbarContent>
-        <Logo>Serum</Logo>
+        <StyledLink to="/">
+          <Logo>Serum</Logo>
+        </StyledLink>
         <Links>
-          <div>Shop</div>
+          <StyledLink to="/shop">
+            <div>Shop</div>
+          </StyledLink>
           <div>Cart</div>
         </Links>
       </NavbarContent>
@@ -34,7 +39,15 @@ const NavbarContent = styled.div`
   display: flex;
   align-items: baseline;
   justify-content: space-between;
+`;
 
+const StyledLink = styled(Link)`
+  text-decoration: none;
+  color: var(--color-main);
+
+  &:active {
+    color: var(--color-main);
+  }
 `;
 
 const Logo = styled.span`
@@ -49,6 +62,3 @@ const Links = styled.span`
   display: flex;
   gap: var(--space-7);
 `;
-
-
-export default Navbar;

@@ -6,7 +6,7 @@ export default function parseStyle(styleName) {
   let cssStyleColors = styleColors.map((styleColor) => {
     let matchingColors = CSS_COLOR_NAMES.filter(color => styleColor.includes(color));
     if (matchingColors.length === 0) {
-      matchingColors = 'GREY';
+      matchingColors = ['GREY'];
     }
     const maxLength = Math.max(...matchingColors.map(color => color.length));
     return matchingColors.find(color => color.length === maxLength);

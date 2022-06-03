@@ -109,11 +109,11 @@ function AddReview({ handleModalToggle, allCharacteristics, productId }) {
       <div>
         do you recommend this product?
         <label htmlFor="1">
-          <input id="1" type="radio" value="yes" checked={isRecommended} onChange={() => setIsRecommended(!isRecommended)} />
+          <Radio id="1" type="radio" value="yes" checked={isRecommended} onChange={() => setIsRecommended(!isRecommended)} />
           yes
         </label>
         <label htmlFor="2">
-          <input id="2" type="radio" value="no" checked={!isRecommended} onChange={() => setIsRecommended(!isRecommended)} />
+          <Radio id="2" type="radio" value="no" checked={!isRecommended} onChange={() => setIsRecommended(!isRecommended)} />
           no
         </label>
       </div>
@@ -129,7 +129,7 @@ function AddReview({ handleModalToggle, allCharacteristics, productId }) {
                 const val = j + 1;
                 return (
                   <label>
-                    <input
+                    <Radio
                       type="radio"
                       value={val}
                       checked={val === characteristics[characteristic]}
@@ -203,7 +203,7 @@ function AddReview({ handleModalToggle, allCharacteristics, productId }) {
             />
           </div>
           {submissonErr ? <div>Error in submisson, check all feilds and try again</div> : ''}
-          <input type="submit" />
+          <SubmitButton type="submit" />
         </form>
       </div>
     </Modal>
@@ -231,14 +231,18 @@ const CloseButton = styled.button`
   text-align: right;
   font-size: 36px;
   margin-left: 90%;
+  &:hover,
+  &:focus {
+    color: red;
+  }
   `;
 const Image = styled.img`
   height: 50px;
   width: 35px;
 `;
 const StyledStars = styled.div`
-  margin: auto;
-  width: 60px;
+  text-align: left;
+  margin-left: 45%;
 `;
 const Characteristics = styled.div`
   margin: var(--space-2);
@@ -255,6 +259,21 @@ const Body = styled.textarea`
   height: 60px;
   width: 400px;
   resize: none;
+`;
+const SubmitButton = styled.input`
+  background: none;
+  height: 30px;
+  width: 80px;
+  cursor: pointer;
+  box-shadow: 0px 0px;
+  &:hover,
+  &:focus {
+    box-shadow: 3px 3px;
+    text-shadow: 1px 1px;
+  }
+`;
+const Radio = styled.input`
+  cursor: pointer;
 `;
 
 export default AddReview;

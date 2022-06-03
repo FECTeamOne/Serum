@@ -13,7 +13,7 @@ export default function ProductCard({ product, imageUrl, rating }) {
     <StyledProductCard>
       <Img src={imageUrl} />
       <CardText>
-        <Header variant="secondary">
+        <Header variant="tertiary">
           {product.category}
         </Header>
         <ProductName>
@@ -21,7 +21,7 @@ export default function ProductCard({ product, imageUrl, rating }) {
             {product.name}
           </Header>
         </ProductName>
-        <Text variant="primary">
+        <Text variant="secondary">
           ${product.default_price}
         </Text>
         <Stars value={rating} />
@@ -50,9 +50,23 @@ const Img = styled.img`
 const CardText = styled.div`
   display: flex;
   flex-direction: column;
-  gap: var(--size-1);
-  padding: var(--size-3);
+  justify-content: space-between;
+  gap: var(--size-0);
+  padding: var(--size-2);
   height: var(--size-8);
+
+  && span {
+    font-size: var(--text-1);
+  }
+
+  && h2 {
+    font-size: var(--text-2);
+  }
+
+  && h4 {
+    font-size: var(--text-1);
+  }
+
 `;
 
 const ProductName = styled.span`

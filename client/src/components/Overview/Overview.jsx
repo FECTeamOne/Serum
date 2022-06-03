@@ -30,7 +30,6 @@ function Overview({
   if (dataIsLoading) {
     return (
       <Loading>
-        &nbsp;
         <img src="\assets\spinner.gif" />
       </Loading>
     );
