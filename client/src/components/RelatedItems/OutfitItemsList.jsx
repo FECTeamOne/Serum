@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-// import styled from 'styled-components';
+import styled from 'styled-components';
 import OutfitItemsEntry from 'RelatedItems/OutfitItemsEntry.jsx';
 import Carousel from 'shared/Carousel.jsx'
 import axios from 'axios';
@@ -7,6 +7,7 @@ import axios from 'axios';
 function OutfitItemsList({ currentItemId }) {
   const [outfitItems, setOutfitItems] = useState([]);
   const [currentItem, setCurrentItem] = useState({});
+  const [scrollIndex, setScrollIndex] = useState(0);
 
   useEffect(() => {
     // function fetchOutfit to get the current product information
@@ -45,20 +46,44 @@ function OutfitItemsList({ currentItemId }) {
   ));
 
   const AddOutfitCard = (
-    <div>
-      <button type="button" onClick={() => { handleAddOutfitClick(currentItemId); }}>
-        add Outfit
-      </button>
-    </div>
+    <AddCard onClick={() => { handleAddOutfitClick(currentItemId); }}>
+      <AddText>
+        Click to Add
+      </AddText>
+    </AddCard>
   );
   OutfitItemsEntries.unshift(AddOutfitCard);
 
   return (
     <div>
       <div>YOUR OUTFIT</div>
-      <Carousel items={OutfitItemsEntries} size={4} />
+      <Carousel
+        items={OutfitItemsEntries}
+        size={3}
+        direction="row"
+        scrollIndex={scrollIndex}
+        onScroll={(index) => { setScrollIndex(index); }}
+        arrowHeight="var(--size-4)"
+        gap="var(--size-3)"
+        buttonWidth="var(--size-3)"
+      />
     </div>
   );
 }
 
+const AddCard = styled.button`
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-color: white;
+  width: 250px;
+  height: 350px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+`;
+
+const AddText = styled.h1`
+  font-size: var(--text-4);
+`;
 export default OutfitItemsList;

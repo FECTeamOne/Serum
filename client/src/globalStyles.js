@@ -49,17 +49,31 @@ const GlobalStyle = styled.createGlobalStyle`
   html {
 
     font-family: 'Open Sans', helvetica, arial, sans-serif;
+    font-weight: 400;
+    font-size: var(--text-2);
 
     --color-main: black;
     --color-bg: white;
+
+    --color-light-grey: hsl(208, 21%, 70%);
+
     --color-disabled: hsl(208, 21%, 70%);
     --color-transparent-grey: rgb(0 0 0 / .1);
+
+    --color-red: #EE0000;
+
+    /*
+    --color-darkest-grey: #11263f;
+    --color-dark-grey: #627692;
+    --color-grey: #d2ddeb;
+    --color-light-grey: #edf1f6;
+    --color-light-grey: #f5f7fa;
+    */
 
     --space-00: 2px;
     --space-0: 4px;
     --space-1: 8px;
     --space-2: 12px;
-    /* space-3 is the base size */
     --space-3: 16px;
     --space-4: 24px;
     --space-5: 32px;
@@ -93,8 +107,8 @@ const GlobalStyle = styled.createGlobalStyle`
     --size-15: 768px;
 
     --text-1: 12px;
+    /* text-2 is the base size */
     --text-2: 14px;
-    /* text-3 is the base size */
     --text-3: 16px;
     --text-4: 18px;
     --text-5: 20px;
@@ -104,6 +118,8 @@ const GlobalStyle = styled.createGlobalStyle`
     --text-9: 48px;
     --text-10: 60px;
     --text-11: 72px;
+
+    --text-strong: 700;
 
     /* Extra small devices (phones, 600px and down) */
     @media only screen and (max-width: 600px) {
@@ -131,7 +147,9 @@ const GlobalStyle = styled.createGlobalStyle`
     @media (prefers-color-scheme: dark) {
         body {
             /*background-color: black;
-            color: white;*/
+            color: white;
+            --color-main: white;
+            --color-bg: black;*/
       }
     }
   }
