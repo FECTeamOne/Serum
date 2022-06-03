@@ -47,7 +47,7 @@ function Home() {
       .catch(() => {});
   }, [products]);
   if (!productData['0']) {
-    return <div>loading...</div>;
+    return <Title>loading...</Title>;
   }
   return (
     <div>
