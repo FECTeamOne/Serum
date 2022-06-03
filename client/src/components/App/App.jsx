@@ -62,7 +62,12 @@ function App() {
           totalReviews={calculateTotalReviews(reviewsMetadata)}
         />
         <Reviews reviewsMetadata={reviewsMetadata} productData={productData} />
-        <RelatedItems productId={40344} />
+        <RelatedItems
+          productId={productId}
+          product={productData}
+          styles={productStyles}
+          rating={calculateAverageStars(reviewsMetadata)}
+        />
       </Wrapper>
     </>
   );
