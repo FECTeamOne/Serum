@@ -203,7 +203,7 @@ function AddReview({ handleModalToggle, allCharacteristics, productId }) {
             />
           </div>
           {submissonErr ? <div>Error in submisson, check all feilds and try again</div> : ''}
-          <input type="submit" />
+          <SubmitButton type="submit" />
         </form>
       </div>
     </Modal>
@@ -255,6 +255,12 @@ const Body = styled.textarea`
   height: 60px;
   width: 400px;
   resize: none;
+`;
+const SubmitButton = styled.input`
+  background: none;
+  height: 30px;
+  width: 80px;
+  cursor: pointer;
 `;
 
 export default AddReview;
