@@ -4,7 +4,7 @@
 // A javascript array containing all of the color names listed in the CSS Spec.
 // The full list can be found here: https://www.w3schools.com/cssref/css_colors.asp
 
-const CSS_COLOR_NAMES = [
+const MIXED_CASE_CSS_COLOR_NAMES = [
   "AliceBlue",
   "AntiqueWhite",
   "Aqua",
@@ -154,3 +154,6 @@ const CSS_COLOR_NAMES = [
   "Yellow",
   "YellowGreen",
 ];
+
+const CSS_COLOR_NAMES = MIXED_CASE_CSS_COLOR_NAMES.map(color => color.toUpperCase());
+export default CSS_COLOR_NAMES;
