@@ -1,6 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import PropTypes from 'prop-types';
+import Stars from 'shared/Stars.jsx'
 
 function OutfitItemsEntry({ img, item, handleRemove }) {
   return (
@@ -18,6 +19,7 @@ function OutfitItemsEntry({ img, item, handleRemove }) {
       <div>
         {item.default_price}
       </div>
+      <Stars values={item.rating} />
     </Container>
   );
 }

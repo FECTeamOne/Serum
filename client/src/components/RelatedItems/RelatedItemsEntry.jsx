@@ -46,6 +46,22 @@ function RelatedItemsEntry({ imgs, item, rating, handleCompare }) {
             iconWidth="var(--size-4)"
           />
         </StarButton>
+        <br />
+        <br />
+        <br />
+        <br />
+        <br />
+        <br />
+        <br />
+        <br />
+        <br />
+        <br />
+        <br />
+        <br />
+        <br />
+        <br />
+        <br />
+        <br />
         { thumbnailIsVisible ? (
           <CarouselThumbnail
             items={thumbnailImgsDiv}
