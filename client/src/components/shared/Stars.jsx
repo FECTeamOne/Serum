@@ -105,8 +105,8 @@ Stars.defaultProps = {
   onClick: () => {},
 };
 
-const StyledStars = styled.div`
-  display: flex;
+const StyledStars = styled.span`
+  display: flex-inline;
   gap: var(--space-00);
 `;
 

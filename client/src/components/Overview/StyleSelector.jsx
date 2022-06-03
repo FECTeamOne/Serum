@@ -1,7 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import styled from 'styled-components';
-import { ImageButton } from 'shared/ImageButton.jsx';
+import styled, { css } from 'styled-components';
+import Button from 'shared/Button.jsx';
+import parseStyle from 'lib/parseStyle.js';
 
 /**
  * Displays thumbnails of the product styles and
@@ -11,22 +12,41 @@ function Style({ style, handleStyleSelect, selected }) {
   // TODO: handle selected overlay
   return (
     <StyledStyle selected={selected}>
-      <ImageButton
-        url={style.photos[0].thumbnail_url}
+      <Button
         aria-label={`${style.name} style selector`}
         onClick={() => handleStyleSelect(style.style_id)}
-        width="var(--size-6)"
-        height="var(--size-6)"
-      />
+       >
+        <StyleColors colors={parseStyle(style.name)} />
+      </Button>
     </StyledStyle>
   );
 }
 
 const StyledStyle = styled.div`
   button {
-    padding: ${({ selected }) => selected || '1px'};
-    border: ${({ selected }) => selected && '1px solid'};
+    border: var(--space-00) solid var(--color-bg);
+    outline: ${({ selected }) => selected
+    ? 'var(--space-00) solid var(--color-main)'
+    : '1px solid var(--color-main)'
+  };
   }
+`;
+
+const StyleColors = styled.div`
+  width: var(--size-5);
+  height: var(--size-5);
+
+  ${({ colors }) => {
+    if (colors.length === 1) {
+      return css`
+        background: ${colors[0]};
+      `;
+    } else {
+    return css`
+      background: linear-gradient( -45deg, ${colors[0]}, ${colors[0]} 47%, white 47%, white 53%, ${colors[1]} 53% ); 
+    `;
+  }
+  }}
 `;
 
 
@@ -60,12 +80,9 @@ StyleSelector.propTypes = {
 };
 
 const StyledStyleSelector = styled.section`
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-
-  && * {
-    margin-bottom: 0;
-  }
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-1);
 `;
 
 export default StyleSelector;

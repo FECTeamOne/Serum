@@ -54,7 +54,7 @@ function ExpandedImageGallery({
   const icons = photos.map((photo) => (
     <SelectableImageButton
       selected={photo.photo_id === mainImageIndex}
-      url={photo.url}
+      url={photo.thumbnail_url}
       key={`expanded image gallery icon ${photo.photo_id}`}
       aria-label={`Current style icon ${photo.photo_id}`}
       onClick={() => { handleExpandedGalleryScroll(photo.photo_id); }}

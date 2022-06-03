@@ -1,53 +1,46 @@
 import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
-import axios from 'axios';
 import styled from 'styled-components';
 import ImageGallery from 'Overview/ImageGallery.jsx';
 import ProductInformation from 'Overview/ProductInformation.jsx';
 import StyleSelector from 'Overview/StyleSelector.jsx';
 import AddToCart from 'Overview/AddToCart.jsx';
-import testData from 'tests/testData.js';
 
-function Overview({ productId }) {
-  // const [product, setProduct] = useState({});
-  // const [styles, setStyles] = useState([]);
-  // const [selectedStyleId, setSelectedStyleId] = useState();
-  // TODO: delete once data fetching is up
-  const [product, setProduct] = useState(testData.product);
-  const [styles, setStyles] = useState(testData.styles.results);
-  const [selectedStyleId, setSelectedStyleId] = useState(1);
+function Overview({
+  product,
+  styles,
+  rating,
+  totalReviews,
+}) {
+  const [dataIsLoading, setDataIsLoading] = useState(true);
+  const [selectedStyleId, setSelectedStyleId] = useState();
 
   useEffect(() => {
-    // TODO: account for unmounting
-    async function fetchData() {
-      try {
-        const [productResponse, stylesResponse] = await Promise.all([
-          axios.get(`/products/${productId}`),
-          axios.get(`/products/${productId}/styles`),
-        ]);
-
-        const sortedStyles = stylesResponse.data.results.sort(
-          (style1, style2) => style1.styled_id - style2.styled_id
-        );
-
-        setProduct(productResponse.data);
-        setStyles(sortedStyles);
-        setSelectedStyleId(
-          sortedStyles.find((style) => style['default?']).style_id
-        );
-      } catch (error) {
-        // TODO: handle error
-      }
+    if (product && styles && rating !== null && totalReviews !== null) {
+      setDataIsLoading(false)
     }
 
-    fetchData();
-  }, []);
+    if (styles?.length > 0) {
+      setSelectedStyleId(
+        styles.find((style) => style['default?']).style_id
+      );
+    }
+  }, [product, styles, rating, totalReviews]);
+
+  if (dataIsLoading) {
+    return (
+      <Loading>
+        &nbsp;
+        <img src="\assets\spinner.gif" />
+      </Loading>
+    );
+  }
 
   const selectedStyle = styles.find((style) => style.style_id === selectedStyleId);
+
   const handleStyleSelect = (styleId) => {
     setSelectedStyleId(styleId);
   };
-
 
   return (
     <StyledOverview>
@@ -55,6 +48,8 @@ function Overview({ productId }) {
       <OverviewMain>
         <ProductInformation
           product={product}
+          rating={rating}
+          totalReviews={totalReviews}
           selectedStyle={selectedStyle}
         />
         <StyleSelector
@@ -69,24 +64,48 @@ function Overview({ productId }) {
 }
 
 Overview.propTypes = {
-  productId: PropTypes.number.isRequired,
+  product: PropTypes.object.isRequired,
+  styles: PropTypes.object.isRequired,
+  rating: PropTypes.number,
+  totalReviews: PropTypes.number,
 };
 
-const StyledOverview = styled.div`
-  margin: var(--space-6);
-  width: fit-content;
+// TODO: fix width
+const Loading = styled.div`
   display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  margin: auto;
+  width: var(--size-15);
+
+  img {
+    width: var(--size-6);
+    margin-top: var(--size-10);
+  }
+`;
+
+const StyledOverview = styled.div`
+  margin: var(--space-7) var(--space-6);
+  width: fit-content;
+  height: var(--size-15);
+  text-align: left;
+  display: flex;
+  flex-wrap: wrap;
   align-items:flex-start;
+  justify-content: center;
   gap: var(--space-6);
 `;
 
-const OverviewMain = styled.main`
+const OverviewMain = styled.div`
+  display: flex;
+  box-sizing: border-box;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: var(--space-3);
   width: var(--size-12);
-  margin-top: var(--space-7);
-
-  * {
-    margin-bottom: var(--size-6);
-  }
+  height: 100%;
+  padding-top: var(--space-7);
+  padding-bottom: var(--space-7);
 `;
 
 export default Overview;
