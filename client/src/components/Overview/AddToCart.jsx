@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import Select from 'shared/Select.jsx';
 import Button from 'shared/Button.jsx';
+import Text from 'shared/Text.jsx';
 
 function AddToCart({ skus }) {
   const [selectedSize, setSelectedSize] = useState('default');
@@ -25,6 +26,8 @@ function AddToCart({ skus }) {
   }
 
   useEffect(() => {
+    setShouldPromptForSize(false);
+
     if (isInStock) {
       setSelectedSize('default');
     } else {
@@ -78,22 +81,29 @@ function AddToCart({ skus }) {
   return (
     <StyledAddToCart>
       <StyledSizeQuantity>
-        <Select
-          label="Select Size"
-          value={selectedSize}
-          options={sizes}
-          selectionPrompt="Select Size"
-          onChange={handleSizeChange}
-          disabled={!isInStock}
-          width="var(--size-9)"
-        />
+        <StyledSize
+          shouldPromptForSize={shouldPromptForSize}
+        >
+          <Text variant="secondary">
+            Please select size.
+          </Text>
+          <Select
+            label="Select Size"
+            value={selectedSize}
+            options={sizes}
+            selectionPrompt="Select Size"
+            onChange={handleSizeChange}
+            disabled={!isInStock}
+            width="var(--size-11)"
+          />
+        </StyledSize>
         <Select
           label="Select quantity"
           value={selectedQuantity}
           options={quantities}
           onChange={handleQuantityChange}
           disabled={selectedSize === 'default' || !isInStock}
-          width="var(--size-7)"
+          width="var(--size-8)"
         />
       </StyledSizeQuantity>
       <Button
@@ -101,7 +111,7 @@ function AddToCart({ skus }) {
         variant="primary"
         onClick={handleAddToCartClick}
         hidden={!isInStock}
-        width="var(--size-11)"
+        width="var(--size-12)"
       >
         Add to Cart
       </Button>
@@ -113,22 +123,26 @@ AddToCart.propTypes = {
   skus: PropTypes.object.isRequired,
 };
 
-const StyledAddToCart = styled.form`
-  * {
-    margin-bottom: var(--space-1);
+const StyledSizeQuantity = styled.div`
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  flex: 0 0 main-size;
+  margin-bottom: var(--space-4);
+`;
+
+const StyledSize = styled.div`
+  display: flex;
+  flex-direction: column;
+
+  span {
+    color: var(--color-red);
+    visibility: ${(props) => (props.shouldPromptForSize ? null : 'hidden')};
+    padding-bottom: var(--space-1);
   }
 `;
 
-const StyledSizeQuantity = styled.div`
-  padding: 0;
-
-  && * {
-    margin-bottom: 0
-  }
-
-  & :first-child {
-    margin-right: var(--space-1);
-  }
+const StyledAddToCart = styled.form`
 `;
 
 export default AddToCart;

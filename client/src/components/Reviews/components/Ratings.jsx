@@ -1,14 +1,11 @@
 import React from 'react';
 import styled from 'styled-components';
 import Stars from 'shared/Stars.jsx';
+import { calculateAverageStars } from 'lib/reviewsMetadataFunctions.js'
 
 function Ratings({ reviewsMetadata, name, setCurrentFilter, currentFilter }) {
-  let totalStars = 0;
-  const values = Object.values(reviewsMetadata.ratings);
-  const total = values.reduce((num, totals) => Number(num) + Number(totals), 0);
-  Object.entries(reviewsMetadata.ratings).forEach((item) => { totalStars += item[0] * item[1]; });
-  const avgStars = totalStars / total;
-  const highest = Math.max(...values);
+  const avgStars = calculateAverageStars(reviewsMetadata);
+  const highest = Math.max(...Object.values(reviewsMetadata.ratings));
   const handleStarClick = (currentStar) => {
     if (currentFilter.includes(currentStar)) {
       const temp = [...currentFilter];

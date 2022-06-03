@@ -53,6 +53,7 @@ module.exports = {
       shared: path.resolve(__dirname, 'client/src/components/shared/'),
       assets: path.resolve(__dirname, 'client/src/assets/'),
       tests: path.resolve(__dirname, 'client/src/tests'),
+      lib: path.resolve(__dirname, 'client/src/lib'),
     }
   }
 };

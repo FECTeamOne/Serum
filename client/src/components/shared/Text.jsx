@@ -14,20 +14,21 @@ export default function Text({ variant, children }) {
 }
 
 const StyledText = styled.span`
+  display: inline;
   ${({ variant }) => {
     if (variant === 'primary') {
       return css`
-        font-size: var(--text-2);
+        font-size: var(--text-3);
       `;
     }
     if (variant === 'secondary') {
       return css`
-        font-size: var(--text-1);
+        font-size: var(--text-2);
       `;
     }
     if (variant === 'tertiary') {
       return css`
-        font-size: var(--text-1);
+        font-size: var(--text-2);
       `;
     }
   }}

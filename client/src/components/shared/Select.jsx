@@ -10,6 +10,7 @@ const StyledSelect = styled.select`
   margin: 0;
   border-radius: 0;
   border: 1px solid;
+  height: var(--size-6);
   text-align-last: left;
   padding-left: var(--space-2);
   padding-top: var(--space-2);

@@ -62,12 +62,13 @@ const PrimaryHeader = styled.h2`
 `;
 const SecondaryHeader = styled.h3`
   font-size: var(--text-2);
-  color: var(--color-light-grey);
   text-transform: uppercase;
   letter-spacing: .015rem;
 `;
 const TertiaryHeader = styled.h4`
+  color: var(--color-light-grey);
   font-size: var(--text-2);
+  text-transform: uppercase;
 `;
 
 Header.propTypes = {
