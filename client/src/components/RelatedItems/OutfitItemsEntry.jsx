@@ -1,6 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import PropTypes from 'prop-types';
+import XIcon from 'assets/XIcon.jsx';
 
 function OutfitItemsEntry({ img, item, handleRemove }) {
   return (
@@ -8,9 +9,7 @@ function OutfitItemsEntry({ img, item, handleRemove }) {
       <ImageCard
         img={img}
       >
-        <Action onClick={() => { handleRemove(item.id); }}>
-          X
-        </Action>
+        <XIcon onClick={() => { handleRemove(item.id); }} />
       </ImageCard>
       <div>
         {item.category}
@@ -25,8 +24,8 @@ function OutfitItemsEntry({ img, item, handleRemove }) {
 OutfitItemsEntry.propTypes = {
   // item: PropTypes.arrayOf(PropTypes.element).isRequired,
   item: PropTypes.object.isRequired,
-  img: PropTypes.object.isRequired,
-  handleRemove: PropTypes.object.isRequired,
+  img: PropTypes.string.isRequired,
+  handleRemove: PropTypes.func.isRequired,
   // size: PropTypes.number.isRequired,
 };
 

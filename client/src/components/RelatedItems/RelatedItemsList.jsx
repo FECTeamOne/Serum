@@ -147,7 +147,7 @@ function RelatedItemsList({ currentItemId }) {
 
   return (
     <div>
-      <div>RELATED PRODUCTS!</div>
+      <div>RELATED PRODUCTS</div>
       <Carousel
         items={relatedItemsEntries}
         size={3}
@@ -181,7 +181,7 @@ function RelatedItemsList({ currentItemId }) {
 }
 
 RelatedItemsList.propTypes = {
-  currentItemId: PropTypes.string.isRequired,
+  currentItemId: PropTypes.number.isRequired,
 };
 
 export default RelatedItemsList;

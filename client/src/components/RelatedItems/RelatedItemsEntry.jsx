@@ -46,6 +46,21 @@ function RelatedItemsEntry({ imgs, item, rating, handleCompare }) {
             iconWidth="var(--size-4)"
           />
         </StarButton>
+        <br />
+        <br />
+        <br />
+        <br />
+        <br />
+        <br />
+        <br />
+        <br />
+        <br />
+        <br />
+        <br />
+        <br />
+        <br />
+        <br />
+        <br />
         { thumbnailIsVisible ? (
           <CarouselThumbnail
             items={thumbnailImgsDiv}
@@ -67,6 +82,7 @@ function RelatedItemsEntry({ imgs, item, rating, handleCompare }) {
         {item.category}
       </div>
       <div>
+        $
         {item.default_price}
       </div>
       <Stars value={rating} />
@@ -77,8 +93,8 @@ function RelatedItemsEntry({ imgs, item, rating, handleCompare }) {
 RelatedItemsEntry.propTypes = {
   // item: PropTypes.arrayOf(PropTypes.element).isRequired,
   item: PropTypes.object.isRequired,
-  handleCompare: PropTypes.object.isRequired,
-  imgs: PropTypes.object.isRequired,
+  handleCompare: PropTypes.func.isRequired,
+  imgs: PropTypes.arrayOf(PropTypes.object).isRequired,
   rating: PropTypes.number.isRequired,
   // size: PropTypes.number.isRequired,
 };

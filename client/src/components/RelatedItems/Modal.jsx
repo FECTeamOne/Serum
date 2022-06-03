@@ -44,11 +44,11 @@ function Modal({
 
 Modal.propTypes = {
   // item: PropTypes.arrayOf(PropTypes.element).isRequired,
-  modalIsVisible: PropTypes.number.isRequired,
-  handleClose: PropTypes.number.isRequired,
-  currentItemVals: PropTypes.arrayOf(PropTypes.object).isRequired,
-  currentRelatedVals: PropTypes.arrayOf(PropTypes.object).isRequired,
-  allChars: PropTypes.arrayOf(PropTypes.object).isRequired,
+  modalIsVisible: PropTypes.bool.isRequired,
+  handleClose: PropTypes.func.isRequired,
+  currentItemVals: PropTypes.arrayOf(PropTypes.string).isRequired,
+  currentRelatedVals: PropTypes.arrayOf(PropTypes.string).isRequired,
+  allChars: PropTypes.arrayOf(PropTypes.string).isRequired,
   currentRelatedName: PropTypes.string.isRequired,
   currentProductName: PropTypes.string.isRequired,
   // size: PropTypes.number.isRequired,
@@ -91,21 +91,23 @@ const FeatureWrapper = styled.div`
 `;
 
 const FeatureTitle = styled.h1`
-  margin: 10px;
   padding: 10px;
   color: #eee;
   // border-top: 1px solid #eee;
   // border-bottom: 1px solid #eee;
   grid-column-start: 2;
+  font-size: var(--text-5);
+  margin-bottom: 200px;
 `;
 
-const Feature = styled.div`
+const Feature = styled.h1`
   margin: 10px;
   padding: 10px;
   color: #eee;
   // border-top: 1px solid #eee;
   // border-bottom: 1px solid #eee;
   grid-column-start: 2;
+  font-size: var(--text-3);
 `;
 
 export default Modal;
