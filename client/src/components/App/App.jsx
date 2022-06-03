@@ -17,9 +17,9 @@ function App() {
       <StarIconFills />
       <Wrapper>
         <Navbar />
-        <Overview productId={40344} />
-        <Reviews productId={40344} />
-        <RelatedItems productId={40344} />
+        <Overview productId={id} />
+        <Reviews productId={id} />
+        <RelatedItems productId={id} />
       </Wrapper>
     </>
   );

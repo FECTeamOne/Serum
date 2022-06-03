@@ -17,7 +17,8 @@ function Home() {
       .catch((err) => console.log(err));
   }, []);
   useEffect(() => {
-    if (!products[0]) {
+    console.log(products)
+    if (!products[0] || !Array.isArray(products)) {
       return;
     }
     const promises = [];
@@ -48,19 +49,23 @@ function Home() {
   if (!productData['0']) {
     return <div>laoding...</div>;
   }
+  console.log(Object.values(productData));
   return (
     <div>
       <GlobalStyle />
       <StarIconFills />
       This is the home page
-      <Button onClick={() => { nagivate(`/item/${productData['0'].product.id}`); }}>
-        <ProductCard
-          product={productData['0'].product}
-          rating={4}
-          imageUrl={productData['0'].photo}
-        />
-      </Button>
-      <Link to="item/40344">product</Link>
+      <div>
+        {Object.values(productData).map((value) => (
+          <Button onClick={() => { nagivate(`/item/${value.product.id}`); }}>
+            <ProductCard
+              product={value.product}
+              rating={4}
+              imageUrl={value.photo}
+            />
+          </Button>
+        ))}
+      </div>
     </div>
   );
 }
