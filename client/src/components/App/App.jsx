@@ -10,7 +10,6 @@ import GlobalStyle from '../../globalStyles.js';
 
 function App() {
   const { id } = useParams();
-  console.log(id);
   return (
     <>
       <GlobalStyle />
