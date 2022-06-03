@@ -86,6 +86,7 @@ module.exports = {
     '^Reviews(.*)$': '<rootDir>/client/src/components/Reviews$1',
     '^shared(.*)$': '<rootDir>/client/src/components/shared$1',
     '^tests(.*)$': '<rootDir>/client/src/tests$1',
+    '^lib(.*)$': '<rootDir>/client/src/lib$1',
     '^assets(.*)$': '<rootDir>/client/src/assets$1',
   },
 

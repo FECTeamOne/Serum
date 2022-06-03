@@ -1,29 +1,19 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components';
-import axios from 'axios';
 import ReviewList from 'Reviews/components/ReviewList.jsx';
 import Ratings from 'Reviews/components/Ratings.jsx';
 import Fit from 'Reviews/components/Fit.jsx';
 
-function Reviews({ productId }) {
-  const [reviewsMetadata, setReviewsMetaData] = useState('');
-  const [productName, setProductName] = useState('');
+function Reviews({ reviewsMetadata, productData }) {
+  const productName = productData.name
   const [currentFilter, setCurrentFilter] = useState([]);
-  useEffect(() => {
-    axios.get(`/reviews/meta?product_id=${productId}`)
-      .then((res) => { setReviewsMetaData(res.data); })
-      .catch((err) => console.log(err));
-    axios.get(`/products/${productId}`)
-      .then((res) => { setProductName(res.data.name); })
-      .catch((err) => console.log(err));
-  }, []);
   if (!reviewsMetadata) {
     return '';
   }
   return (
     <Container>
       <Title>
-        Ratings & Reviews
+        <a id="ratings-and-reviews">Ratings & Reviews</a>
       </Title>
       <Left>
         <Ratings

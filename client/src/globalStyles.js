@@ -46,7 +46,9 @@ const GlobalStyle = styled.createGlobalStyle`
     border-collapse: collapse;
     border-spacing: 0;
   }
-  html {
+  body {
+
+    overscroll-behavior-y: none;
 
     font-family: 'Open Sans', helvetica, arial, sans-serif;
     font-weight: 400;
@@ -147,7 +149,9 @@ const GlobalStyle = styled.createGlobalStyle`
     @media (prefers-color-scheme: dark) {
         body {
             /*background-color: black;
-            color: white;*/
+            color: white;
+            --color-main: white;
+            --color-bg: black;*/
       }
     }
   }

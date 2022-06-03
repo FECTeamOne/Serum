@@ -32,6 +32,7 @@ export default function ProductCard({ product, imageUrl, rating }) {
 
 // height: var(--size-11);
 const StyledProductCard = styled.div`
+  text-align: left;
   display: flex;
   flex-direction: column;
   width: var(--size-10);

@@ -38,7 +38,7 @@ function ImageGallery({ photos }) {
   const thumbnails = photos.map((photo) => (
     <SelectableImageButton
       selected={photo.photo_id === mainImageIndex}
-      url={photo.url}
+      url={photo.thumbnail_url}
       key={`image gallery thumbnail ${photo.photo_id}`}
       aria-label={`Current style thumbnail ${photo.photo_id}`}
       onClick={() => { handleThumbnailClick(photo.photo_id); }}
@@ -107,7 +107,9 @@ ImageGallery.propTypes = {
 };
 
 const StyledImageGallery = styled.section`
-  display:flex;
+  display: flex;
+  align-items: flex-start;
+  flex: 0 0 main-size;
   gap: var(--space-1);
 `;
 
