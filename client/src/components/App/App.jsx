@@ -16,21 +16,37 @@ function App() {
   const [productStyles, setProductStyles] = useState('');
 
   useEffect(() => {
-    axios.get(`/reviews/meta?product_id=${productId}`)
-      .then((res) => { setReviewsMetaData(res.data); })
-      .catch((err) => console.log(err));
-    axios.get(`/products/${productId}`)
-      .then((res) => { setProductData(res.data); })
-      .catch((err) => console.log(err));
-    axios.get(`/products/${productId}/styles`)
-      .then((stylesResponse) => {
-        const sortedStyles = stylesResponse.data.results.sort(
-          (style1, style2) => style1.styled_id - style2.styled_id
-        );
-        setProductStyles(sortedStyles);
-      })
-      .catch((err) => console.log(err));
-  }, []);
+    let productPageIsMounted = true;
+
+    const fetchData = async (endpoint, callback) => {
+      try {
+        const response = await axios.get(endpoint);
+        if (productPageIsMounted) {
+          callback(response.data);
+        }
+      } catch (error) {
+        console.log('Error fetching data:\n', error);
+        fetchData(endpoint, callback);
+      }
+    }
+
+    fetchData(`/reviews/meta?product_id=${productId}`, (metadata) => {
+      setReviewsMetaData(metadata);
+    });
+
+    fetchData(`/products/${productId}`, (product) => {
+      setProductData(product);
+    });
+
+    fetchData(`/products/${productId}/styles`, (styles) => {
+      const sortedStyles = styles.results.sort(
+        (style1, style2) => style1.styled_id - style2.styled_id
+      );
+      setProductStyles(sortedStyles);
+    });
+
+    return () => { productPageIsMounted = false; }
+  }, [productId]);
 
   return (
     <>
